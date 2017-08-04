@@ -1,0 +1,42 @@
+
+<style>
+#role-form-wrapper{background-color: #e3e3e3;padding: 20px}
+#role-form-wrapper h2{margin-bottom: 20px;border-bottom: 1px solid #C5C5C5;padding-bottom: 10px;color: #7C7C7C;}
+#cboxContent{background-color: #e3e3e3;}
+#user-roles{margin-bottom: 20px}
+#user-roles .role-row{float:left;margin-right: 20px;}
+#user-roles .role-row label{float: left;margin-right: 5px;font-size: 12px;}
+#submit-btn{margin:0px auto;width:100px;}
+#submit-btn input[type='submit']{padding: 5px}
+
+</style>
+
+<div id="role-form-wrapper">
+	<h2>Manage Roles: {{ user.getFullName() }}</h2>
+	<form id="user-role-form" method="POST" action="{{ path('admin_role_update',{'_api':'rest','format':'json'}) }}">
+		<input type="hidden" name="user_id" value="{{ user.getId() }}">
+		<div id="user-roles">
+			<div class="role-row">
+				<label>User</label>
+				<input type="checkbox" {{ user.hasRole('ROLE_USER') ? 'checked' : ''}} name="roles[]" id="role_user" value="ROLE_USER" />
+			</div>
+			<div class="role-row">
+				<label>Editor</label>
+				<input type="checkbox" {{ user.hasRole('ROLE_EDITOR') ? 'checked' : '' }} name="roles[]" id="role_editor" value="ROLE_EDITOR" />
+			</div>			
+			<div class="role-row">
+				<label>Admin</label>
+				<input type="checkbox" {{ user.hasRole('ROLE_ADMIN') ? 'checked' : '' }}  name="roles[]" id="role_admin" value="ROLE_ADMIN" />
+			</div>
+			<div class="role-row">
+				<label>Super Admin</label>
+				<input type="checkbox" {{ user.hasRole('ROLE_SUPER_ADMIN') ? 'checked' }}  name="roles[]" id="role_super_admin" value="ROLE_SUPER_ADMIN" />
+			</div>
+			<br class="clear" />
+		</div>
+		<div id="submit-btn">
+			<input type="submit" name="submitRolesBtn" id="submitRolesBtn" value="Submit">
+		</div>
+	</form>
+	<br class="clear" />
+</div>

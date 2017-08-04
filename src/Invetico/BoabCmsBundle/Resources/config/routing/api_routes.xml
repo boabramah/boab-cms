@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+    
+    <route id="api_find_content" path="/contents.{format}">
+        <default key="_controller">api_content_controller:findContentAction</default>
+    </route>
+
+    <route id="api_search_content" path="/contents/search">
+        <default key="_controller">api_content_controller:searchContentAction</default>
+    </route> 
+
+    <route id="api_show_content" path="/contents/{contentId}">
+        <default key="_controller">api_content_controller:showContentAction</default>
+    </route>                         
+
+</routes>

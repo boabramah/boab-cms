@@ -1,0 +1,46 @@
+
+
+<div class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                </div>
+                <div class="col-md-5 col-md-offset-1 col-xs-12">
+                    <div class="request-form">
+                        <h2>Online Banking</h2>
+                        <p>Please login to access your account</p>
+
+						{% if authError %}
+						<span class="alert alert-danger" style="display:block;margin-bottom:10px">
+                            {{ authError.getMessageKey() }}
+                        </span>
+						{% endif %}
+
+                        <form method="post" action="{{ path('_login_check') }}">
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="control-label sr-only" for="name">Username</label>
+                                <input id="username" name="_username" type="text" placeholder="Email address or Username" class="form-control input-md" required="">
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="control-label sr-only" for="email">Password</label>
+                                <input id="password" name="_password" type="password" placeholder="Password" class="form-control input-md" required="">
+                            </div>
+
+							<div class="form-group">
+								<span><input type="checkbox" id="remember_me" name="_remember_me" /></span>
+								<span class="label-remember">Keep me logged in</span>
+							</div>                            
+
+                            <!-- Button -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default btn-block">Log In</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>	
+	

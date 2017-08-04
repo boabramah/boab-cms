@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="contact_controller" parent="base_controller" class="Invetico\MailerBundle\Controller\ContactController">
+            <argument type="service" id="router" />
+            <argument>%kernel.root_dir%</argument>
+        </service>
+        <service id="mailbox_controller" parent="base_controller" class="Invetico\MailerBundle\Controller\MailboxController">
+            <argument type="service" id="router" />
+            <argument>%kernel.root_dir%</argument>
+        </service>         
+
+        <service id="directmailer_listener" class="Invetico\MailerBundle\EventListener\DirectContactMailListener">
+            <argument>%mailer.from_email%</argument>
+            <argument>%mailer.to_email%</argument>
+            <tag name="kernel.event_listener" event="contact.form_submited" method="onContactFormSubmitted"/>
+            <tag name="app.mailer" />
+        </service>  
+        <service id="register_confirm_listener" class="Invetico\MailerBundle\EventListener\RegistrationConfirmationListener">
+            <argument>%mailer.from_email%</argument>
+            <tag name="kernel.event_listener" event="user.account_registered" method="onEmailConfirmation"/>
+            <tag name="app.mailer" />
+        </service> 
+        <service id="password_forgotten_listener" class="Invetico\MailerBundle\EventListener\ResetPasswordForgottenListener">
+            <argument>%mailer.from_email%</argument>
+            <tag name="kernel.event_listener" event="user.password_forgotten" method="onMailPasswordForgotten"/>
+            <tag name="app.mailer" />
+        </service>
+
+        <service id="contact_form_listener" class="Invetico\MailerBundle\EventListener\ContactFormListener">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="templating" />
+            <argument type="service" id="form.factory" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+        </service>                                
+    </services>
+
+</container>

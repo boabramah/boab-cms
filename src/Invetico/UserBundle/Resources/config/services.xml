@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="security_listerner.class">Invetico\UserBundle\EventListener\SecurityListener</parameter>
+        <parameter key="security_context.class">Invetico\UserBundle\Security\SecurityContext</parameter>
+        <parameter key="user_controller.class">Invetico\UserBundle\Controller\UserController</parameter>
+        <parameter key="user_service.class">Invetico\UserBundle\Service\UserService</parameter>
+        <parameter key="user.user_entity.class">Invetico\UserBundle\Entity\User</parameter>
+        <parameter key="token_entity.class">Invetico\UserBundle\Entity\MailToken</parameter>
+    </parameters>
+    <services>
+		<service id="user_routing_loader" class="Invetico\UserBundle\Routing\UserRoutingLoader">
+        	 <tag name="custom_loader" />
+		</service>   
+
+		<service id="user_controller" parent="base_controller" class="Invetico\UserBundle\Controller\UserController">
+            <argument type="service" id="user_service" />
+            <argument type="service" id="security.password_encoder" />
+		</service>        
+
+        <service id="login_controller" parent="base_controller" class="Invetico\UserBundle\Controller\LoginController">
+            <argument type="service" id="security.authentication_utils" />
+        </service>
+
+        <service id="profile_thumbnail_controller" parent="base_controller" class="Invetico\UserBundle\Controller\ProfileThumbnailController">
+            <argument type="service" id="user_service" />
+        </service>        
+
+        <service id="register_controller" parent="base_controller" class="Invetico\UserBundle\Controller\RegistrationController">
+            <argument type="service" id="user_service" />
+            <argument type="service" id="random_generator" />
+            <argument type="service" id="security.password_encoder" />
+        </service>
+
+        <service id="activation_controller" parent="base_controller" class="Invetico\UserBundle\Controller\ActivationController">
+            <argument type="service" id="user_service" />
+            <argument type="service" id="user.user_repository" />
+            <argument type="service" id="token_repository" />
+        </service>                        
+
+
+        <service id="role_controller" parent="base_controller" class="Invetico\UserBundle\Controller\UserRoleController">  
+            <argument type="service" id="user_service" />  
+            <argument type="service" id="user.user_repository" /> 
+            <argument type="service" id="serializer" />    
+        </service>
+
+		<service id="user_service" parent="base_service" class="%user_service.class%">
+            <argument type="service" id="user.user_repository" />
+        </service>
+
+        <service id="account_controller" parent="base_controller" class="Invetico\UserBundle\Controller\AccountController">
+            <argument type="service" id="user_service" />
+            <argument type="service" id="security.password_encoder" />
+        </service>
+
+        <service id="forget_password_controller" parent="base_controller" class="Invetico\UserBundle\Controller\ForgetPasswordController">
+            <argument type="service" id="user_service" />
+            <argument type="service" id="user.user_repository" />
+            <argument type="service" id="token_repository" />                        
+        </service>        
+
+        <service id="account_widget_listener" class="Invetico\UserBundle\EventListener\AccountWidgetListener"> 
+            <argument type="service" id="router" /> 
+            <argument type="service" id="security_context" />             
+            <argument type="service" id="view_template" /> 
+            <tag name="kernel.event_listener" event="kernel.controller" method="onControllerEvent"/>
+        </service>
+        <service id="security_context" class="%security_context.class%">
+            <argument type="service" id="security.authorization_checker" />
+            <argument type="service" id="security.token_storage" />
+        </service>
+
+        <service id="user.fileupload_listener" class="Invetico\UserBundle\EventListener\UserFileUploadListener">
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>            
+            <tag name="kernel.event_listener" event="user.profile_thumbnail_uploaded" method="onUploadProfileThumbnail"/>
+            <tag name="kernel.event_listener" event="user.pre_register" method="onPreAccountRegister"/>
+            <tag name="kernel.event_listener" event="user.account_registered" method="onAccountRegister" priority="100"/>
+            <argument type="service" id="filesystem" />
+        </service>
+
+        <service id="login_success_handler" class="Invetico\UserBundle\Security\Authentication\LoginSuccessHandler">
+            <argument type="service" id="router" />
+            <argument type="service" id="security.authorization_checker" />
+        </service>        
+
+        <service id="logout_success_handler" class="Invetico\UserBundle\Security\Authentication\LogoutSuccessHandler">
+            <argument type="service" id="router" />
+        </service>        
+
+        <service id="user.user_repository" class="Doctrine\ORM\EntityRepository">
+            <factory service="custom_doctrine_manager" method="getRepository"/>
+            <argument>UserBundle:User</argument>
+        </service>
+
+        <service id="token_repository" class="Doctrine\ORM\EntityRepository">
+            <factory service="custom_doctrine_manager" method="getRepository"/>
+            <argument>UserBundle:MailToken</argument>
+        </service>     
+
+        <service id="user_widget.shortcode" class="Invetico\UserBundle\Shortcode\UserWidget">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="user.user_repository" />
+            <tag name="shortcode" />
+        </service>
+                     
+        <service id="user_fixtures_controller" parent="base_controller" class="Invetico\UserBundle\Controller\UserFixturesController">
+            <argument type="service" id="random_generator" />
+            <argument type="service" id="security.password_encoder" />
+        </service>
+    </services>
+</container>

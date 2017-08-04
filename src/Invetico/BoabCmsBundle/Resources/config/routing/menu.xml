@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+	<route id="menu_admin_index" path="/admin/menu">
+        <default key="_controller">menu_controller:indexAction</default>
+    </route>
+    <route id="menu_admin_add" path="/admin/menu/add">
+        <default key="_controller">menu_controller:addAction</default>
+    </route>
+    <route id="menu_admin_create" path="/admin/menu/create">
+        <default key="_controller">menu_controller:createAction</default>
+    </route>
+    <route id="menu_admin_edit" path="/admin/menu/edit">
+        <default key="_controller">menu_controller:editAction</default>
+    </route>
+    <route id="menu_admin_update" path="/admin/menu/update">
+        <default key="_controller">menu_controller:updateAction</default>
+    </route>
+    <route id="menu_admin_delete" path="/admin/menu/delete">
+        <default key="_controller">menu_controller:deleteAction</default>
+    </route>
+    <route id="menu_order_list" path="/admin/menu/sort-menu-order">
+        <default key="_controller">menu_controller:reOrderMenuListAction</default>
+    </route>
+</routes>

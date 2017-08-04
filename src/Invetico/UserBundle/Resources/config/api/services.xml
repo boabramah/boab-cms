@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services> 
+
+        <service id="api_authentication_controller" class="Invetico\UserBundle\Api\Controller\ApiAuthenticationController">
+            <argument type="service" id="user.user_repository" />
+            <argument type="service" id="security.password_encoder" />
+            <argument type="service" id="lexik_jwt_authentication.jwt_manager" />
+        </service>  
+
+        <service id="api_user_controller" class="Invetico\UserBundle\Api\Controller\ApiUserController">
+            <argument type="service" id="api_user_repository" />
+            <argument type="service" id="serializer" />
+        </service> 
+
+        <service id="api_user_repository" class="Doctrine\ORM\EntityRepository">
+            <factory service="custom_doctrine_manager" method="createService" />
+            <argument>Invetico\UserBundle\Repository\UserApiRepository</argument>
+            <argument>UserBundle:User</argument>
+        </service> 
+
+        <service id="api_user_normaliser" class="Invetico\UserBundle\Api\Normalizer\UserNormalizer">
+            <argument type="service" id="router" />
+            <tag name="serializer.normalizer" priority="250"/>            
+        </service>                        
+
+    </services>
+</container>

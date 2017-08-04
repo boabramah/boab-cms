@@ -1,0 +1,15 @@
+						<div class="form-group" id="thumbnail-upload-box">
+							<label>Thumbnail(272px X 131px):</label>
+							<div class="file-input file-input-new">
+								<input type="file" name="thumbnail" id="thumbnail">
+								<span class="help-block">One file only. 128 MB limit. Allowed types: png gif jpg jpeg.</span>
+							</div>
+							<div id="content-uploaded-file" class="">
+								<div id="thumbnail-uploaded" class="box">
+									<img src="<?php echo BASE_URL.$this->content->getDefaultThumbnail();?>" />
+								</div>
+								<div id="thumnail-upload-delete-link" class="box">
+									<a class="delete-thumbnail-url" href="<?php echo $this->deleteContentThumbnail;?>">Delete image uploaded</a>
+								</div>
+							</div>
+						</div>

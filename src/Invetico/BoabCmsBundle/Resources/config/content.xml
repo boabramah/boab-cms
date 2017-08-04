@@ -1,0 +1,136 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="dashboard_controller" parent="base_controller" class="Invetico\BoabCmsBundle\Controller\DashboardController">
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="content_repository" />
+        </service>
+        <service id="content_admin_controller" parent="base_controller" class="Invetico\BoabCmsBundle\Controller\ContentAdminController">
+            <argument type="service" id="content_service" />
+            <argument type="service" id="user_service" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="content_repository" />
+            <argument type="service" id="finder" />
+        </service>
+
+        <service id="content_controller" parent="base_controller" class="Invetico\BoabCmsBundle\Controller\ContentController">
+            <argument type="service" id="content_repository" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="router" />
+            <argument type="service" id="finder" />
+        </service>        
+
+        <service id="static_content_controller" parent="base_controller" class="Invetico\BoabCmsBundle\Controller\StaticContentController">
+            <argument type="service" id="content_repository" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="content_service" parent="base_service" class="Invetico\BoabCmsBundle\Service\ContentService">
+            <argument type="service" id="content_repository" />
+            <argument type="service" id="user_service" />
+            <call method="initialize"></call>
+        </service>
+
+        <service id="content_type_manager" class="Invetico\BoabCmsBundle\Model\ContentTypeManager">
+        </service>
+        
+        <service id="video_type_manager" class="Invetico\BoabCmsBundle\Model\VideoType">
+            <tag name="content.type_manager" />
+        </service>
+
+        <service id="audio_type_manager" class="Invetico\BoabCmsBundle\Model\AudioType">
+            <tag name="content.type_manager" />
+        </service>  
+
+        <service id="article_type_manager" class="Invetico\BoabCmsBundle\Model\ArticleType">
+            <tag name="content.type_manager" />
+        </service>
+
+        <service id="content_form_listener" class="Invetico\BoabCmsBundle\EventListener\ContentFormListener">
+            <argument type="service" id="content_repository" />
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="finder" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+            <tag name="kernel.event_listener" event="content.form_render" method="onContentFormRender"/>
+        </service> 
+
+        <service id="seo_listener" class="Invetico\BoabCmsBundle\EventListener\SeoListener">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+            <tag name="kernel.event_listener" event="content.node_render" method="onContentNodeRender"/>
+        </service>
+
+        <service id="breadcrumb_listener" class="Invetico\BoabCmsBundle\EventListener\BreadcrumbListener">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="menu.route_provider" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+        </service>      
+                      
+        <service id="search_indexer_listener" class="Invetico\BoabCmsBundle\EventListener\SearchIndexerSubscriber">
+            <tag name="doctrine.event_listener" event="postPersist"  />
+            <tag name="doctrine.event_listener" event="postUpdate"  />
+        </service>        
+
+        <service id="content_repository" class="Invetico\BoabCmsBundle\Repository\ContentRepository">
+            <factory service="custom_doctrine_manager" method="getRepository" />
+            <argument>BoabCmsBundle:Content</argument>
+        </service>
+
+        <service id="content_removal_listener" class="Invetico\BoabCmsBundle\EventListener\ContentRemovalListener">
+            <tag name="kernel.event_listener" event="user.account_terminated" method="onAccountTerminated"/>
+            <tag name="kernel.event_listener" event="content.delete" method="onContentDeleted"/>
+            <argument type="service" id="content_repository" />
+            <argument type="service" id="filesystem" />
+        </service> 
+        
+
+        <service id="content_access" class="Invetico\BoabCmsBundle\EventListener\ContentAccessListener">
+            <tag name="doctrine.event_listener" event="prePersist"/>
+        </service>         
+
+        <service id="photo_repository" class="Invetico\BoabCmsBundle\Repository\PhotoRepository">
+            <factory service="custom_doctrine_manager" method="getRepository" />
+            <argument>BoabCmsBundle:Photo</argument>
+        </service>
+
+        <service id="photo_controller" parent="base_controller" class="Invetico\BoabCmsBundle\Controller\PhotoController">
+             <argument type="service" id="photo_repository" />
+             <argument type="service" id="content_repository" />
+             <argument type="service" id="event_dispatcher" />
+             <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <service id="photo_listener" class="Invetico\BoabCmsBundle\EventListener\PhotoUploadListener">
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+            <tag name="kernel.event_listener" event="photo.create" method="onPhotoCreate" priority="100"/>
+            <argument type="service" id="filesystem" />
+        </service> 
+
+       <service id="photo_gallery_listener" class="Invetico\BoabCmsBundle\EventListener\PhotoGalleryListener">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="photo_repository" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+            <tag name="kernel.event_listener" event="content.node_render" method="onContentNodeRender"/>     
+            <tag name="kernel.event_listener" event="content.form_render" method="onContentFormRender"/>            
+        </service>                                                                    
+        <service id="page_type_manager" class="Invetico\BoabCmsBundle\Model\PageType" >
+            <tag name="content.type_manager" />
+        </service>
+
+        <service id="api_content_controller" class="Invetico\BoabCmsBundle\Api\Controller\ApiContentController">
+            <argument type="service" id="content_repository" />
+            <argument type="service" id="serializer" />
+        </service> 
+
+          
+    </services>
+</container>

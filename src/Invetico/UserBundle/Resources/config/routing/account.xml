@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+      
+    <route id="account_settings_index" path="/account/settings">
+        <default key="_controller">account_controller:profileAction</default>
+    </route>
+    <route id="account_settings_profile" path="/account/settings/profile">
+        <default key="_controller">account_controller:profileAction</default>
+    </route>
+     <route id="account_settings_privacy" path="/account/settings/privacy">
+        <default key="_controller">account_controller:privacyAction</default>
+    </route>
+    <route id="account_settings_password" path="/account/settings/password">
+        <default key="_controller">account_controller:changePasswordAction</default>
+    </route>    
+    <route id="account_profile_picture" path="/account/settings/profile-picture">
+        <default key="_controller">account_controller:profilePictureAction</default>
+    </route>    
+    <route id="upload_profile_thumbnail" path="users/{userId}/thumbnail">
+        <default key="_controller">profile_thumbnail_controller:uploadThumbnailAction</default>
+    </route>
+    <route id="account_terminate" path="/account/terminate">
+        <default key="_controller">account_controller:terminateAction</default>
+    </route>
+</routes>

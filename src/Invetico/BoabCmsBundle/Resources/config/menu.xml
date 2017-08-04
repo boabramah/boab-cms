@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>  
+		<service id="menu_controller" parent="base_controller" class="Invetico\BoabCmsBundle\Controller\MenuController">
+            <argument type="service" id="menu_service" />
+            <argument type="service" id="menu_widget_builder" />
+		</service>
+        
+        <service id="menu_service" parent="base_service" class="Invetico\BoabCmsBundle\Service\MenuService">
+            <argument type="service" id="menu.menu_repository" />
+        </service>
+
+        <service id="menu_widget_listener" class="Invetico\BoabCmsBundle\EventListener\MenuWidgetListener">
+            <argument type="service" id="menu_widget_builder" />
+            <argument type="service" id="security.authorization_checker" />
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="security.token_storage" />
+            <argument type="service" id="menu.menu_repository" />
+            <call method="setCacheDir">
+                <argument>%kernel.cache_dir%</argument>
+            </call>
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="menu_widget_builder" class="Invetico\BoabCmsBundle\Util\MenuWidgetBuilder">
+            <argument type="service" id="menu_service" />
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="menu.menu_repository" class="Invetico\BoabCmsBundle\Repository\MenuRepository">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>BoabCmsBundle:Menu</argument>
+        </service>        
+
+        <service id="menu_listener" class="Invetico\BoabCmsBundle\EventListener\MenuListener">
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+            <tag name="kernel.event_listener" event="entity.pre_create" method="onContentCreateEvent"/>
+            <tag name="kernel.event_listener" event="entity.pre_update" method="onContentUpdatedEvent"/>
+            <tag name="kernel.event_listener" event="entity.pre_create" method="onMenuCreatedEvent"/>
+            <tag name="kernel.event_listener" event="entity.pre_update" method="onMenuUpdatedEvent"/>
+            <argument type="service" id="menu_service" />
+        </service>      
+
+        <service id="menu.route_provider" class="Invetico\BoabCmsBundle\Repository\RouteProviderRepository">
+            <argument type="service" id="menu.menu_repository" />
+        </service> 
+
+    </services>
+</container>

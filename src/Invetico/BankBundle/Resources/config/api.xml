@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>        
+        <service id="api.account_controller" parent="base_controller" class="Invetico\BankBundle\Api\Controller\ApiAccountController">
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="serializer" />            
+            <argument type="service" id="user.user_repository" />
+        </service>
+        <service id="api.transaction_controller" parent="base_controller" class="Invetico\BankBundle\Api\Controller\ApiTransactionController">
+            <argument type="service" id="bank.transaction_repository" />
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="serializer" /> 
+        </service> 
+        <service id="api.transfer_controller" parent="base_controller" class="Invetico\BankBundle\Api\Controller\ApiTransferController">
+            <argument type="service" id="bank.transfer_repository" />
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="serializer" />
+        </service>              
+                              
+        <service id="api_account_normaliser" class="Invetico\BankBundle\Api\Normalizer\AccountNormalizer">
+            <argument type="service" id="request_stack" />
+            <tag name="serializer.normalizer" priority="10" />           
+        </service> 
+        <service id="api_transaction_normaliser" class="Invetico\BankBundle\Api\Normalizer\TransactionNormalizer">
+            <argument type="service" id="request_stack" />
+            <tag name="serializer.normalizer" priority="10" />           
+        </service>         
+        <service id="api_transfer_normaliser" class="Invetico\BankBundle\Api\Normalizer\TransferNormalizer">
+            <argument type="service" id="request_stack" />
+            <tag name="serializer.normalizer" priority="10" />           
+        </service>    
+        <service id="api_content_normaliser" class="Invetico\BoabCmsBundle\Api\Normalizer\ContentNormalizer">
+            <argument type="service" id="router" />
+            <tag name="serializer.normalizer" priority="10" />              
+        </service>        
+    </services>
+</container>

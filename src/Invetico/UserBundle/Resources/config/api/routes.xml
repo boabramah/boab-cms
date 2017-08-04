@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes 
+    xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="api_authenticate" path="/login_check" methods="POST">
+        <default key="_controller">api_authentication_controller:authenticateAction</default>
+    </route> 
+
+    <route id="api_users" path="/users">
+        <default key="_controller">api_user_controller:findAllAction</default>
+    </route>
+    <route id="api_users_search" path="/users/search">
+        <default key="_controller">api_user_controller:searchUsersAction</default>
+    </route> 
+    <route id="api_users_nearby" path="/users/nearby">
+        <default key="_controller">api_user_controller:usersNearbyAction</default>
+    </route>
+    <route id="api_user_detail" path="/users/{customerId}">
+        <default key="_controller">api_user_controller:findUserAction</default>
+    </route>    
+    <route id="gesdinet_jwt_refresh_token" path="/token/refresh">
+        <default key="_controller">gesdinet.jwtrefreshtoken:refresh</default>
+    </route>
+
+</routes>

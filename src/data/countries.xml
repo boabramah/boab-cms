@@ -1,0 +1,1227 @@
+<?xml version="1.0"?>
+<countries>
+	<country>
+		<name>United States of America</name>
+		<key>United States of America</key>
+	</country>
+
+	<country>
+		<name>Afghanistan</name>
+		<key>Afghanistan</key>
+	</country>
+
+	<country>
+		<name>Albania</name>
+		<key>Albania</key>
+	</country>
+
+	<country>
+		<name>Algeria</name>
+		<key>Algeria</key>
+	</country>
+
+	<country>
+		<name>American Samoa</name>
+		<key>American Samoa</key>
+	</country>
+
+	<country>
+		<name>Andorra</name>
+		<key>Andorra</key>
+	</country>
+
+	<country>
+		<name>Angola</name>
+		<key>Angola</key>
+	</country>
+
+	<country>
+		<name>Anguilla</name>
+		<key>Anguilla</key>
+	</country>
+
+	<country>
+		<name>Antigua and Barbuda</name>
+		<key>Antigua and Barbuda</key>
+	</country>
+
+	<country>
+		<name>Argentina</name>
+		<key>Argentina</key>
+	</country>
+
+	<country>
+		<name>Armenia</name>
+		<key>Armenia</key>
+	</country>
+
+	<country>
+		<name>Aruba</name>
+		<key>Aruba</key>
+	</country>
+
+	<country>
+		<name>Australia</name>
+		<key>Australia</key>
+	</country>
+
+	<country>
+		<name>Austria</name>
+		<key>Austria</key>
+	</country>
+
+	<country>
+		<name>Azerbaijan</name>
+		<key>Azerbaijan</key>
+	</country>
+
+	<country>
+		<name>Bahamas</name>
+		<key>Bahamas</key>
+	</country>
+
+	<country>
+		<name>Bahrain</name>
+		<key>Bahrain</key>
+	</country>
+
+	<country>
+		<name>Bangladesh</name>
+		<key>Bangladesh</key>
+	</country>
+
+	<country>
+		<name>Barbados</name>
+		<key>Barbados</key>
+	</country>
+
+	<country>
+		<name>Belarus</name>
+		<key>Belarus</key>
+	</country>
+
+	<country>
+		<name>Belgium</name>
+		<key>Belgium</key>
+	</country>
+
+	<country>
+		<name>Belize</name>
+		<key>Belize</key>
+	</country>
+
+	<country>
+		<name>Benin</name>
+		<key>Benin</key>
+	</country>
+
+	<country>
+		<name>Bermuda</name>
+		<key>Bermuda</key>
+	</country>
+
+	<country>
+		<name>Bhutan</name>
+		<key>Bhutan</key>
+	</country>
+
+	<country>
+		<name>Bolivia</name>
+		<key>Bolivia</key>
+	</country>
+
+	<country>
+		<name>Bonaire</name>
+		<key>Bonaire</key>
+	</country>
+
+	<country>
+		<name>Bosnia and Herzegovina</name>
+		<key>Bosnia and Herzegovina</key>
+	</country>
+
+	<country>
+		<name>Botswana</name>
+		<key>Botswana</key>
+	</country>
+
+	<country>
+		<name>Brazil</name>
+		<key>Brazil</key>
+	</country>
+
+	<country>
+		<name>British Indian Ocean Ter</name>
+		<key>British Indian Ocean Ter</key>
+	</country>
+
+	<country>
+		<name>Brunei</name>
+		<key>Brunei</key>
+	</country>
+
+	<country>
+		<name>Bulgaria</name>
+		<key>Bulgaria</key>
+	</country>
+
+	<country>
+		<name>Burkina Faso</name>
+		<key>Burkina Faso</key>
+	</country>
+
+	<country>
+		<name>Burundi</name>
+		<key>Burundi</key>
+	</country>
+
+	<country>
+		<name>Cambodia</name>
+		<key>Cambodia</key>
+	</country>
+
+	<country>
+		<name>Cameroon</name>
+		<key>Cameroon</key>
+	</country>
+
+	<country>
+		<name>Canada</name>
+		<key>Canada</key>
+	</country>
+
+	<country>
+		<name>Canary Islands</name>
+		<key>Canary Islands</key>
+	</country>
+
+	<country>
+		<name>Cape Verde</name>
+		<key>Cape Verde</key>
+	</country>
+
+	<country>
+		<name>Cayman Islands</name>
+		<key>Cayman Islands</key>
+	</country>
+
+	<country>
+		<name>Central African Republic</name>
+		<key>Central African Republic</key>
+	</country>
+
+	<country>
+		<name>Chad</name>
+		<key>Chad</key>
+	</country>
+
+	<country>
+		<name>Channel Islands</name>
+		<key>Channel Islands</key>
+	</country>
+
+	<country>
+		<name>Chile</name>
+		<key>Chile</key>
+	</country>
+
+	<country>
+		<name>China</name>
+		<key>China</key>
+	</country>
+
+	<country>
+		<name>Christmas Island</name>
+		<key>Christmas Island</key>
+	</country>
+
+	<country>
+		<name>Cocos Island</name>
+		<key>Cocos Island</key>
+	</country>
+
+	<country>
+		<name>Columbia</name>
+		<key>Columbia</key>
+	</country>
+
+	<country>
+		<name>Comoros</name>
+		<key>Comoros</key>
+	</country>
+
+	<country>
+		<name>Congo</name>
+		<key>Congo</key>
+	</country>
+
+	<country>
+		<name>Cook Islands</name>
+		<key>Cook Islands</key>
+	</country>
+
+	<country>
+		<name>Costa Rica</name>
+		<key>Costa Rica</key>
+	</country>
+
+	<country>
+		<name>Cote DIvoire</name>
+		<key>Cote DIvoire</key>
+	</country>
+
+	<country>
+		<name>Croatia</name>
+		<key>Croatia</key>
+	</country>
+
+	<country>
+		<name>Cuba</name>
+		<key>Cuba</key>
+	</country>
+
+	<country>
+		<name>Curacao</name>
+		<key>Curacao</key>
+	</country>
+
+	<country>
+		<name>Cyprus</name>
+		<key>Cyprus</key>
+	</country>
+
+	<country>
+		<name>Czech Republic</name>
+		<key>Czech Republic</key>
+	</country>
+
+	<country>
+		<name>Denmark</name>
+		<key>Denmark</key>
+	</country>
+
+	<country>
+		<name>Djibouti</name>
+		<key>Djibouti</key>
+	</country>
+
+	<country>
+		<name>Dominica</name>
+		<key>Dominica</key>
+	</country>
+
+	<country>
+		<name>Dominican Republic</name>
+		<key>Dominican Republic</key>
+	</country>
+
+	<country>
+		<name>East Timor</name>
+		<key>East Timor</key>
+	</country>
+
+	<country>
+		<name>Ecuador</name>
+		<key>Ecuador</key>
+	</country>
+
+	<country>
+		<name>Egypt</name>
+		<key>Egypt</key>
+	</country>
+
+	<country>
+		<name>El Salvador</name>
+		<key>El Salvador</key>
+	</country>
+
+	<country>
+		<name>Equatorial Guinea</name>
+		<key>Equatorial Guinea</key>
+	</country>
+
+	<country>
+		<name>Eritrea</name>
+		<key>Eritrea</key>
+	</country>
+
+	<country>
+		<name>Estonia</name>
+		<key>Estonia</key>
+	</country>
+
+	<country>
+		<name>Ethiopia</name>
+		<key>Ethiopia</key>
+	</country>
+
+	<country>
+		<name>Falkland Islands</name>
+		<key>Falkland Islands</key>
+	</country>
+
+	<country>
+		<name>Faroe Islands</name>
+		<key>Faroe Islands</key>
+	</country>
+
+	<country>
+		<name>Fiji</name>
+		<key>Fiji</key>
+	</country>
+
+	<country>
+		<name>Finland</name>
+		<key>Finland</key>
+	</country>
+
+	<country>
+		<name>France</name>
+		<key>France</key>
+	</country>
+
+	<country>
+		<name>French Guiana</name>
+		<key>French Guiana</key>
+	</country>
+
+	<country>
+		<name>French Polynesia</name>
+		<key>French Polynesia</key>
+	</country>
+
+	<country>
+		<name>French Southern Ter</name>
+		<key>French Southern Ter</key>
+	</country>
+
+	<country>
+		<name>Gabon</name>
+		<key>Gabon</key>
+	</country>
+
+	<country>
+		<name>Gambia</name>
+		<key>Gambia</key>
+	</country>
+
+	<country>
+		<name>Georgia</name>
+		<key>Georgia</key>
+	</country>
+
+	<country>
+		<name>Germany</name>
+		<key>Germany</key>
+	</country>
+
+	<country>
+		<name>Ghana</name>
+		<key>Ghana</key>
+	</country>
+
+	<country>
+		<name>Gibraltar</name>
+		<key>Gibraltar</key>
+	</country>
+
+	<country>
+		<name>Great Britain</name>
+		<key>Great Britain</key>
+	</country>
+
+	<country>
+		<name>Greece</name>
+		<key>Greece</key>
+	</country>
+
+	<country>
+		<name>Greenland</name>
+		<key>Greenland</key>
+	</country>
+
+	<country>
+		<name>Grenada</name>
+		<key>Grenada</key>
+	</country>
+
+	<country>
+		<name>Guadeloupe</name>
+		<key>Guadeloupe</key>
+	</country>
+
+	<country>
+		<name>Guam</name>
+		<key>Guam</key>
+	</country>
+
+	<country>
+		<name>Guatemala</name>
+		<key>Guatemala</key>
+	</country>
+
+	<country>
+		<name>Guinea</name>
+		<key>Guinea</key>
+	</country>
+
+	<country>
+		<name>Guyana</name>
+		<key>Guyana</key>
+	</country>
+
+	<country>
+		<name>Haiti</name>
+		<key>Haiti</key>
+	</country>
+
+	<country>
+		<name>Hawaii</name>
+		<key>Hawaii</key>
+	</country>
+
+	<country>
+		<name>Honduras</name>
+		<key>Honduras</key>
+	</country>
+
+	<country>
+		<name>Hong Kong</name>
+		<key>Hong Kong</key>
+	</country>
+
+	<country>
+		<name>Hungary</name>
+		<key>Hungary</key>
+	</country>
+
+	<country>
+		<name>Iceland</name>
+		<key>Iceland</key>
+	</country>
+
+	<country>
+		<name>India</name>
+		<key>India</key>
+	</country>
+
+	<country>
+		<name>Indonesia</name>
+		<key>Indonesia</key>
+	</country>
+
+	<country>
+		<name>Iran</name>
+		<key>Iran</key>
+	</country>
+
+	<country>
+		<name>Iraq</name>
+		<key>Iraq</key>
+	</country>
+
+	<country>
+		<name>Ireland</name>
+		<key>Ireland</key>
+	</country>
+
+	<country>
+		<name>Isle of Man</name>
+		<key>Isle of Man</key>
+	</country>
+
+	<country>
+		<name>Israel</name>
+		<key>Israel</key>
+	</country>
+
+	<country>
+		<name>Italy</name>
+		<key>Italy</key>
+	</country>
+
+	<country>
+		<name>Jamaica</name>
+		<key>Jamaica</key>
+	</country>
+
+	<country>
+		<name>Japan</name>
+		<key>Japan</key>
+	</country>
+
+	<country>
+		<name>Jordan</name>
+		<key>Jordan</key>
+	</country>
+
+	<country>
+		<name>Kazakhstan</name>
+		<key>Kazakhstan</key>
+	</country>
+
+	<country>
+		<name>Kenya</name>
+		<key>Kenya</key>
+	</country>
+
+	<country>
+		<name>Kiribati</name>
+		<key>Kiribati</key>
+	</country>
+
+	<country>
+		<name>Korea North</name>
+		<key>Korea North</key>
+	</country>
+
+	<country>
+		<name>Korea South</name>
+		<key>Korea South</key>
+	</country>
+
+	<country>
+		<name>Kuwait</name>
+		<key>Kuwait</key>
+	</country>
+
+	<country>
+		<name>Kyrgyzstan</name>
+		<key>Kyrgyzstan</key>
+	</country>
+
+	<country>
+		<name>Laos</name>
+		<key>Laos</key>
+	</country>
+
+	<country>
+		<name>Latvia</name>
+		<key>Latvia</key>
+	</country>
+
+	<country>
+		<name>Lebanon</name>
+		<key>Lebanon</key>
+	</country>
+
+	<country>
+		<name>Lesotho</name>
+		<key>Lesotho</key>
+	</country>
+
+	<country>
+		<name>Liberia</name>
+		<key>Liberia</key>
+	</country>
+
+	<country>
+		<name>Libya</name>
+		<key>Libya</key>
+	</country>
+
+	<country>
+		<name>Liechtenstein</name>
+		<key>Liechtenstein</key>
+	</country>
+
+	<country>
+		<name>Lithuania</name>
+		<key>Lithuania</key>
+	</country>
+
+	<country>
+		<name>Luxembourg</name>
+		<key>Luxembourg</key>
+	</country>
+
+	<country>
+		<name>Macau</name>
+		<key>Macau</key>
+	</country>
+
+	<country>
+		<name>Macedonia</name>
+		<key>Macedonia</key>
+	</country>
+
+	<country>
+		<name>Madagascar</name>
+		<key>Madagascar</key>
+	</country>
+
+	<country>
+		<name>Malaysia</name>
+		<key>Malaysia</key>
+	</country>
+
+	<country>
+		<name>Malawi</name>
+		<key>Malawi</key>
+	</country>
+
+	<country>
+		<name>Maldives</name>
+		<key>Maldives</key>
+	</country>
+
+	<country>
+		<name>Mali</name>
+		<key>Mali</key>
+	</country>
+
+	<country>
+		<name>Malta</name>
+		<key>Malta</key>
+	</country>
+
+	<country>
+		<name>Marshall Islands</name>
+		<key>Marshall Islands</key>
+	</country>
+
+	<country>
+		<name>Martinique</name>
+		<key>Martinique</key>
+	</country>
+
+	<country>
+		<name>Mauritania</name>
+		<key>Mauritania</key>
+	</country>
+
+	<country>
+		<name>Mauritius</name>
+		<key>Mauritius</key>
+	</country>
+
+	<country>
+		<name>Mayotte</name>
+		<key>Mayotte</key>
+	</country>
+
+	<country>
+		<name>Mexico</name>
+		<key>Mexico</key>
+	</country>
+
+	<country>
+		<name>Midway Islands</name>
+		<key>Midway Islands</key>
+	</country>
+
+	<country>
+		<name>Moldova</name>
+		<key>Moldova</key>
+	</country>
+
+	<country>
+		<name>Monaco</name>
+		<key>Monaco</key>
+	</country>
+
+	<country>
+		<name>Mongolia</name>
+		<key>Mongolia</key>
+	</country>
+
+	<country>
+		<name>Montserrat</name>
+		<key>Montserrat</key>
+	</country>
+
+	<country>
+		<name>Morocco</name>
+		<key>Morocco</key>
+	</country>
+
+	<country>
+		<name>Mozambique</name>
+		<key>Mozambique</key>
+	</country>
+
+	<country>
+		<name>Myanmar</name>
+		<key>Myanmar</key>
+	</country>
+
+	<country>
+		<name>Nambia</name>
+		<key>Nambia</key>
+	</country>
+
+	<country>
+		<name>Nauru</name>
+		<key>Nauru</key>
+	</country>
+
+	<country>
+		<name>Nepal</name>
+		<key>Nepal</key>
+	</country>
+
+	<country>
+		<name>Netherland Antilles</name>
+		<key>Netherland Antilles</key>
+	</country>
+
+	<country>
+		<name>Netherlands</name>
+		<key>Netherlands</key>
+	</country>
+
+	<country>
+		<name>Nevis</name>
+		<key>Nevis</key>
+	</country>
+
+	<country>
+		<name>New Caledonia</name>
+		<key>New Caledonia</key>
+	</country>
+
+	<country>
+		<name>New Zealand</name>
+		<key>New Zealand</key>
+	</country>
+
+	<country>
+		<name>Nicaragua</name>
+		<key>Nicaragua</key>
+	</country>
+
+	<country>
+		<name>Niger</name>
+		<key>Niger</key>
+	</country>
+
+	<country>
+		<name>Nigeria</name>
+		<key>Nigeria</key>
+	</country>
+
+	<country>
+		<name>Niue</name>
+		<key>Niue</key>
+	</country>
+
+	<country>
+		<name>Norfolk Island</name>
+		<key>Norfolk Island</key>
+	</country>
+
+	<country>
+		<name>Norway</name>
+		<key>Norway</key>
+	</country>
+
+	<country>
+		<name>Oman</name>
+		<key>Oman</key>
+	</country>
+
+	<country>
+		<name>Pakistan</name>
+		<key>Pakistan</key>
+	</country>
+
+	<country>
+		<name>Palau Island</name>
+		<key>Palau Island</key>
+	</country>
+
+	<country>
+		<name>Palestine</name>
+		<key>Palestine</key>
+	</country>
+
+	<country>
+		<name>Panama</name>
+		<key>Panama</key>
+	</country>
+
+	<country>
+		<name>Papua New Guinea</name>
+		<key>Papua New Guinea</key>
+	</country>
+
+	<country>
+		<name>Paraguay</name>
+		<key>Paraguay</key>
+	</country>
+
+	<country>
+		<name>Peru</name>
+		<key>Peru</key>
+	</country>
+
+	<country>
+		<name>Philippines</name>
+		<key>Philippines</key>
+	</country>
+
+	<country>
+		<name>Pitcairn Island</name>
+		<key>Pitcairn Island</key>
+	</country>
+
+	<country>
+		<name>Poland</name>
+		<key>Poland</key>
+	</country>
+
+	<country>
+		<name>Portugal</name>
+		<key>Portugal</key>
+	</country>
+
+	<country>
+		<name>Puerto Rico</name>
+		<key>Puerto Rico</key>
+	</country>
+
+	<country>
+		<name>Qatar</name>
+		<key>Qatar</key>
+	</country>
+
+	<country>
+		<name>Reunion</name>
+		<key>Reunion</key>
+	</country>
+
+	<country>
+		<name>Romania</name>
+		<key>Romania</key>
+	</country>
+
+	<country>
+		<name>Russia</name>
+		<key>Russia</key>
+	</country>
+
+	<country>
+		<name>Rwanda</name>
+		<key>Rwanda</key>
+	</country>
+
+	<country>
+		<name>St Barthelemy</name>
+		<key>St Barthelemy</key>
+	</country>
+
+	<country>
+		<name>St Eustatius</name>
+		<key>St Eustatius</key>
+	</country>
+
+	<country>
+		<name>St Helena</name>
+		<key>St Helena</key>
+	</country>
+
+	<country>
+		<name>St Kitts-Nevis</name>
+		<key>St Kitts-Nevis</key>
+	</country>
+
+	<country>
+		<name>St Lucia</name>
+		<key>St Lucia</key>
+	</country>
+
+	<country>
+		<name>St Maarten</name>
+		<key>St Maarten</key>
+	</country>
+
+	<country>
+		<name>St Pierre and Miquelon</name>
+		<key>St Pierre and Miquelon</key>
+	</country>
+
+	<country>
+		<name>St Vincent and Grenadines</name>
+		<key>St Vincent and Grenadines</key>
+	</country>
+
+	<country>
+		<name>Saipan</name>
+		<key>Saipan</key>
+	</country>
+
+	<country>
+		<name>Samoa</name>
+		<key>Samoa</key>
+	</country>
+
+	<country>
+		<name>Samoa American</name>
+		<key>Samoa American</key>
+	</country>
+
+	<country>
+		<name>San Marino</name>
+		<key>San Marino</key>
+	</country>
+
+	<country>
+		<name>Sao Tome and Principe</name>
+		<key>Sao Tome and Principe</key>
+	</country>
+
+	<country>
+		<name>Saudi Arabia</name>
+		<key>Saudi Arabia</key>
+	</country>
+
+	<country>
+		<name>Senegal</name>
+		<key>Senegal</key>
+	</country>
+
+	<country>
+		<name>Seychelles</name>
+		<key>Seychelles</key>
+	</country>
+
+	<country>
+		<name>Serbia and Montenegro</name>
+		<key>Serbia and Montenegro</key>
+	</country>
+
+	<country>
+		<name>Sierra Leone</name>
+		<key>Sierra Leone</key>
+	</country>
+
+	<country>
+		<name>Singapore</name>
+		<key>Singapore</key>
+	</country>
+
+	<country>
+		<name>Slovakia</name>
+		<key>Slovakia</key>
+	</country>
+
+	<country>
+		<name>Slovenia</name>
+		<key>Slovenia</key>
+	</country>
+
+	<country>
+		<name>Solomon Islands</name>
+		<key>Solomon Islands</key>
+	</country>
+
+	<country>
+		<name>Somalia</name>
+		<key>Somalia</key>
+	</country>
+
+	<country>
+		<name>South Africa</name>
+		<key>South Africa</key>
+	</country>
+
+	<country>
+		<name>Spain</name>
+		<key>Spain</key>
+	</country>
+
+	<country>
+		<name>Sri Lanka</name>
+		<key>Sri Lanka</key>
+	</country>
+
+	<country>
+		<name>Sudan</name>
+		<key>Sudan</key>
+	</country>
+
+	<country>
+		<name>Suriname</name>
+		<key>Suriname</key>
+	</country>
+
+	<country>
+		<name>Swaziland</name>
+		<key>Swaziland</key>
+	</country>
+
+	<country>
+		<name>Sweden</name>
+		<key>Sweden</key>
+	</country>
+
+	<country>
+		<name>Switzerland</name>
+		<key>Switzerland</key>
+	</country>
+
+	<country>
+		<name>Syria</name>
+		<key>Syria</key>
+	</country>
+
+	<country>
+		<name>Tahiti</name>
+		<key>Tahiti</key>
+	</country>
+
+	<country>
+		<name>Taiwan</name>
+		<key>Taiwan</key>
+	</country>
+
+	<country>
+		<name>Tajikistan</name>
+		<key>Tajikistan</key>
+	</country>
+
+	<country>
+		<name>Tanzania</name>
+		<key>Tanzania</key>
+	</country>
+
+	<country>
+		<name>Thailand</name>
+		<key>Thailand</key>
+	</country>
+
+	<country>
+		<name>Togo</name>
+		<key>Togo</key>
+	</country>
+
+	<country>
+		<name>Tokelau</name>
+		<key>Tokelau</key>
+	</country>
+
+	<country>
+		<name>Tonga</name>
+		<key>Tonga</key>
+	</country>
+
+	<country>
+		<name>Trinidad and Tobago</name>
+		<key>Trinidad and Tobago</key>
+	</country>
+
+	<country>
+		<name>Tunisia</name>
+		<key>Tunisia</key>
+	</country>
+
+	<country>
+		<name>Turkey</name>
+		<key>Turkey</key>
+	</country>
+
+	<country>
+		<name>Turkmenistan</name>
+		<key>Turkmenistan</key>
+	</country>
+
+	<country>
+		<name>Turks and Caicos Is</name>
+		<key>Turks and Caicos Is</key>
+	</country>
+
+	<country>
+		<name>Tuvalu</name>
+		<key>Tuvalu</key>
+	</country>
+
+	<country>
+		<name>Uganda</name>
+		<key>Uganda</key>
+	</country>
+
+	<country>
+		<name>Ukraine</name>
+		<key>Ukraine</key>
+	</country>
+
+	<country>
+		<name>United Arab Emirates</name>
+		<key>United Arab Emirates</key>
+	</country>
+
+	<country>
+		<name>United Kingdom</name>
+		<key>United Kingdom</key>
+	</country>
+
+	<country>
+		<name>Uruguay</name>
+		<key>Uruguay</key>
+	</country>
+
+	<country>
+		<name>Uzbekistan</name>
+		<key>Uzbekistan</key>
+	</country>
+
+	<country>
+		<name>Vanuatu</name>
+		<key>Vanuatu</key>
+	</country>
+
+	<country>
+		<name>Vatican City State</name>
+		<key>Vatican City State</key>
+	</country>
+
+	<country>
+		<name>Venezuela</name>
+		<key>Venezuela</key>
+	</country>
+
+	<country>
+		<name>Vietnam</name>
+		<key>Vietnam</key>
+	</country>
+
+	<country>
+		<name>Virgin Islands Brit</name>
+		<key>Virgin Islands (Brit)</key>
+	</country>
+
+	<country>
+		<name>Virgin Islands USA</name>
+		<key>Virgin Islands (USA)</key>
+	</country>
+
+	<country>
+		<name>Wake Island</name>
+		<key>Wake Island</key>
+	</country>
+
+	<country>
+		<name>Wallis and Futana Is</name>
+		<key>Wallis and Futana Is</key>
+	</country>
+
+	<country>
+		<name>Yemen</name>
+		<key>Yemen</key>
+	</country>
+
+	<country>
+		<name>Zaire</name>
+		<key>Zaire</key>
+	</country>
+
+	<country>
+		<name>Zambia</name>
+		<key>Zambia</key>
+	</country>
+
+	<country>
+		<name>Zimbabwe</name>
+		<key>Zimbabwe</key>
+	</country>
+</countries>

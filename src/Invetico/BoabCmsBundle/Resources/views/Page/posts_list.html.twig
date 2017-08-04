@@ -1,0 +1,72 @@
+
+
+<section class="main" role="main">
+  
+    [htmlwrap view=BoabCmsBundle:Block:page_header.html.twig background=theme/kantua/images/banners/studio2.jpg]
+        <div class="holder">
+            <h3 class="text-capitalize">Blog</h3>
+            <p>We connect every where</p>
+        </div>
+        <ul class="breadcrumbs list-inline">
+            <li><a href="{{ path('site_root') }}">HOME</a></li>
+            <li class="active"><a href="#">Blog</a></li>
+        </ul>
+    [/htmlwrap]
+
+    <!-- about section -->
+    <div class="blog-section padding-top-60 padding-bottom-60">
+        <div class="container">
+            <!-- page heading -->
+            <header class="page-heading">
+                <h2 class="lime text-capitalize font-medium heading">Blog</h2>
+                <p>Help us to make our events brighter and collaborate with us. We love music of all genres.</p>
+            </header>
+        </div>
+        <div class="container">
+            <div class="row">
+                
+                {% for content in collection %}
+                <div class="col-md-4">
+                    <article class="blog-post-v1">
+                        <div class="img-box">
+                            <a href="{{ path('posts_show',{'slug':content.getSlug()}) }}">
+                                <img src="{{ asset(content.getThumbnailUrlPath()) }}" alt="{{ content.getTitle() }}" class="img-responsive">
+                            </a>
+                            <div class="box-holder">
+                                <time datetime="2015-02-18">
+                                    {% set monthyear = content.getMonthYear()|split(' ') %}
+                                    <span class="add">{{ monthyear[1] }}</span> {{ monthyear[2] }}
+                                </time>
+                            </div>                            
+                        </div>
+                        <div class="blog-txt">
+                            <h2><a href="{{ path('posts_show',{'slug':content.getSlug()}) }}">{{ content.getTitle() }}</a></h2>
+                            <ul class="meta list-inline">
+                              <li>
+                                <i class="fa fa-calendar"></i>
+                                {{ content.getDatePublished() }}
+                              </li>                              
+                              <li>
+                                <i class="fa fa-user"></i>
+                                    By {{ content.getAuthoredBy() }}
+                              </li>
+
+                            </ul>
+                            <p>{{ content.getSummary()|truncate(100, true) }}</p>
+                            <a href="{{ path('posts_show',{'slug':content.getSlug()}) }}" class="more">[ CONTINUE READING ]</a>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+                
+            </div>
+            <div class="pagination-container">
+            {{ pagination | raw }}
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+

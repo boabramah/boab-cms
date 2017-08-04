@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="bank_transaction.class">Invetico\BankBundle\Entity\Transaction</parameter>
+        <parameter key="account_payment.class">Invetico\BankBundle\Entity\Payment</parameter>
+        <parameter key="transfer_entity.class">Invetico\BankBundle\Entity\Transfer</parameter>
+    </parameters>
+    <services>        
+        
+        <service id="bank.account_controller" parent="base_controller" class="Invetico\BankBundle\Controller\AccountController">
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="user.user_repository" />
+            <argument type="service" id="account_type_manager" />
+        </service>
+
+        <service id="bank.admin_account_controller" parent="base_controller" class="Invetico\BankBundle\Controller\AdminAccountController">
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="user.user_repository" />
+            <argument type="service" id="account_type_manager" />
+        </service>               
+
+        <service id="bank.payment_controller" parent="base_controller" class="Invetico\BankBundle\Controller\PaymentController">
+            <argument type="service" id="bank.account_repository" />
+        </service>        
+
+        <service id="bank.settings_controller" parent="base_controller" class="Invetico\BankBundle\Controller\SettingsController">
+            <argument type="service" id="bank.account_repository" />
+        </service>        
+
+        <service id="bank.report_controller" parent="base_controller" class="Invetico\BankBundle\Controller\ReportController">
+            <argument type="service" id="bank.account_repository" />
+        </service>
+
+        <service id="bank.activity_controller" parent="base_controller" class="Invetico\BankBundle\Controller\ActivityController">
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="bank.transaction_repository" />
+            <argument type="service" id="user.user_repository" />
+        </service>        
+
+        <service id="bank.transaction_controller" parent="base_controller" class="Invetico\BankBundle\Controller\TransactionsController">
+            <argument type="service" id="bank.transaction_repository" />
+            <argument type="service" id="user.user_repository" />
+        </service> 
+
+        <service id="bank.transfer_controller" parent="base_controller" class="Invetico\BankBundle\Controller\FundsTransferController">
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="bank.transfer_repository" />
+            <argument type="service" id="user.user_repository" />
+        </service> 
+
+        <service id="bank.admin_transfer_controller" parent="base_controller" class="Invetico\BankBundle\Controller\AdminTransferController">
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="bank.transfer_repository" />
+            <argument type="service" id="user.user_repository" />
+        </service>               
+
+        <service id="bank.transfer_history_controller" parent="base_controller" class="Invetico\BankBundle\Controller\TransferHistoryController">
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="bank.transaction_repository" />
+            <argument type="service" id="user.user_repository" />
+            <argument type="service" id="bank.transfer_repository" />
+        </service> 
+
+        <service id="bank_listener" class="Invetico\BankBundle\EventListener\BankEventListener">
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="view_template" />
+            <argument type="service" id="random_generator" />
+            <argument type="service" id="security.token_storage" />
+            <tag name="kernel.event_listener" event="account.create" method="onAccountCreatedEvent"/>
+            <tag name="kernel.event_listener" event="transfer.create" method="onTransferCreatedEvent"/>
+            <tag name="kernel.event_listener" event="app.dashboard" method="onAppDashboard"/>
+        </service> 
+
+        <service id="transfer_listener" class="Invetico\BankBundle\EventListener\TransferListener">
+            <argument type="service" id="user.user_repository" />
+            <argument type="service" id="view_template" />
+            <argument type="service" id="bank.transfer_repository" />
+            <argument type="service" id="security.token_storage" />
+            <tag name="kernel.event_listener" event="app.dashboard" method="onAppDashboard"/>
+        </service>          
+
+        <service id="bank_dashboard_listener" class="Invetico\BankBundle\EventListener\BankDashboardListener">
+            <argument type="service" id="bank.account_repository" />
+            <argument type="service" id="bank.transfer_repository" />            
+            <argument type="service" id="view_template" />
+            <argument type="service" id="security.token_storage" />
+            <tag name="kernel.event_listener" event="app.dashboard" method="onAppDashboard"/>
+        </service>                              
+        
+        <service id="transfer_auth_listener" class="Invetico\BankBundle\EventListener\AuthorizationMailerListener">
+            <argument>%mailer.from_email%</argument>
+            <tag name="kernel.event_listener" event="transfer.authorize" method="onTransferAuthCode"/>
+            <tag name="app.mailer" />
+        </service>                             
+ 
+        <service id="bank.account_repository" class="Invetico\BankBundle\Repository\AccountRepository">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>BankBundle:Account</argument>
+        </service>
+
+        <service id="bank.transaction_repository" class="Invetico\BankBundle\Repository\TransactionRepository">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>BankBundle:Transaction</argument>
+        </service>
+
+        <service id="bank.transfer_repository" class="Invetico\BankBundle\Repository\TransferRepository">
+            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <argument>%transfer_entity.class%</argument>
+        </service>                                           
+
+        <service id="account_type_manager" class="Invetico\BankBundle\Model\AccountTypeManager">            
+        </service>                 
+                  
+    </services>
+</container>

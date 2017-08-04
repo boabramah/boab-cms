@@ -1,0 +1,14 @@
+
+
+<div class="widget">
+	<h2 class="heading widget-title">Other Links</h2>
+	<div class="single-sidebar">
+	    <div class="sidebar-links">
+	        <ul>
+	            {% for menu in collection %}
+	            <li><a href="{{ path(menu.getRouteName()) }}">{{ menu.getTitle() }}</a></li>
+	            {% endfor %}
+	        </ul>
+	     </div>
+	</div> 
+</div> 

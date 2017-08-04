@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="account_list" path="/accounts">
+        <default key="_controller">bank.account_controller:indexAction</default>
+    </route>
+   
+    <route id="account_create" path="/accounts/create/{accountType}">
+        <default key="_controller">bank.account_controller:createAccountAction</default>
+    </route>     
+    <route id="account_transaction" path="/accounts/{accountNumber}/transactions">
+        <default key="_controller">bank.transaction_controller:transactionAction</default>
+    </route> 
+    <route id="account_services" path="/accounts/services">
+        <default key="_controller">bank.account_controller:servicesAction</default>
+    </route> 
+    <route id="account_services_add" path="/accounts/services/add/{accountType}">
+        <default key="_controller">bank.account_controller:addAccountAction</default>
+    </route>
+    <route id="account_view" path="/accounts/{accountNumber}">
+        <default key="_controller">bank.account_controller:viewAccountAction</default>
+    </route>
+    <route id="admin_account_index" path="/bank/accounts">
+        <default key="_controller">bank.admin_account_controller:indexAction</default>
+    </route>
+    <route id="admin_account_view" path="/bank/accounts/{accountNumber}">
+        <default key="_controller">bank.admin_account_controller:indexAction</default>
+    </route>     
+    <route id="admin_account_deposit" path="/bank/accounts/{accountNumber}/deposit">
+        <default key="_controller">bank.admin_account_controller:depositAction</default>
+    </route> 
+    <route id="admin_account_withdraw" path="/bank/accounts/{accountNumber}/withdraw">
+        <default key="_controller">bank.admin_account_controller:withdrawAction</default>
+    </route>           
+
+    <route id="transaction_list" path="/transactions">
+        <default key="_controller">bank.transaction_controller:indexAction</default>
+    </route>        
+
+    <route id="transfers_list" path="/transfers">
+        <default key="_controller">bank.transfer_controller:indexAction</default>
+    </route>
+    <route id="transfers_history" path="/transfers/history">
+        <default key="_controller">bank.transfer_history_controller:historyAction</default>
+    </route>
+    <route id="transfer_delete" path="/transfers/{transferId}/delete">
+        <default key="_controller">bank.transfer_history_controller:deleteTransferAction</default>
+    </route>     
+    <route id="transfers_create" path="/transfers/{transferType}">
+        <default key="_controller">bank.transfer_controller:createAction</default>
+    </route>
+    <route id="transfers_confirm" path="/transfers/{transferType}/confirm">
+        <default key="_controller">bank.transfer_controller:confirmAction</default>
+    </route>
+    <route id="transfers_save" path="/transfers/{transferType}/save">
+        <default key="_controller">bank.transfer_controller:saveAction</default>
+    </route>
+    <route id="admin_transfers_index" path="bank/transfers">
+        <default key="_controller">bank.admin_transfer_controller:indexAction</default>
+    </route> 
+    <route id="admin_transfers_approve" path="bank/transfers/{reference}/approve">
+        <default key="_controller">bank.admin_transfer_controller:approveAction</default>
+    </route>       
+   
+                  
+
+    <route id="activity_index" path="/activity">
+        <default key="_controller">bank.activity_controller:indexAction</default>
+    </route>       
+
+    <route id="transfers_authorize" path="/transfers/authorization/{reference}">
+        <default key="_controller">bank.transfer_controller:authorizeAction</default>
+    </route> 
+
+    <route id="transfers_activate" path="/transfers/activate/{reference}">
+        <default key="_controller">bank.transfer_controller:activateTokenAction</default>
+    </route>             
+
+    <route id="reports_list" path="/reports">
+        <default key="_controller">bank.report_controller:indexAction</default>
+    </route> 
+
+    <route id="settings_list" path="/settings">
+        <default key="_controller">bank.settings_controller:indexAction</default>
+    </route>
+                
+ 
+</routes>

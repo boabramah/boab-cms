@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>  
+        
+        <service id="shortcode_manager" class="Maiorano\Shortcodes\Manager\ShortcodeManager"></service>
+
+        <service id="shortcode.template" class="Invetico\BoabCmsBundle\Shortcode\Template\Template">
+            <argument type="service" id="router" />
+            <argument type="service" id="view_template" />            
+            <tag name="shortcode" />
+        </service>
+
+        <service id="shortcode.simplemenu" class="Invetico\BoabCmsBundle\Shortcode\SimpleMenu\SimpleMenu">
+            <argument type="service" id="router" />
+            <argument type="service" id="security.authorization_checker" />            
+            <argument type="service" id="view_template" />            
+            <tag name="shortcode" />
+        </service>
+
+        <service id="shortcode.navigation" class="Invetico\BoabCmsBundle\Shortcode\Navigation">
+            <tag name="shortcode" />
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="menu_widget_builder" />
+            <argument type="service" id="menu.menu_repository" />
+            <argument>%kernel.environment%</argument>
+        </service>          
+
+        <service id="simple_gallery" class="Invetico\BoabCmsBundle\Shortcode\SimpleGallery">
+            <argument type="service" id="view_template" />
+            <tag name="shortcode" />
+        </service>         
+
+        <service id="shortcode.simple_text" class="Invetico\BoabCmsBundle\Shortcode\SimpleText">
+            <argument>%kernel.environment%</argument>
+            <tag name="shortcode" />
+        </service>        
+
+        <service id="sub_pages" class="Invetico\BoabCmsBundle\Shortcode\SubPages">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="content_repository" />
+            <tag name="shortcode" />
+        </service> 
+
+        <service id="shortcode.router" class="Invetico\BoabCmsBundle\Shortcode\Router">
+            <argument type="service" id="router" />            
+            <tag name="shortcode" />
+        </service>
+
+        <service id="shortcode.currency" class="Invetico\BoabCmsBundle\Shortcode\Currency">           
+            <tag name="shortcode" />
+        </service>  
+
+        <service id="latest_content.shortcode" class="Invetico\BoabCmsBundle\Shortcode\LatestContent\LatestContent">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="content_repository" />
+            <tag name="shortcode" />
+        </service>
+
+        <service id="featured_content.shortcode" class="Invetico\BoabCmsBundle\Shortcode\FeaturedContent\FeaturedContent">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="content_repository" />
+            <tag name="shortcode" />
+        </service> 
+
+        <service id="child_pages.shortcode" class="Invetico\BoabCmsBundle\Shortcode\ChildPages\ChildPages">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="content_repository" />
+            <tag name="shortcode" />
+        </service>
+
+        <service id="other_content.shortcode" class="Invetico\BoabCmsBundle\Shortcode\OtherContentType\OtherContentType">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="content_repository" />
+            <tag name="shortcode" />
+        </service>                        
+
+        <service id="commentbox.shortcode" class="Invetico\BoabCmsBundle\Shortcode\CommentBox\CommentBox">
+            <argument>%kernel.environment%</argument>
+            <tag name="shortcode" />
+        </service>
+
+        <service id="htmlwrap.shortcode" class="Invetico\BoabCmsBundle\Shortcode\HtmlWrap">
+            <argument type="service" id="view_template" />
+            <tag name="shortcode" />
+        </service>
+
+        <service id="include_template.shortcode" class="Invetico\BoabCmsBundle\Shortcode\IncludeTemplate">
+            <argument type="service" id="view_template" />
+            <tag name="shortcode" />
+        </service>        
+
+        <service id="htmleditor.shortcode" class="Invetico\BoabCmsBundle\Shortcode\HtmlEditor\HtmlEditor">
+            <argument type="service" id="view_template" />
+            <tag name="shortcode" />
+        </service> 
+
+        <service id="contents.shortcode" class="Invetico\BoabCmsBundle\Shortcode\Contents\Contents">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="content_repository" />
+            <tag name="shortcode" />
+        </service>
+
+        <service id="pages.shortcode" class="Invetico\BoabCmsBundle\Shortcode\Pages\Pages">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="content_type_manager" />
+            <argument type="service" id="content_repository" />
+            <tag name="shortcode" />
+        </service>                         
+
+        <service id="asset.shortcode" class="Invetico\BoabCmsBundle\Shortcode\Asset">
+            <argument type="service" id="request_stack" />
+            <argument type="service" id="router" />
+            <argument>%kernel.environment%</argument>
+            <tag name="shortcode" />
+        </service>                                
+
+    </services>
+</container>

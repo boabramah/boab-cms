@@ -1,0 +1,37 @@
+services:
+
+    api.jwt_token_authenticator:
+        class: Invetico\BoabCmsBundle\Api\Security\JwtAuthenticator
+        arguments: ['@user.user_repository', '@lexik_jwt_authentication.encoder']
+
+    api.access_token_authenticator:
+        class: Invetico\BoabCmsBundle\Api\Security\AccessTokenAuthenticator
+        arguments: ['@user.user_repository', '@lexik_jwt_authentication.encoder','@security.password_encoder']
+
+    api.jwt_decoded_listener:
+        class: Invetico\BoabCmsBundle\Api\EventListener\JWTDecodedListener
+        arguments: [ '@request_stack' ]
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_decoded, method: onJWTDecoded }
+
+    api.jwt_notfound_listener:
+        class: Invetico\BoabCmsBundle\Api\EventListener\JWTErrorListener
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_not_found, method: onJWTNotFound }
+
+    api.jwt_invalid_listener:
+        class: Invetico\BoabCmsBundle\Api\EventListener\JWTInvalidListener
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_invalid, method: onJWTInvalid }
+
+    api.jwt_created_listener:
+        class: Invetico\BoabCmsBundle\Api\EventListener\JWTCreatedListener
+        arguments: [ '@request_stack' ]
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
+
+
+
+
+
+

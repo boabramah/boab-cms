@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="site_root" path="/">
+        <default key="_controller">content_controller:indexAction</default>
+    </route> 
+
+    <route id="account_home" path="/dashboard">
+        <default key="_controller">dashboard_controller:indexAction</default>
+    </route>
+    <route id="account_dashboard" path="/dashboard">
+        <default key="_controller">dashboard_controller:indexAction</default>
+    </route> 
+    
+    <route id="dashboard_area" path="/dashboard">
+        <default key="_controller">dashboard_controller:indexAction</default>
+    </route> 
+
+    <route id="admin_content_list" path="/admin/content">
+        <default key="_controller">content_admin_controller:indexAction</default>
+    </route>
+    <route id="admin_area" path="/admin">
+        <default key="_controller">content_admin_controller:indexAction</default>
+    </route>
+
+    <route id="admin_content_add" path="/admin/content/add">
+        <default key="_controller">content_admin_controller:addAction</default>
+    </route>
+    <route id="admin_content_add_type" path="/admin/content/add/{content_type}">
+        <default key="_controller">content_admin_controller:addAction</default>
+    </route>
+    <route id="admin_content_create" path="/admin/content/create/{content_type}">
+        <default key="_controller">content_admin_controller:createAction</default>
+    </route>
+    <route id="admin_content_edit" path="/admin/content/edit/{id}">
+        <default key="_controller">content_admin_controller:editAction</default>
+    </route>
+    <route id="admin_content_delete" path="/admin/content/{contentId}/delete">
+        <default key="_controller">content_admin_controller:deleteAction</default>
+    </route>
+
+    <route id="content_image_upload" path="/content/thumbnail/upload">
+        <default key="_controller">file_upload_controller:uploadAction</default>
+    </route>
+
+    <route id="set_content_cover" path="/content/thumbnail/make-cover">
+        <default key="_controller">file_upload_controller:setCoverAction</default>
+    </route>
+
+    <route id="delete_content_image" path="/content/thumbnail/delete">
+        <default key="_controller">file_upload_controller:deleteAction</default>
+    </route>
+
+    <route id="delete_content_thumbnail" path="/content/delete/thumbnail/{id}">
+        <default key="_controller">file_upload_controller:deleteContentThumbnailAction</default>
+    </route>     
+
+    <route id="_splash" path="/assets/splash">
+        <default key="_controller">static_content_controller:splashAction</default>
+    </route>
+
+    <route id="photo_upload" path="/contents/{contentId}/photos" methods="POST|PUT">
+        <default key="_controller">photo_controller:uploadAction</default>
+    </route>
+    <route id="photo_edit" path="/photos/{photoId}/edit" methods="POST|PUT">
+        <default key="_controller">photo_controller:editAction</default>
+    </route>
+    <route id="photo_delete" path="/photos/{photoId}/delete">
+        <default key="_controller">photo_controller:deleteAction</default>
+    </route> 
+
+    <route id="feed_stock" path="/stock/feed">
+        <default key="_controller">static_content_controller:stockFeedAction</default>
+    </route>                          
+
+</routes>

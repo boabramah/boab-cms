@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="api_accounts" path="/accounts" methods="GET">
+        <default key="_controller">api.account_controller:listAccountsAction</default>
+    </route>
+    <route id="api_customer_transactions" path="/accounts/transactions" methods="GET">
+        <default key="_controller">api.transaction_controller:listTransactionsAction</default>
+    </route>    
+    <route id="api_account" path="/accounts/{accountNumber}" methods="GET">
+        <default key="_controller">api.account_controller:showAccountAction</default>
+    </route> 
+
+    <route id="api_account_transactions" path="/accounts/{accountNumber}/transactions" methods="GET">
+        <default key="_controller">api.transaction_controller:listAccountTransactionsAction</default>
+    </route>
+    <route id="api_account_transfers" path="/accounts/{accountNumber}/transfers" methods="GET">
+        <default key="_controller">api.transfer_controller:listAccountTransfersAction</default>
+    </route>     
+    <route id="api_transaction" path="/accounts/{accountNumber}/transactions/{transId}" methods="GET">
+        <default key="_controller">api.transaction_controller:showTransactionAction</default>
+    </route> 
+
+    <route id="api_account_services" path="/accounts/services" methods="GET">
+        <default key="_controller">api.account_services_controller:servicesAction</default>
+    </route> 
+    <route id="api_account_services_add" path="/accounts/services" methods="POST">
+        <default key="_controller">api.account_services_controller:addServiceAction</default>
+    </route>
+    <route id="api_transactions" path="/transactions" methods="GET">
+        <default key="_controller">api.transaction_controller:listTransactionsAction</default>
+    </route>              
+
+      
+
+    <route id="api_transfers" path="/transfers" methods="GET">
+        <default key="_controller">api.transfer_controller:listTransferAction</default>
+    </route>
+    <route id="api_transfers_create" path="/transfers" methods="POST">
+        <default key="_controller">api.transfer_controller:createAction</default>
+    </route>    
+    <route id="api_transfer_show" path="/transfers/{transferId}" methods="GET">
+        <default key="_controller">api.transfer_controller:showTransferAction</default>
+    </route>
+    <route id="api_transfer_delete" path="/transfers/{transferId}" methods="DELETE">
+        <default key="_controller">api.transfer_controller:deleteTransferAction</default>
+    </route>     
+    <route id="api_transfers_confirm" path="/transfers/{transferType}/confirm" methods="POST">
+        <default key="_controller">api.transfer_controller:confirmAction</default>
+    </route>
+    <route id="api_transfers_authorize" path="/transfers/authorization/{reference}" methods="POST">
+        <default key="_controller">api.transfer_controller:authorizeAction</default>
+    </route>          
+ 
+</routes>

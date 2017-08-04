@@ -1,0 +1,10 @@
+{% block captcha_widget %}
+{% spaceless %}
+    <table class="inline-captcha">
+        <tr>
+            <td><img src="{{ captcha_code }}" title="captcha" width="{{ captcha_width }}" height="{{ captcha_height }}" /></td>
+            <td>{{ form_widget(form) }}</td>
+        </tr>
+    </table>    
+{% endspaceless %}
+{% endblock %}

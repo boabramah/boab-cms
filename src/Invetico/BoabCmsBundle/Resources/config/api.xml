@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>                     
+
+        <service id="doctrine_collection.normaliser" class="Invetico\BoabCmsBundle\Api\Normalizer\CollectionNormalizer">
+            <tag name="serializer.normalizer" priority="100" />
+        </service>
+
+        <service id="app_exception.normaliser" class="Invetico\BoabCmsBundle\Api\Normalizer\ExceptionNormalizer">
+            <tag name="serializer.normalizer" priority="100" />
+        </service>         
+
+        <service id="form_error.normaliser" class="Invetico\BoabCmsBundle\Api\Normalizer\FormErrorNormalizer">
+            <tag name="serializer.normalizer" priority="100" />
+        </service>
+
+        <service id="date_time.normaliser" class="Invetico\BoabCmsBundle\Api\Normalizer\DateTimeNormalizer">
+            <tag name="serializer.normalizer" priority="100" />
+        </service>                                   
+
+        <service id="api_request_listener" class="Invetico\BoabCmsBundle\Api\EventListener\ApiRequestListener">
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" priority="5" />
+        </service>          
+        
+        <service id="api_response_listener" class="Invetico\BoabCmsBundle\Api\EventListener\ApiResponseListener">
+            <argument type="service" id="serializer" />          
+            <tag name="kernel.event_listener" event="kernel.view" method="onKernelView" priority="200"/>
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" priority="200"/>
+        </service>
+
+        <service id="api_exception_listener" class="Invetico\BoabCmsBundle\Api\EventListener\ApiExceptionListener">
+            <argument type="service" id="serializer" />          
+            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="200"/>
+        </service>   
+
+        <service id="serializer.circular_reference_handler" class="AppBundle\Email\NewsletterManagerx">
+            <!-- call the static method -->
+            <factory class="Invetico\BoabCmsBundle\Api\Serializer\CircularReferenceHandler" method="createCallback" />
+        </service>                                                             
+
+    </services>
+</container>

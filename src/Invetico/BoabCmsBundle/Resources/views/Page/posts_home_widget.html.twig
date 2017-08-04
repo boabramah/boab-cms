@@ -1,0 +1,36 @@
+                
+
+
+                {% for content in collection %}
+                <div class="col-md-4">
+                    <article class="blog-post-v1">
+                        <div class="img-box">
+                            <a href="{{ path('posts_show',{'slug':content.getSlug()}) }}">
+                                <img src="{{ asset(content.getThumbnailUrlPath()) }}" alt="{{ content.getTitle() }}" class="img-responsive">
+                            </a>
+                            <div class="box-holder">
+                                <time datetime="2015-02-18">
+                                    {% set monthyear = content.getMonthYear()|split(' ') %}
+                                    <span class="add">{{ monthyear[1] }}</span> {{ monthyear[2] }}
+                                </time>
+                            </div>                            
+                        </div>
+                        <div class="blog-txt">
+                            <h2><a href="{{ path('posts_show',{'slug':content.getSlug()}) }}">{{ content.getTitle() }}</a></h2>
+                            <ul class="meta list-inline">
+                              <li>
+                                <i class="fa fa-calendar"></i>
+                                {{ content.getDatePublished() }}
+                              </li>                              
+                              <li>
+                                <i class="fa fa-user"></i>
+                                    By {{ content.getAuthoredBy() }}
+                              </li>
+
+                            </ul>
+                            <p>{{ content.getSummary()|truncate(150, true) }}</p>
+                            <a href="{{ path('posts_show',{'slug':content.getSlug()}) }}" class="more">[ CONTINUE READING ]</a>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}

@@ -1,0 +1,18 @@
+
+
+<div class="page-container">
+	<header class="page-heading">
+		<h1 class="heading">{{ content.getTitle() }}</h1>		
+	</header>
+	{% if content.getThumbnailUrlPath() %}
+		<figure class="page-thumbnail">
+			<img class="img-responsive" src="{{ asset(content.getThumbnailUrlPath()) }}" alt="{{ content.getTitle() }}">
+		</figure>
+	{% endif %}
+	<article class="page-body">
+		{{ content.getBody()|raw }}
+	</article>
+</div>
+
+
+

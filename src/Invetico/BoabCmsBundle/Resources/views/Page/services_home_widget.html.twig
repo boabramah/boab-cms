@@ -1,0 +1,16 @@
+
+
+  
+    {% for content in collection %}
+
+    <article class="about-post col-sm-4 col-xs-12">
+        <div class="img-box">
+            <a href="{{ path(content.getRouteName()) }}">
+                <img class="img-responsive" src="{{ asset(content.getThumbnailUrlPath()) }}" alt="{{ content.getTitle() }}">
+            </a>
+        </div>
+        <h3><a href="{{ path(content.getRouteName()) }}"> {{ content.getTitle() }} </a></h3>
+        <p> {{ content.getSummary()|truncate(150,true) }}</p>
+    </article>   
+
+    {% endfor %}

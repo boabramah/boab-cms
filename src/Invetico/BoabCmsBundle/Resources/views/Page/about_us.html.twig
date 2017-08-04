@@ -1,0 +1,33 @@
+<main id="main" role="main">
+    
+    [htmlwrap view=BoabCmsBundle:Block:page_header.html.twig background=theme/kantua/images/banners/mic2.jpg]
+        <div class="holder">
+            <h3 class="heading text-capitalize">About us</h3>
+            <p>We connect every where</p>
+        </div>
+        <ul class="breadcrumbs list-inline">
+            <li><a href="{{ path('site_root') }}">HOME</a></li>
+            <li class="active"><a href="#">contact us</a></li>
+        </ul>
+    [/htmlwrap]
+
+    <!-- about section -->
+    <section class="studio-section padding-top-60 padding-bottom-60">
+        <div class="container">
+            <!-- page heading -->
+            <header class="page-heading">
+                <h2 class="lime text-capitalize font-medium heading">About us</h2>
+            </header>
+
+            {{ content.getBody() | raw }}
+            
+        </div>
+    </section>
+
+</main>
+
+
+
+
+
+

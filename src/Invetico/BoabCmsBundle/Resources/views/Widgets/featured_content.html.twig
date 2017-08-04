@@ -1,0 +1,11 @@
+
+<!-- page heading -->
+<header class="page-heading">
+	<h2 class="heading lime text-capitalize font-medium">About Our Studio</h2>
+</header>
+<div class="text-box">
+	<p>
+		{{ content.getSummary() }}
+		<a class="read-more" href="{{ path(content.getRouteName()) }}">Continue...</a>
+	</p>
+</div>

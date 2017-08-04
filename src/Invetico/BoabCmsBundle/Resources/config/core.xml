@@ -1,0 +1,143 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services> 
+
+        <service id="finder" class="Symfony\Component\Finder\Finder">
+        </service>
+
+        <service id="base_controller" abstract="true">
+            <call method="setEntityManager">
+                <argument type="service" id="doctrine.orm.entity_manager" />
+            </call>
+            <call method="setTemplate">
+                <argument type="service" id="view_template" />
+            </call> 
+            <call method="setEventDispatcher">
+                <argument type="service" id="event_dispatcher" />
+            </call>                        
+            <call method="setFlash">
+                <argument type="service" id="flash" />
+            </call>
+            <call method="setSession">
+                <argument type="service" id="session" />
+            </call>
+            <call method="setRouter">
+                <argument type="service" id="router" />
+            </call>
+			<call method="setPagination">
+                <argument type="service" id="pagination" />
+            </call>
+            <call method="setFormFactory">
+                <argument type="service" id="form.factory" />
+            </call>
+            <call method="setAuthorizationChecker">
+                <argument type="service" id="security.authorization_checker" />
+            </call>             
+            <call method="setTokenStorage">
+                <argument type="service" id="security.token_storage" />
+            </call>
+            <call method="setValidation">
+                <argument type="service" id="core.validation" />
+            </call>
+            <call method="initialize">
+                <argument>%theme_root%</argument>
+            </call>
+        </service>
+
+        <service id="base_service" abstract="true">
+            <call method="setEventDispatcher">
+                <argument type="service" id="event_dispatcher" />
+            </call>
+            <call method="setRequest">
+                <argument type="service" id="request_stack" />
+            </call>
+            <call method="setEntityManager">
+                <argument type="service" id="doctrine.orm.entity_manager" />
+            </call> 
+            <call method="initialize">
+                <argument>%theme_root%</argument>
+            </call>                       
+        </service>
+
+        <service id="boabcms.response_listener" class="Invetico\BoabCmsBundle\EventListener\ResponseListener">
+            <argument type="service" id="arrow.theme_manager" />
+            <argument type="service" id="shortcode_manager" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="view_template" class="Invetico\BoabCmsBundle\View\Template">
+             <argument type="service" id="templating" />
+             <argument type="service" id="view_locator" />
+             <argument type="service" id="arrow.theme_manager" />
+        </service>
+
+        <service id="arrow.theme_manager" class="Invetico\BoabCmsBundle\View\ThemeManager">
+            <argument type="service" id="twig.loader.filesystem" />           
+            <argument>%theme_root%</argument>            
+        </service>
+
+        <service id="view_locator" class="Invetico\BoabCmsBundle\View\ViewLocator">
+            <argument>%kernel.root_dir%</argument>
+             <call method="setTemplatesLocation">
+                 <argument>%kernel.bundles%</argument>
+             </call>
+        </service>
+
+         <service id="logger" class="Invetico\BoabCmsBundle\Logger\CoreLogger">
+            <argument>mono</argument>
+         </service>
+
+         <service id="flash" class="Invetico\BoabCmsBundle\Library\Flash">
+            <argument type="service" id="session" />
+            <call method="initSessionFlashBag"></call>
+         </service>
+
+        <service id="imagine_gd" class="Imagine\Gd\Imagine"></service>
+
+        <service id="file_upload_listener" class="Invetico\BoabCmsBundle\EventListener\FileUploadListener">
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
+            <tag name="kernel.event_listener" event="entity.pre_create" method="onPreContentActivity"/>
+            <tag name="kernel.event_listener" event="entity.pre_update" method="onPreContentActivity"/>
+            <tag name="kernel.event_listener" event="entity.post_create" method="onPostContentActivity"/>
+            <tag name="kernel.event_listener" event="entity.post_update" method="onPostContentActivity"/>
+            <tag name="kernel.event_listener" event="content.image_uploaded" method="onContentImageUpload"/>
+            <argument type="service" id="filesystem" />
+        </service>
+
+        <service id="flash_message_listener" class="Invetico\BoabCmsBundle\EventListener\FlashMessageListener">
+            <argument type="service" id="flash" />
+            <argument type="service" id="view_template" />
+            <tag name="kernel.event_listener" event="kernel.controller" method="onControllerEvent"/>
+        </service>   
+
+        <service id="core_exception_listener" class="Invetico\BoabCmsBundle\EventListener\ExceptionListener">
+            <argument type="service" id="view_template" />
+            <argument type="service" id="router" />
+            <argument type="service" id="security.token_storage" />            
+            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="200"/>
+        </service>            
+
+        <service id="random_generator" class="RandomGenerator">
+            <factory class="Invetico\BoabCmsBundle\Security\RandomGeneratorFactory" method="getGenerator" />
+        </service>  
+
+        <service id="core.validation" class="Invetico\BoabCmsBundle\Validation\Validation"></service>                          
+
+        <service id="repository_manager_factory" class="Invetico\BoabCmsBundle\ORM\RepositoryManagerFactory">
+            <argument type="service" id="doctrine" /> 
+        </service>
+
+        <service id="custom_doctrine_manager" class="Invetico\BoabCmsBundle\ORM\CustomDoctrineManager">
+            <argument type="service" id="doctrine" /> 
+        </service>
+
+        <service id="pagination" class="Invetico\BoabCmsBundle\Library\Pagination">
+            <argument>%pagination%</argument> 
+        </service>                           
+
+    </services>
+</container>
