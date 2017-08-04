@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Invetico\UserBundle\Repository\userRepositoryInterface;
 use Invetico\UserBundle\Validation\AddUserValidation;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use RandomLib\Generator as RandomGenerator;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
@@ -19,11 +20,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 Class UserController extends AdminController implements InitializableControllerInterface
 {	
 	private $userService;
+	private $randomGenerator;
 	private $encoder;
 
-	function __Construct(UserService $userService, UserPasswordEncoderInterface $encoder)
+	function __Construct(UserService $userService, RandomGenerator $randomGenerator, UserPasswordEncoderInterface $encoder)
 	{
 		$this->userService = $userService;
+		$this->randomGenerator = $randomGenerator;
 		$this->encoder = $encoder;
 	}
 
@@ -83,6 +86,8 @@ Class UserController extends AdminController implements InitializableControllerI
 			
             try{
 				$user = new \Invetico\UserBundle\Entity\Employee;
+            	$userId = $this->randomGenerator->generateString(15, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            	$user->setUserId($userId);				
 				$user->setUsername($request->get('username'));
 				$user->setFirstname( $request->get('user_first_name') );
 				$user->setLastname( $request->get('user_last_name') );
@@ -99,7 +104,6 @@ Class UserController extends AdminController implements InitializableControllerI
 				$this->userService->save($user);
                 
 				$this->flash->setSuccess(sprintf('User <strong>%s</strong> created successfully', $user->getLastname()));
-				die('ffghfhf');
             
 			}catch(\Exception $e){
 				die($e->getMessage());

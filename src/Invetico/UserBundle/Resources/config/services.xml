@@ -19,6 +19,7 @@
 
 		<service id="user_controller" parent="base_controller" class="Invetico\UserBundle\Controller\UserController">
             <argument type="service" id="user_service" />
+            <argument type="service" id="random_generator" />            
             <argument type="service" id="security.password_encoder" />
 		</service>        
 
