@@ -1,0 +1,89 @@
+security:
+    providers:
+        in_memory:
+            memory:
+                users:
+                    ryan:
+                        password: ryanpass
+                        roles: 'ROLE_USER'
+                    admin:
+                        password: $2a$12$cyTWeE9kpq1PjqKFiWUZFuCRPwVyAZwm4XzMZ1qPUFl7/flCM3V0G
+                        roles: 'ROLE_ADMIN'
+        invetico.user_provider:
+            entity:
+                class: Invetico\UserBundle\Entity\User
+#                property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
+    encoders:
+        Invetico\UserBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+    firewalls:
+
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        api_login:
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            provider: invetico.user_provider            
+            form_login:
+                username_parameter: username
+                password_parameter: password            
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+        api_refresh:
+            pattern:  ^/api/token/refresh
+            stateless: true
+            anonymous: true              
+        api:
+            pattern: ^/api/
+            provider: invetico.user_provider 
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+                    - api.jwt_token_authenticator
+                entry_point: lexik_jwt_authentication.jwt_token_authenticator
+
+        default:
+            pattern: ^/
+            anonymous: ~
+            http_basic: ~
+            provider: invetico.user_provider
+            form_login:
+                login_path: _login
+                check_path: _login_check
+                default_target_path: account_dashboard
+                always_use_default_target_path: true
+                success_handler: login_success_handler                
+            logout:
+                path: _logout
+                target: _logout
+                success_handler: logout_success_handler                
+#            remember_me:
+#                key:      "%secret%"
+#                lifetime: 300 # 1 week in seconds
+#                path:     /              
+
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER, ROLE_INVESTOR]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_EDITOR, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    access_control:
+    - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/accounts, roles: ROLE_USER }
+    - { path: ^/dashboard, roles: ROLE_USER }
+    - { path: ^/transfers, roles: ROLE_USER }
+    - { path: ^/transactions, roles: ROLE_USER }
+    - { path: ^/settings, roles: ROLE_USER }
+#    - { path: ^/, role: IS_AUTHENTICATED_FULLY }

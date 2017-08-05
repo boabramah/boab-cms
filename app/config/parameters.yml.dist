@@ -1,0 +1,29 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: app_database
+    database_user: root
+    database_password: ''
+    mailer_transport: smtp
+    mailer_host: edge.dtechweb.net
+    mailer_user: mailer@webfilla.com
+    mailer_password: HX18R1Spqss2
+    mailer_port: 465
+    mailer_encryption: ssl
+    secret: ecc44988acdfcdc1f8da5e79811ad08b3f492b04
+    sqlite_path: '%kernel.root_dir%/../src/data/%database_name%.sqlite'
+    mailer.from_email: mailer@webfilla.com
+    mailer.to_email: onlineboab@gmail.com
+    jwt_private_key_path: '%kernel.root_dir%/../var/jwt/private.pem'
+    jwt_public_key_path: '%kernel.root_dir%/../var/jwt/public.pem'
+    jwt_key_pass_phrase: ilovebunny
+    jwt_token_ttl: !!float 86400
+    theme_root: '%kernel.root_dir%/../web'
+    pagination:
+        rows_per_page: 10
+        links_per_page: 10
