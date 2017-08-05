@@ -18,7 +18,7 @@ class SerializerPass implements CompilerPassInterface
             $definition->addMethodCall('addNormalizer', array(new Reference($id)));
         } 
         */
-        $definition = $container->findDefinition('serializer.normalizer.object');
-        $definition->addMethodCall('setCircularReferenceHandler',[new Reference('serializer.circular_reference_handler')]);        
+        //$definition = $container->findDefinition('serializer.normalizer.object');
+        //$definition->addMethodCall('setCircularReferenceHandler',[new Reference('serializer.circular_reference_handler')]);        
     }
 }
