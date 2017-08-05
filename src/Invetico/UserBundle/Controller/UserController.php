@@ -30,12 +30,10 @@ Class UserController extends AdminController implements InitializableControllerI
 		$this->encoder = $encoder;
 	}
 
-
 	public function initialize()
 	{
 		$this->template->setTheme('novi');
 	}
-
 
 	function indexAction(Request $request)
 	{
@@ -64,7 +62,6 @@ Class UserController extends AdminController implements InitializableControllerI
 					   ->bind('content',$view);
 		return $this->template;
 	}
-
 
     public function addAction(Request $request)
     {
@@ -123,7 +120,6 @@ Class UserController extends AdminController implements InitializableControllerI
 
         return $this->template;
     }
-
 
 	public function deleteAction(Request $request)
 	{
