@@ -74,8 +74,6 @@ Class UserController extends AdminController implements InitializableControllerI
             $this->validation->delegate('email',[$this->userService,'validateEmail']);
 
             if(!$this->validation->isValid()){
-				var_dump($this->validation->getErrors());
-				die;
 				$this->flash->setErrors($this->validation->getErrors());
                 $this->flash->setValues($request->request->all());
                 return $this->redirect($url);
@@ -103,7 +101,7 @@ Class UserController extends AdminController implements InitializableControllerI
 				$this->flash->setSuccess(sprintf('User <strong>%s</strong> created successfully', $user->getLastname()));
             
 			}catch(\Exception $e){
-				die($e->getMessage());
+				//die($e->getMessage());
                 $this->flash->setErrors(['error'=>$e->getMessage()]);
                 return $this->redirect($url);
             }
