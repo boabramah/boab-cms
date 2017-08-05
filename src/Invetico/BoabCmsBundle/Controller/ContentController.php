@@ -46,7 +46,12 @@ class ContentController extends BaseController implements PublicControllerInterf
 		parent::initialize();
 		$this->template->setTheme('kantua');		
 	}
-
+	/**
+	 * Site root or home
+	 *
+	 * @param Request $request
+	 * @return void
+	 */
 	public function indexAction(Request $request)
 	{
 		$this->template->setTitle('Home')
@@ -56,6 +61,11 @@ class ContentController extends BaseController implements PublicControllerInterf
 		return $this->template;
 	}
 
+	/**
+	 * Featured content
+	 *
+	 * @return void
+	 */
 	private function getFeaturedContent()
 	{
 		$content = $this->contentRepository->findFeaturedContent();	
@@ -67,7 +77,13 @@ class ContentController extends BaseController implements PublicControllerInterf
 		$this->eventDispatcher->dispatch('content.node_render', $event);					
 		return $event->getView();		
 	}
-
+	/**
+	 * Get List of contents
+	 *
+	 * @param Request $request
+	 * @param [type] $routeDocument
+	 * @return void
+	 */
 	public function listAction(Request $request, $routeDocument=null)
 	{
 		$pageNumber = (int) $request->get('page');
