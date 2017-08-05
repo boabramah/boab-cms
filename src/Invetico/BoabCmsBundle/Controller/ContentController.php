@@ -105,18 +105,19 @@ class ContentController extends BaseController implements PublicControllerInterf
 		if($routeDocument instanceof ControllerAwareMenuNode){
 			$contentNode = $this->contentRepository->findContentBySlug($slug);
 			$typeManager = $this->contentTypeManager->getTypeByClass(get_class($contentNode));
+			$contentTypes = $routeDocument->getContentTypeId();
+			if(!in_array($typeManager->getContentTypeId(), explode(',',$contentTypes))){
+				throw new NotFoundHttpException('Content not found');
+			}	
 		}
+
 		if($routeDocument instanceof DynamicMenuNode){
 			$typeManager = $this->getTypeManager($routeDocument->getContentTypeId());
 			$contentNode = $typeManager->getContent($request);			
 		}
 
-		if($routeDocument instanceof NotFoundHttpMenuNode){
+		if($routeDocument instanceof NotFoundHttpMenuNode || !$contentNode){
 			throw new NotFoundHttpException("Page not found");	
-		}
-
-		if(!$contentNode){
-			throw new NotFoundHttpException('<p class="not-found">Page Not found</p>');			
 		}
 
 		$view = $this->template->load($contentTemplate ? $contentTemplate : $typeManager->getNodeView());
@@ -147,8 +148,6 @@ class ContentController extends BaseController implements PublicControllerInterf
     {
         $contentType = $this->contentTypeManager->getType($contentTypeId);
         $contentType->setContenRepository($this->contentRepository);
-        $contentType->setTemplate($this->template);
-
         return $contentType;
     }
 

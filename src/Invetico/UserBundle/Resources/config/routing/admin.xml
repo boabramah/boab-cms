@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="_login" path="/login">
+        <default key="_controller">login_controller:loginAction</default>
+    </route> 
+    <route id="_logout" path="/logout">
+        <default key="_controller">login_controller:logoutAction</default>
+    </route>
+    <route id="_login_check" path="/login_check">
+        <default key="_controller">login_controller:checkloginAction</default>
+    </route>
+    <route id="user_captcha" path="/captcha">
+        <default key="_controller">user_controller:captchaAction</default>
+    </route>    
+  
+    <route id="user_add" path="/admin/user/add">
+        <default key="_controller">user_controller:addAction</default>
+    </route>
+
+    <route id="password_reset" path="/pwd/reset">
+        <default key="_controller">forget_password_controller:resetAction</default>
+    </route>
+    <route id="password_recover" path="/pwd/recover">
+        <default key="_controller">forget_password_controller:recoverAction</default>
+    </route>      
+
+    <route id="admin_user_index" path="/admin/users">
+        <default key="_controller">user_controller:indexAction</default>
+    </route>
+    <route id="admin_user_search" path="/admin/users/search">
+        <default key="_controller">user_controller:searchAction</default>
+    </route> 
+    <route id="admin_user_suspend" path="/admin/users/suspend/{username}">
+        <default key="_controller">user_controller:suspendAction</default>
+    </route>
+    <route id="admin_user_update_role" path="/admin/users/role/update/{username}">
+        <default key="_controller">user_controller:updateRoleAction</default>
+    </route>
+    <route id="admin_user_delete" path="/admin/users/delete/{username}">
+        <default key="_controller">user_controller:deleteAction</default>
+    </route>
+
+    <route id="admin_role_update" path="/{_api}/users/roles/update.{format}">
+        <default key="_controller">role_controller:updateUserRolesAction</default>
+    </route>
+    <route id="admin_role_user" path="/admin/users/roles/{username}">
+        <default key="_controller">role_controller:showUserRolesAction</default>
+    </route> 
+
+    <route id="user_load_fixtures" path="/admin/users/load">
+        <default key="_controller">user_fixtures_controller:loadUsersAction</default>
+    </route>
+</routes>
