@@ -1,6 +1,6 @@
 <div id="AjaxResult"></div>
 <form>
-	<input type="hidden" id="table_sort_url" name="table_sort_url" value="<?php echo $this->tableSortUrl;?>">
+	<input type="hidden" id="table_sort_url" name="table_sort_url" value="{{ path('menu_order_list', {"order":""}) }}">
 	<table width="100%" class="sort-table" id="data-list">
 		<thead>
 			<tr>
@@ -12,15 +12,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php echo $this->menuList;?>
+			{{ menuList|raw }}
 		</tbody>
+
+
 		<tfoot>
 			<tr class="footer">
 				<td colspan="2">
-					<a data-delete-url="<?php echo $this->deleteSelectedCheckBoxUrl;?>" href="<?php echo $this->deleteSelectedCheckBoxUrl;?>" id="deleteSlectedCheckBox" class="delete_inline">Delete all</a>
+					<a data-delete-url="{{ path('menu_admin_delete') }}" href="{{ path('menu_admin_delete') }}" id="deleteSlectedCheckBox" class="delete_inline">Delete all</a>
 				</td>
 				<td colspan="6" align="right">           
-					<div class="pagination"><?php echo $this->pagination; ?></div>       
+					<div class="pagination"></div>       
 				</td>
 			</tr>
 		</tfoot>

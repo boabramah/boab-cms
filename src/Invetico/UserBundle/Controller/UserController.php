@@ -13,7 +13,6 @@ use Invetico\UserBundle\Repository\userRepositoryInterface;
 use Invetico\UserBundle\Validation\AddUserValidation;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use RandomLib\Generator as RandomGenerator;
-
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */	

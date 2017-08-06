@@ -70,7 +70,7 @@
         </service>
 
         <service id="view_template" class="Invetico\BoabCmsBundle\View\Template">
-             <argument type="service" id="templating" />
+             <argument type="service" id="twig" />
              <argument type="service" id="view_locator" />
              <argument type="service" id="arrow.theme_manager" />
         </service>
@@ -91,7 +91,7 @@
             <argument>mono</argument>
          </service>
 
-         <service id="flash" class="Invetico\BoabCmsBundle\Library\Flash">
+         <service id="flash" class="Invetico\BoabCmsBundle\Util\Flash">
             <argument type="service" id="session" />
             <call method="initSessionFlashBag"></call>
          </service>

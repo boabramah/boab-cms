@@ -1,5 +1,5 @@
 	
-
+{% raw %}
 <script id="photo-wrapper-tpl" type="text/x-handlebars-template">
 <div class="col-md-3 photo-container">	
 	<div class="imageHolder">
@@ -11,3 +11,4 @@
 	</div>
 </div>
 </script>
+{% endraw %}
