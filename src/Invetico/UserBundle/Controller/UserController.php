@@ -13,54 +13,47 @@ use Invetico\UserBundle\Repository\userRepositoryInterface;
 use Invetico\UserBundle\Validation\AddUserValidation;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use RandomLib\Generator as RandomGenerator;
+
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */	
-Class UserController extends AdminController implements InitializableControllerInterface
-{	
-	private $userService;
-	private $randomGenerator;
-	private $encoder;
+Class UserController extends AdminController
+{
+    private $userService;
+    private $randomGenerator;
+    private $encoder;
 
-	function __Construct(UserService $userService, RandomGenerator $randomGenerator, UserPasswordEncoderInterface $encoder)
-	{
-		$this->userService = $userService;
-		$this->randomGenerator = $randomGenerator;
-		$this->encoder = $encoder;
-	}
+    function __Construct(UserService $userService, RandomGenerator $randomGenerator, UserPasswordEncoderInterface $encoder)
+    {
+        $this->userService = $userService;
+        $this->randomGenerator = $randomGenerator;
+        $this->encoder = $encoder;
+    }
 
-	public function initialize()
-	{
-		$this->template->setTheme('novi');
-	}
+    public function initialize()
+    {
+        $this->template->setTheme('novi');
+    }
 
-	function indexAction(Request $request)
-	{
-		$page = $request->get('page',1);
+    function indexAction(Request $request)
+    {
+        $page = $request->get('page', 1);
+        $collection = $this->userService->findAll($page);
+        $option = [
+            'page_total_rows' => $collection->count(),
+            'page_number'=>$page,
+            'page_url'=>$this->router->generate('admin_user_index')
+        ];
 
-		$collection = $this->userService->findAll($page);
+        $view = $this->template->load('UserBundle:Admin:users_list.html.twig');
+        $view->collection = $collection;
+        $view->pagination = $this->pagination->generate($option);
 
-		$option = [
-			'page_total_rows' => $collection->count(),
-			'page_number'=>$page,
-			'page_url'=>$this->router->generate('admin_user_index')
-		];
+        $this->template->bind('page_header', 'User Login & Authentication')
+                       ->bind('content', $view);
 
-		$view = $this->template->load('UserBundle:Admin:users');
-		$view->collection = $collection;
-		$view->pagination = $this->pagination->generate($option);
-		$view->generateDeleteUrl = function($user){
-			return $this->router->generate('admin_user_delete',['username'=>$user->getUsername(),'token'=>md5($user->getUsername().$user->getSalt())]);
-		};
-
-		$view->generateViewRolesUrl = function($user){
-			return $this->router->generate('admin_role_user',['username'=>$user->getUsername()]);
-		};
-		
-		$this->template->bind('page_header','User Login & Authentication')
-					   ->bind('content',$view);
-		return $this->template;
-	}
+        return $this->template;
+    }
 
     public function addAction(Request $request)
     {
@@ -73,34 +66,34 @@ Class UserController extends AdminController implements InitializableControllerI
             $this->validation->delegate('email',[$this->userService,'validateEmail']);
 
             if(!$this->validation->isValid()){
-				$this->flash->setErrors($this->validation->getErrors());
+                $this->flash->setErrors($this->validation->getErrors());
                 $this->flash->setValues($request->request->all());
                 return $this->redirect($url);
             }
-			
+            
             try{
-				$user = new \Invetico\UserBundle\Entity\Employee;
-            	$userId = $this->randomGenerator->generateString(15, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-            	$user->setUserId($userId);				
-				$user->setUsername($request->get('username'));
-				$user->setFirstname( $request->get('user_first_name') );
-				$user->setLastname( $request->get('user_last_name') );
-				$user->setContactNumber( $request->get('contact_number'));
-				$user->setEmail($request->get('email'));
-				$user->setSalt();
-				$user->setRoles(['ROLE_USER']);
-				$user->setDateRegistered(new \DateTime);
-				$user->setAccountStatus('registered');
-				$user->setIsLoggedIn(0);
+                $user = new \Invetico\UserBundle\Entity\Employee;
+                $userId = $this->randomGenerator->generateString(15, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                $user->setUserId($userId);
+                $user->setUsername($request->get('username'));
+                $user->setFirstname( $request->get('user_first_name') );
+                $user->setLastname( $request->get('user_last_name') );
+                $user->setContactNumber( $request->get('contact_number'));
+                $user->setEmail($request->get('email'));
+                $user->setSalt();
+                $user->setRoles(['ROLE_USER']);
+                $user->setDateRegistered(new \DateTime);
+                $user->setAccountStatus('registered');
+                $user->setIsLoggedIn(0);
                 $password = $this->encoder->encodePassword($user, $request->get('password'));
                 $user->setPassword($password);
                 
-				$this->userService->save($user);
+                $this->userService->save($user);
                 
-				$this->flash->setSuccess(sprintf('User <strong>%s</strong> created successfully', $user->getLastname()));
+                $this->flash->setSuccess(sprintf('User <strong>%s</strong> created successfully', $user->getLastname()));
             
-			}catch(\Exception $e){
-				//die($e->getMessage());
+            }catch(\Exception $e){
+                //die($e->getMessage());
                 $this->flash->setErrors(['error'=>$e->getMessage()]);
                 return $this->redirect($url);
             }
@@ -118,23 +111,23 @@ Class UserController extends AdminController implements InitializableControllerI
         return $this->template;
     }
 
-	public function deleteAction(Request $request)
-	{
-		$username = $request->get('username');
-		$token = $request->get('token');
+    public function deleteAction(Request $request)
+    {
+        $username = $request->get('username');
+        $token = $request->get('token');
 
-		//$this->userService->terminate($user);
-		$user = $this->userService->findByUsername($username);
+        //$this->userService->terminate($user);
+        $user = $this->userService->findByUsername($username);
 
-		if(!$user){
-			return $this->pageNotFound('The user does not exist');
-		}
+        if(!$user){
+            return $this->pageNotFound('The user does not exist');
+        }
 
-		if($token != md5($user->getUsername().$user->getSalt())){
-			return $this->pageNotFound('This request is invalid');
-		}
-		$msg = sprintf('The user <strong>%s</strong> deleted successfully',$user->getFullName());
-		
+        if($token != md5($user->getUsername().$user->getSalt())){
+            return $this->pageNotFound('This request is invalid');
+        }
+        $msg = sprintf('The user <strong>%s</strong> deleted successfully',$user->getFullName());
+        
         $accountTerminatedEvent = new AccountTerminatedEvent($user);
         $this->eventDispatcher->dispatch('user.account_terminated',$accountTerminatedEvent);
         
@@ -143,7 +136,7 @@ Class UserController extends AdminController implements InitializableControllerI
         $this->flash->setSuccess($msg);
 
         return $this->redirect($this->router->generate('admin_user_index'));
-	}
+    }
 
 
 }

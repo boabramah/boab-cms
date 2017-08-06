@@ -4,12 +4,7 @@ namespace Invetico\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Invetico\BoabCmsBundle\Controller\InitializableControllerInterface;
 use Invetico\UserBundle\Service\UserService;
-use Invetico\UserBundle\Event\AccountRegisteredEvent;
-use Invetico\UserBundle\Event\PasswordForgottenEvent;
-use Invetico\UserBundle\Validation\ForgetPasswordFormValidation;
-use Invetico\UserBundle\Validation\ResetPassword;
 use Invetico\BoabCmsBundle\Helper\RandomStringGenerator;
 use Invetico\BoabCmsBundle\Controller\AdminController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -17,10 +12,8 @@ use Invetico\UserBundle\Validation\Register as RegisterValidation;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
- */ 
-
-
-Class UserAddController extends AdminController implements InitializableControllerInterface 
+ */
+Class UserAddController extends AdminController
 {
     private $userService;
     private $randomGenerator;
@@ -28,17 +21,15 @@ Class UserAddController extends AdminController implements InitializableControll
 
     use RandomStringGenerator;
 
-    function __Construct(UserService $userService, $randomGenerator, $encoder) 
+    public function __Construct(UserService $userService, $randomGenerator, $encoder) 
     {
         $this->userService = $userService;
         $this->randomGenerator = $randomGenerator;
         $this->encoder = $encoder;
     }
 
-
     public function initialize()
     {
         $this->template->setTheme('novi');
     }
-
 }

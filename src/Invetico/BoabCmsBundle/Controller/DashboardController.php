@@ -12,7 +12,7 @@ use Invetico\BoabCmsBundle\Event\DashboardEvent;
 
 /**
  * @Security("has_role('ROLE_USER')")
- */ 
+ */
 Class DashboardController extends AdminController
 {
     private $contentTypeManager;
@@ -34,20 +34,25 @@ Class DashboardController extends AdminController
     }    
 
 
-    public function indexAction(Request $request) 
+    public function indexAction(Request $request)
     {
 
 /*        $results = $this->contentRepository->findTotalContentByYear();
         $types = $this->getContentTypeCount($results);
 */
-        $this->eventDispatcher->dispatch('app.dashboard', new DashboardEvent());
+       // $this->eventDispatcher->dispatch('app.dashboard', new DashboardEvent());
+        if (!$request->get('splash')) {
+            $this->flash->setInfo('You have to update your profile information');
 
-        $view = $this->template->load('BoabCmsBundle:Main:dashboard');
+            return $this->redirect($this->router->generate('account_home', ['splash'=>2]));
+        }
+        
         //$view->contentTypes = $types;
         $this->template->setTitle('Dashboard')
-             ->bind('page_header','Dashboard')
-             ->bind('content',$view)
-             ->setBlock('contentArea', 'dashboard.php');
+             ->bind('page_header', 'Dashboard')
+             //->bind('content', $view)
+             ->setBlock('contentArea', 'dashboard.html.twig');
+
         return $this->template;
     }
 

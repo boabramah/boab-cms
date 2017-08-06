@@ -34,8 +34,8 @@ class FlashExtension extends \Twig_Extension
 
     }
 
-    public function getFlashInfo($field, $flag = false)
+    public function getFlashInfo($flag = false)
     {
-
+        return 'You suppose not to be hear';
     }
 }
