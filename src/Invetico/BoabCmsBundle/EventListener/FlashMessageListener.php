@@ -2,7 +2,7 @@
 
 namespace Invetico\BoabCmsBundle\EventListener;
 
-use Invetico\BoabCmsBundle\Library\Flash;
+use Invetico\BoabCmsBundle\Util\Flash;
 use Invetico\BoabCmsBundle\View\Template;
 
 class FlashMessageListener 

@@ -11,12 +11,6 @@ abstract class AbstractTemplate
     protected $twigEngine;
     protected $extension;
 
-    public function __construct(EngineInterface $twigEngine, ViewLocator $locator)
-    {
-        $this->twigEngine = $twigEngine;
-        $this->locator = $locator;
-    }
-
     public function setData(array $data = [])
     {
         foreach($data as $key => $value){

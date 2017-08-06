@@ -30,12 +30,9 @@ Class MenuController extends AdminController  implements InitializableController
 
     public function indexAction(Request $request)
     {
-        $view = $this->template->load('BoabCmsBundle:Admin:list_menus');
+        $view = $this->template->load('BoabCmsBundle:Admin:list_menus.html.twig');
         //$this->menuBuilder->setMenuItems($this->menuService->initMenuBuilder());
         $view->menuList = $this->menuBuilder->getMenuListTable($this->menuService->findAll());
-        $view->tableSortUrl = $this->router->generate('menu_order_list',['order'=>'']);
-        $view->deleteSelectedCheckBoxUrl = $this->router->generate('menu_admin_delete');
-        
         $this->template->setTitle('Menu List')
                      ->bind('page_header','Menu List')
                      ->bind('content',$view);

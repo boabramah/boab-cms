@@ -18,49 +18,51 @@ use Invetico\BoabCmsBundle\View\ViewFactory;
 
 class AccountWidgetListener
 {
-	private $router;
-	private $securityContext;
-	private $template;
+    private $router;
+    private $securityContext;
+    private $template;
 
-	public function __construct(RouterInterface $router, SecurityContext $securityContext, Template $template)
-	{
-		$this->router = $router;
-		$this->securityContext = $securityContext;
-		$this->template = $template;
-	}
-
-
-	public function onControllerEvent(FilterControllerEvent $event)
-	{
-		if($event->getRequestType() === HttpKernelInterface::SUB_REQUEST){
-			return;
-		}		
-		
-		if($this->securityContext->hasIdentity()){
-			$userToken = $this->securityContext->getIdentity();
-			$view = $this->template->load('UserBundle:Account:user_thumbnail');
-			$view->userToken = $userToken;
-			//$view->action = $this->router->generate('account_upload_thumbnail');
-			$this->template->bind('profile_thumbnail',$view->render());
-			$this->template->bind('sidebarProfile',$this->sidebarProfileWidget($userToken));
-		}
-		
-		$controller = $event->getController();
-		if($controller[0] instanceof AdminController){
-			$this->template->bind('metaNavigation', $this->topToolbar());
-		}
-		if($controller[0] instanceof AccountPanelInterface){
-			$this->template->bind('metaNavigation', $this->topToolbar());
-		}		
-	}
+    public function __construct(RouterInterface $router, SecurityContext $securityContext, Template $template)
+    {
+        $this->router = $router;
+        $this->securityContext = $securityContext;
+        $this->template = $template;
+    }
 
 
-	private function sidebarProfileWidget($user)
-	{
-		$view = $this->template->load('UserBundle:Account:sidebar_profile');
-		$view->user = $user;
-		return $view;
-	}
+    public function onControllerEvent(FilterControllerEvent $event)
+    {
+        if ($event->getRequestType() === HttpKernelInterface::SUB_REQUEST) {
+            return;
+        }
+
+        $controller = $event->getController();
+        $userToken = $this->securityContext->getIdentity();
+
+        if ($controller[0] instanceof AdminController) {
+            $view = $this->template->load('UserBundle:Account:user_thumbnail.html.twig');
+            $view->userToken = $userToken;
+            //$view->action = $this->router->generate('account_upload_thumbnail');
+            $this->template->bind('profile_thumbnail', $view->render());
+        }
+
+        if ($controller[0] instanceof AdminController) {
+            $this->template->bind('metaNavigation', $this->topToolbar());
+        }
+
+        if ($controller[0] instanceof AccountPanelInterface) {
+            $this->template->bind('sidebarProfile', $this->sidebarProfileWidget($userToken));
+            $this->template->bind('metaNavigation', $this->topToolbar());
+        }
+    }
+
+
+    private function sidebarProfileWidget($user)
+    {
+        $view = $this->template->load('UserBundle:Account:sidebar_profile');
+        $view->user = $user;
+        return $view;
+    }
 
 
     public function topToolbar()
@@ -71,7 +73,7 @@ class AccountWidgetListener
         if($this->securityContext->hasRole('ROLE_SUPER_ADMIN')){
             $viewFile = 'authenticated_admin_toolbar';
         }
-        $view = $this->template->load(sprintf('UserBundle:Account:%s',$viewFile));
+        $view = $this->template->load(sprintf('UserBundle:Account:%s.html.twig',$viewFile));
         $view->user = $userToken;
         $view->generate = function ($routeName) {
             return $this->router->generate($routeName);

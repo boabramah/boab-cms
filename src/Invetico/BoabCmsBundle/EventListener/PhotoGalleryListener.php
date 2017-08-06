@@ -37,7 +37,7 @@ class PhotoGalleryListener
         $currentEntity = $event->getNode();
         $nodeView = $event->getView();
         if($currentEntity instanceof ContentInterface){
-            $nodeView->contentGallery = $this->getContentGalleryWidget($currentEntity);
+           // $nodeView->contentGallery = $this->getContentGalleryWidget($currentEntity);
             //die('sffdsdf');
         }
 

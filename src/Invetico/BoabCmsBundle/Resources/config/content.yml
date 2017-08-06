@@ -1,4 +1,9 @@
 services:
+    twig.extension.flash:
+        class: Invetico\BoabCmsBundle\Twig\Extension\FlashExtension
+        arguments: ['@flash']
+        tags:
+            - { name: twig.extension }
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
