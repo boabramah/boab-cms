@@ -18,8 +18,8 @@ class FlashMessageListener
 
 	public function onControllerEvent($event)
 	{
-		$this->template->bind('flash_error_messages', $this->flash->getErrorNotice(),true);
-		$this->template->bind('flash_success_messages', $this->flash->getSuccesses(), true);
-		$this->template->bind('flash_info_messages', $this->flash->getInfo(), true);
+		//$this->template->bind('flash_error_messages', $this->flash->getErrorNotice(),true);
+		//$this->template->bind('flash_success_messages', $this->flash->getSuccesses(), true);
+		//$this->template->bind('flash_info_messages', $this->flash->getInfo(), true);
 	}
 }

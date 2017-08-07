@@ -17,25 +17,41 @@ class FlashExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('flash_error', [$this, 'getFlashError']),
-            new \Twig_SimpleFunction('flash_warning', [$this, 'getFlashWarning']),
-            new \Twig_SimpleFunction('flash_info', [$this, 'getFlashInfo']),
+            new \Twig_SimpleFunction('flash_error', [$this, 'getFlashError'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('flash_alert', [$this, 'getFlashAlert']),
+            new \Twig_SimpleFunction('flash_info', [$this, 'getFlashInfo'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('flash_success', [$this, 'getFlashSuccess', ['is_safe' => ['html']]]),
+            new \Twig_SimpleFunction('flash_data', [$this, 'getFlashData']),
         );
     }
 
-
-    public function getFlashError($field, $flag = false)
+    public function getFlashError($field, $flag = true)
     {
-        die('I am in twig');
+        return $this->flash->getError($field, $flag);
     }
 
-    public function getFlashWarning($field, $flag = false)
+    public function getFlashAlert($field, $flag = false)
     {
+        return $this->flash->getAlert();
+    }
 
+    public function getErrorNotice()
+    {
+        return $this->flash->getErrorNotice();
     }
 
     public function getFlashInfo($flag = false)
     {
-        return 'You suppose not to be hear';
+        return $this->flash->getInfo($flag);
+    }
+
+    public function getFlashSuccess($flag)
+    {
+        return $this->flash->getSuccesses($flag);
+    }
+
+    public function getFlashData($field, $default = '')
+    {
+        return $this->flash->getData($field) ? $this->flash->getData($field) : $default;
     }
 }

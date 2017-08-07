@@ -1,0 +1,48 @@
+
+<div id="register-form-wrapper">
+    <form id="register-form" action="{{ path('user_add') }}" method="post" enctype="multipart/form-data">
+        <div class="tabsContainer">
+            <div id="form-container">
+            <div class="tab-pane form-column-container active">	
+            <div class="form-group">
+                <label>Username</label>
+                <input name="username" type="text" class="form-control" id="username" size="30" value="{{ flash_data('username') }}"/>
+                {{ flash_error('username',true) }}
+            </div>
+            <div class="form-group">
+                <label>First Name</label>
+                <input name="user_first_name" type="text" class="form-control" id="user_first_name" size="30" value="{{ flash_data('user_first_name') }}"/>
+                {{ flash_error('user_first_name') }}
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input name="user_last_name" type="text" class="form-control" id="user_last_name" size="30" value="{{ flash_data('user_last_name') }}"/>
+                {{ flash_error('user_last_name',true) }}
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input name="email" type="text" class="form-control" id="email" size="30" value="{{ flash_data('email') }}"/>
+                {{ flash_error('email',true) }}
+            </div>
+            <div class="form-group">
+                <label>Contact Number</label>
+                <input name="contact_number" type="text" class="form-control" id="email"  value="{{ flash_data('contact_number') }}"/>
+                {{ flash_error('contact_number',true) }}
+            </div>		
+                            
+            <div class="form-group">
+                <label>Password</label>
+                <input name="password" type="password" class="form-control" id="password"  />
+                {{ flash_error('password',true) }}
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input name="confirm_password" type="password" class="form-control" id="password"  />
+                {{ flash_error('confirm_password',true) }}
+            </div>
+            <input name="submit" type="submit" class="button" id="signup-btn" value="Sign Up" />
+        </div>
+        </div>
+        </div>
+    </form>
+</div>

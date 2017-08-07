@@ -13,10 +13,10 @@
     <route id="menu_admin_create" path="/admin/menu/create">
         <default key="_controller">menu_controller:createAction</default>
     </route>
-    <route id="menu_admin_edit" path="/admin/menu/edit">
+    <route id="menu_admin_edit" path="/admin/menu/edit/{id}">
         <default key="_controller">menu_controller:editAction</default>
     </route>
-    <route id="menu_admin_update" path="/admin/menu/update">
+    <route id="menu_admin_update" path="/admin/menu/update/{id}">
         <default key="_controller">menu_controller:updateAction</default>
     </route>
     <route id="menu_admin_delete" path="/admin/menu/delete">

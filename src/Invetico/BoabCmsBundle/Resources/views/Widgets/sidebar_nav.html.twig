@@ -4,9 +4,9 @@
 	<div id="sidebar_menu">
 		<div class="menu-list-wrapper">
 			<ul>
-				<?php foreach($this->menuItems as $menu):?>
-			        <li><a href="<?php echo $this->generateUrl($menu);?>"><?php echo $menu->getTitle();?></a></li>
-			    <?php endforeach;?>
+				{% for menu in menuItems %}
+			        <li><a href="{{ path(menu.getRouteName()) }}"> {{ menu.getTitle() }}</a></li>
+			    {% endfor %}
 			</ul>
 		</div>
 	</div>

@@ -7,13 +7,12 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class Flash
 {
     private $flashBag;
-    private $__notices = [];
     private $__warnings = [];
     private $__errors = [];
     private $__values = [];
     private $__successes = [];
     private $__infos = [];
-    
+
     public function __construct(SessionInterface $session)
     {
         $this->flashBag = $session->getFlashBag();
@@ -22,8 +21,7 @@ class Flash
     public function initSessionFlashBag()
     {
         $flashData = $this->flashBag->all();
-        foreach(['__successes', '__notices', '__warnings', '__errors', '__values','__infos'] as $key){
-
+        foreach (['__successes', '__alert', '__errors', '__values','__infos'] as $key) {
             if (!isset($flashData[$key])) {
                 continue;
             }
@@ -135,9 +133,9 @@ class Flash
         return $errors;
     }
 
-    public function getError($key, $format=false)
+    public function getError($key, $format = false)
     {
-        if (isset($this->__errors[$key])) {
+        if (!isset($this->__errors[$key])) {
             return '';
         }
 

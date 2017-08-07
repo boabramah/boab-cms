@@ -10,7 +10,7 @@ use Invetico\BoabCmsBundle\Service\MenuService;
 use Invetico\BoabCmsBundle\Util\MenuWidgetBuilder;
 use Invetico\BoabCmsBundle\Validation\Form\MenuForm;
 
-Class MenuController extends AdminController  implements InitializableControllerInterface 
+Class MenuController extends AdminController
 {
     private $menuService;
     private $menuBuilder;
@@ -30,12 +30,12 @@ Class MenuController extends AdminController  implements InitializableController
 
     public function indexAction(Request $request)
     {
-        $view = $this->template->load('BoabCmsBundle:Admin:list_menus.html.twig');
+        $view = $this->template->load('BoabCmsBundle:Admin:menus_list.html.twig');
         //$this->menuBuilder->setMenuItems($this->menuService->initMenuBuilder());
         $view->menuList = $this->menuBuilder->getMenuListTable($this->menuService->findAll());
         $this->template->setTitle('Menu List')
-                     ->bind('page_header','Menu List')
-                     ->bind('content',$view);
+                     ->bind('page_header', 'Menu List')
+                     ->bind('content', $view);
 
         return $this->template;
     }
@@ -43,14 +43,12 @@ Class MenuController extends AdminController  implements InitializableController
 
     public function addAction(Request $request)
     {
-        $view = $this->template->load('BoabCmsBundle:Admin:add_menu');
-        $view->action = $this->router->generate('menu_admin_create');
+        $view = $this->template->load('BoabCmsBundle:Admin:add_menu.html.twig');
         $view->parentOption = $this->menuBuilder->getMenuOptionList($this->menuService->findAll());
-        $view->flash = $this->flash;
-        
+
         $this->template->setTitle('Add Menu Item')
-                     ->bind('page_header','Add Menu Item')
-                     ->bind('content',$view);
+                     ->bind('page_header', 'Add Menu Item')
+                     ->bind('content', $view);
 
         return $this->template;
     }
@@ -59,26 +57,29 @@ Class MenuController extends AdminController  implements InitializableController
     public function createAction(Request $request)
     {
         $redirect = $this->router->generate('menu_admin_add');
-        
+
         $menuForm = new MenuForm($request->request->all());
-        if(!$menuForm->isValid()){
+        if (!$menuForm->isValid()) {
             $this->flash->setErrors($menuForm->getErrors());
             $this->flash->setValues($request->request->all());
+
             return $this->redirect($redirect);
         }
         $staticMenu = new \Invetico\BoabCmsBundle\Entity\StaticMenuNode();
-        if($request->get('extra_config')){
+        if ($request->get('extra_config')) {
             $staticMenu = new \Invetico\BoabCmsBundle\Entity\ControllerAwareMenuNode();
         }
 
-        try{
+        try {
             $results = $this->menuService->create($staticMenu, $request);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $this->flash->setSuccess($e->getMessage());
+
             return $this->redirect($redirect);
         }
 
         $this->flash->setSuccess('Menu item created successfully');
+
         return $this->redirect($redirect);
     }
 
@@ -86,16 +87,14 @@ Class MenuController extends AdminController  implements InitializableController
     public function editAction(Request $request)
     {
         $id = $request->get('id');
-        $view = $this->template->load('BoabCmsBundle:Admin:edit_menu');
-        $view->action = $this->router->generate('menu_admin_update',['id'=>$request->get('id')]);
+        $view = $this->template->load('BoabCmsBundle:Admin:menu_edit.html.twig');
         $menu = $this->menuService->findById($id);
         $view->menu = $menu;
-        $view->flash = $this->flash;
         $view->parentOption = $this->menuBuilder->getMenuOptionList($this->menuService->findAll(), $menu->getParentId());
 
         $this->template->setTitle('Edit Menu Item')
-                     ->bind('page_header',$menu->getTitle())
-                     ->bind('content',$view);
+                     ->bind('page_header', $menu->getTitle())
+                     ->bind('content', $view);
 
         return $this->template;
 

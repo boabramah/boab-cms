@@ -101,9 +101,7 @@ Class UserController extends AdminController
             return $this->redirect($url);
         }
         
-        $view = $this->template->load('UserBundle:User:add');
-        $view->action = $url;
-        $view->flash = $this->flash;
+        $view = $this->template->load('UserBundle:Admin:add_user.html.twig');
         $this->template->setTitle('Add User')
                      ->bind('page_header',$this->template->getTitle())
                      ->bind('content',$view);

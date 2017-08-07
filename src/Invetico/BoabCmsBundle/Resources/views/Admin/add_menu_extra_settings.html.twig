@@ -1,0 +1,18 @@
+		
+		
+		<div id="menu-extra-settings" class="slide-up">
+			<div id="alias-box" class="form-group">
+				<label>Controller</label>
+				<input class="form-control" type="text" name="controller_name" value="{{ flash_data('controller_name') }}">
+				<span class="help-block">Custom controller name </span>
+				{{ flash_error('controller_name') }}
+			</div>
+
+			<div id="alias-box" class="form-group">
+				<label>Content type</label>
+				<input class="form-control" type="text" name="content_type" value="{{ flash_data('content_type') }}">
+				<span class="help-block">Content type</span>
+				{{ flash_error('content_type') }}
+			</div>	
+			<div class="clear"></div>
+		</div>
