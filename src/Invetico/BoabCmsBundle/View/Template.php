@@ -125,7 +125,7 @@ class Template extends AbstractTemplate implements TemplateInterface
         return $this;
     }
 
-    public function setBlocks(array $blocks = [], $overWrite=false)
+    public function setBlocks(array $blocks = [], $overWrite = false)
     {
         foreach ($blocks as $key => $value) {
             $this->setBlock($key, $value, $overWrite);
@@ -137,7 +137,7 @@ class Template extends AbstractTemplate implements TemplateInterface
     public function getBlocks()
     {
         return $this->blocks;
-    }	
+    }
 
     public function setTheme($theme)
     {
@@ -148,7 +148,7 @@ class Template extends AbstractTemplate implements TemplateInterface
 
     public function getTheme()
     {
-        return isset($this->theme) ? $this->theme : false;
+        return $this->theme;
     }
 
     public function setMasterLayout($masterLayout)
@@ -180,5 +180,4 @@ class Template extends AbstractTemplate implements TemplateInterface
 
         return $html;
     }
-
 }

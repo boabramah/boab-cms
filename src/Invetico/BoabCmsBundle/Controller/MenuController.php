@@ -103,10 +103,11 @@ Class MenuController extends AdminController
 
     public function updateAction(Request $request)
     {
-        $menuId = (int)$request->query->get('id');
+        $menuId = (int)$request->get('id');
         $menu = $this->menuService->findById($menuId);
         $results = $this->menuService->update($menu);
         $this->flash->setSuccess('Menu Item updated successfully');
+        
         return $this->redirect($this->router->generate('menu_admin_edit',['id'=>$menuId]));
     }
 

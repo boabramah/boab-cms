@@ -18,7 +18,7 @@
             "Symfony\\Component\\Finder\\": "vendor/symfony/finder"
         },
         "files": [
-            "src/Utils/common.php"
+
         ]       
     },
     "autoload-dev": {

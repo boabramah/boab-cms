@@ -1,7 +1,7 @@
 
 			<form class="" method="post" action="{{ action }}" enctype="multipart/form-data">
 				<div class="tabsContainer">
-					<?php require_once $this->fetch('BoabCmsBundle:Admin:form_controls');?>
+					{% include 'BoabCmsBundle:Admin:form_controls.html.twig' %}
 					<div class="tab-content">
 						<div id="form-container">
 							<input type="hidden" name="post_type" value="create" />
@@ -11,22 +11,22 @@
 								<div class="form-group">
 									<label>Title: </label>
 									<input class="form-control" id="page_title" name="page_title" type="text" value="{{ flash.getData('page_title') }}" />
-									{{ flash.getError('page_title',true) }}
+									{{ flash_error('page_title') }}
 								</div>
 
 								<div class="form-group">
 									<label>Summary:</label>
-									<textarea class="form-control" name="page_summary" ><?php echo $this->flash->getData('page_summary');  ?></textarea>
-									<?php echo $this->flash->getError('page_summary',true);?>
+									<textarea class="form-control" name="page_summary" >{{ flash_data('page_summary') }}</textarea>
+									{{ flash_error('page_summary') }}
 								</div>
 
 								<div class="form-group">
 									<label>Body:</label>
-									<textarea class="form-control desc" id="editor-full" name="page_body" ><?php echo $this->flash->getData('page_body');  ?></textarea>
-									<?php echo $this->flash->getError('page_body',true);?>
+									<textarea class="form-control desc" id="editor-full" name="page_body" >{{ flash_data('page_body') }}</textarea>
+									{{ flash_error('page_body') }}
 								</div>
 
-								<?php include $this->fetch('BoabCmsBundle:Admin:thumbnail');?>
+								{% include 'BoabCmsBundle:Admin:thumbnail.html.twig' %}
 
 								<div class="clear"></div>
 							</div>
@@ -34,17 +34,17 @@
 							<div id="menu-setting" class="tab-pane form-column-container">
 								<div  class="checkbox custom-checkbox">
 									<label>
-										<input type="checkbox" id="menu_enable" name="menu_enable" class="input-extra-settings" data-setting-target="menu-setting-box" <?php echo (!$this->flash->getData("menu_enable")) ?: 'checked'; ?> />
+										<input type="checkbox" id="menu_enable" name="menu_enable" class="input-extra-settings" data-setting-target="menu-setting-box" {{ flash_data("menu_enable") ? 'checked' }} />
 										<span class="fa fa-check"></span>Provide Menu for content
 										<i class="help-block">Leave blank for Anonymous.</i>
 									</label>
 									
 								</div>
 
-								<div id="menu-setting-box" class="<?php echo (!$this->content->hasRoute()) ? 'slide-up' : 'slide-down'?>">
-									<?php if (!$this->content->hasRoute()) {
-										require_once $this->fetch('BoabCmsBundle:Admin:content_menu_option');
-									};?>
+								<div id="menu-setting-box" class="{{ content.hasRoute() ? 'slide-down' : 'slide-up' }}">
+									{% if content.hasRoute() == false %}
+										{% include 'BoabCmsBundle:Admin:content_menu_option.html.twig' %}
+									{% endif %}
 									<div class="clear"></div>
 								</div>
 								<div class="clear"></div>
@@ -53,18 +53,18 @@
 							<div id="seo-setting" class="form-column-container">							
 								<div class="form-group">
 									<label>Meta Keywords: </label>
-									<input class="form-control" id="meta_keywords" name="meta_keywords" type="text" value="<?php echo $this->flash->getData('meta_keywords'); ?>" />
-									<?php echo $this->flash->getError('meta_keywords',true);?>
+									<input class="form-control" id="meta_keywords" name="meta_keywords" type="text" value="{{ flash_data('meta_keywords') }}" />
+									{{ flash_error('meta_keywords') }}
 								</div>
 								<div class="form-group">
 									<label>Meta Description: </label>
-									<input class="form-control" id="meta_description" name="meta_description" type="text" value="<?php echo $this->flash->getData('meta_description'); ?>" />
-									<?php echo $this->flash->getError('meta_description',true);?>
+									<input class="form-control" id="meta_description" name="meta_description" type="text" value="{{ flash_data('meta_description') }}" />
+									{{ flash_error('meta_description') }}
 								</div>								
 							</div>
 
 							<div id="other-setting" class="tab-pane form-column-container">
-								<?php require_once $this->fetch('BoabCmsBundle:Admin:add_content_other_settings');?>
+								{% include 'BoabCmsBundle:Admin:add_content_other_settings.html.twig' %}
 							</div>
 						</div>
 						<div class="submit-box">
@@ -72,6 +72,4 @@
 						</div>
 					</div>
 				</div>
-
-
 			</form>

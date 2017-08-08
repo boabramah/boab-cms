@@ -1,0 +1,11 @@
+
+<div id="content-types-container">
+	{% for contentType in contentTypes %}
+	<div class="content-type">
+		<a href="{{ path('admin_content_add_type', {"content_type":contentType.getContentTypeId()}) }}">
+			<h3>{{ contentType.getEntity().getContentTypeLabel() }}</h3>
+			<span>{{ contentType.getContentTypeDescription()|raw }}</span>
+		</a>
+	</div>
+	{% endfor %}
+</div>

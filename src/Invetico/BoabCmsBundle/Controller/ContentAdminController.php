@@ -20,170 +20,174 @@ use Invetico\BoabCmsBundle\Controller\AdminControllerInterface;
 use Invetico\ApiBundle\Normalizer\SuccessResponseNormalizer;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-
 class ContentAdminController extends AdminController implements InitializableControllerInterface, AdminControllerInterface
 {
-	private $contentService;
-	private $userService;
-	private $contentTypeManager;
-	private $contentRepository;
-	private $finder;
+    private $contentService;
+    private $userService;
+    private $contentTypeManager;
+    private $contentRepository;
+    private $finder;
 
-	use ContentHelper;
+    use ContentHelper;
 
-	public function __Construct
-	(
-		ContentService $contentService,
-		UserService $userService,
-		ContentTypeManager $contentTypeManager,
-		ContentRepositoryInterface $contentRepository,
-		Finder $finder
+    public function __Construct
+    (
+        ContentService $contentService,
+        UserService $userService,
+        ContentTypeManager $contentTypeManager,
+        ContentRepositoryInterface $contentRepository,
+        Finder $finder
 
-	)
-	{
-		$this->contentService = $contentService;
-		$this->userService = $userService;
-		$this->contentTypeManager = $contentTypeManager;
-		$this->contentRepository = $contentRepository;
-		$this->finder = $finder;
-	}
+    )
+    {
+        $this->contentService = $contentService;
+        $this->userService = $userService;
+        $this->contentTypeManager = $contentTypeManager;
+        $this->contentRepository = $contentRepository;
+        $this->finder = $finder;
+    }
 
-	public function initialize()
-	{
-		$this->template->setTheme('novi');
-	}
+    public function initialize()
+    {
+        $this->template->setTheme('novi');
+    }
 
-	/**
-	 * @Security("has_role('ROLE_USER')")
-	 */	
-	public function indexAction(Request $request)
-	{
-		$view = $this->template->load('BoabCmsBundle:Admin:content_list.html.twig');
-		$this->template->setTitle('Contents')
-					 ->bind('page_header','Contents')
-					 ->bind('content',$view);
-		return $this->template;
-	}
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */	
+    public function indexAction(Request $request)
+    {
+        $view = $this->template->load('BoabCmsBundle:Admin:content_list.html.twig');
+        $this->template->setTitle('Contents')
+                     ->bind('page_header','Contents')
+                     ->bind('content',$view);
+        return $this->template;
+    }
 
 
-	public function AddAction(Request $request)
-	{
-		$type = $request->get('content_type');
-		if (!$type) {
-			$view = $this->template->load('BoabCmsBundle:Admin:select_content_type');
-			$view->contentTypes = $this->contentTypeManager->getContentTypes();
-			$view->generateTypeUrl = function ($contentType) {
-				return $this->router->generate('admin_content_add_type',['content_type'=>$contentType->getContentTypeId()]);
-			};
-			$this->template->setTitle('Select Content Type')
-					->bind('page_header','Select Content Type')
-					->bind('content',$view);
-			return $this->template;
-		}
+    public function AddAction(Request $request)
+    {
+        $type = $request->get('content_type');
+        if (!$type) {
+            $view = $this->template->load('BoabCmsBundle:Admin:select_content_type.html.twig');
+            $view->contentTypes = $this->contentTypeManager->getContentTypes();
+            $this->template->setTitle('Select Content Type')
+                    ->bind('page_header', 'Select Content Type')
+                    ->bind('content', $view);
 
-		$contentType = $this->contentTypeManager->getType($type);
+            return $this->template;
+        }
 
-		$form = $this->template->loadAsObject($contentType->getAddFormView());
-		$form->flash = $this->flash;
-		$form->action = $this->router->generate('admin_content_create',['content_type'=>strtolower($request->get('content_type'))]);
-		$form->content = $contentType->getEntity();
+        $contentType = $this->contentTypeManager->getType($type);
 
-		$this->eventDispatcher->dispatch('content.form_render', new FormRenderEvent($form, $contentType->getEntity()));
+        $form = $this->template->load($contentType->getAddTemplate());
+        $form->flash = $this->flash;
+        $form->action = $this->router->generate('admin_content_create',['content_type'=>strtolower($request->get('content_type'))]);
+        $form->content = $contentType->getEntity();
 
-		$this->template->setTitle('Create ' .ucfirst($request->get('content_type')))
-					 ->bind('page_header','Create ' .ucfirst($request->get('content_type')))
-					 ->bind('content',$form);
-		return $this->template;
-	}
+        $this->eventDispatcher->dispatch('content.form_render', new FormRenderEvent($form, $contentType->getEntity()));
 
-	public function createAction(Request $request)
-	{
-		$typeId = $request->get('content_type');
-		$contentType = $this->contentTypeManager->getType($typeId);
-		$validator = $contentType->getValidator($request->request->all());
+        $this->template->setTitle('Create '.ucfirst($request->get('content_type')))
+                     ->bind('page_header', 'Create '.ucfirst($request->get('content_type')))
+                     ->bind('content', $form);
 
-		$redirect = $this->router->generate('admin_content_add_type',['content_type'=>$typeId]);
+        return $this->template;
+    }
 
-		if (!$validator->isValid()) {
+    public function createAction(Request $request)
+    {
+        $typeId = $request->get('content_type');
+        $contentType = $this->contentTypeManager->getType($typeId);
+        $validator = $contentType->getValidator($request->request->all());
+
+        $redirect = $this->router->generate('admin_content_add_type', ['content_type' => $typeId]);
+
+        if (!$validator->isValid()) {
             $this->flash->setErrors($validator->getErrors());
             $this->flash->setValues($request->request->all());
+
             return $this->redirect($redirect);
         }
 
         $entity = $contentType->createEntity($request, null);
 
         try {
-        	$results = $this->contentService->create($entity, $request);
+            $results = $this->contentService->create($entity, $request);
         } catch (\Exception $e) {
-        	$this->flash->setInfo($e->getMessage());
-        	return $this->redirect($redirect);
+            $this->flash->setInfo($e->getMessage());
+
+            return $this->redirect($redirect);
         }
         $this->flash->setSuccess(sprintf('%s <strong>%s</strong> created successfully', $entity->getContentTypeLabel(), $entity->getTitle()));
-		return $this->redirect($redirect);
-	}
-	
 
-	public function editAction(Request $request)
-	{
-		$pageId = (int) $request->get('id');
+        return $this->redirect($redirect);
+    }
+    
 
-		$redirect = $this->router->generate('admin_content_edit',['id'=>$pageId]);
-		$content = $this->contentRepository->findContentById($pageId);
+    public function editAction(Request $request)
+    {
+        $pageId = (int) $request->get('id');
 
-		$contentType = $this->contentTypeManager->getType($content->getContentTypeId());
+        $redirect = $this->router->generate('admin_content_edit', ['id' => $pageId]);
+        $content = $this->contentRepository->findContentById($pageId);
 
-		if ('POST' === $request->getMethod()) {        			
-			$validator = $contentType->getValidator($request->request->all());
-			if (!$validator->isValid()) {
-	            $this->flash->setErrors($validator->getErrors());
-	            return $this->redirect($redirect);
-	        }
-	        $entity = $contentType->createEntity($request, $content);
-	        try {
-	        	$this->contentService->update($entity, $request);
-	        } catch (\Exception $e) {
-	        	$this->flash->setInfo($e->getMessage());
-	        	return $this->redirect($redirect);
-	        }
-			$this->flash->setSuccess(sprintf('%s updated successfully',$entity->getContentTypeLabel()));
-			return $this->redirect($redirect);
-		}
+        $contentType = $this->contentTypeManager->getType($content->getContentTypeId());
 
-		$view = $this->template->loadAsObject($contentType->getEditFormView());
-		$view->content = $content;
-		$view->flash = $this->flash;
-		$view->action = $redirect;
-		$view->deleteContentThumbnail = $this->router->generate('delete_content_thumbnail',['id'=>$content->getId()]);
+        if ('POST' === $request->getMethod()) {
+            $validator = $contentType->getValidator($request->request->all());
+            if (!$validator->isValid()) {
+                $this->flash->setErrors($validator->getErrors());
 
-		$event = new FormRenderEvent($view, $content);
-		$this->eventDispatcher->dispatch('content.form_render', $event);
+                return $this->redirect($redirect);
+            }
+            $entity = $contentType->createEntity($request, $content);
+            try {
+                $this->contentService->update($entity, $request);
+            } catch (\Exception $e) {
+                $this->flash->setInfo($e->getMessage());
 
-		$this->template->setTitle('Edit Content')
-					 ->bind('page_header',$content->getTitle())
-					 ->bind('content',$event->getForm());
+                return $this->redirect($redirect);
+            }
+            $this->flash->setSuccess(sprintf('%s updated successfully', $entity->getContentTypeLabel()));
 
-		return $this->template;
-	}
-	
+            return $this->redirect($redirect);
+        }
 
-	public function deleteAction(Request $request, $contentId)
-	{
-		$content = $this->contentRepository->findContentById($contentId);
+        $view = $this->template->load($contentType->getEditTemplate());
+        $view->content = $content;
+        $view->flash = $this->flash;
+        $view->action = $redirect;
+        $view->deleteContentThumbnail = $this->router->generate('delete_content_thumbnail',['id'=>$content->getId()]);
 
-		if(!$content) {
-			throw new HttpException(403,'Bad request! The content does not exist');
-		}
+        $event = new FormRenderEvent($view, $content);
+        $this->eventDispatcher->dispatch('content.form_render', $event);
 
-		$event = new ContentDeletedEvent($content);
-		$this->eventDispatcher->dispatch('content.delete', $event);
+        $this->template->setTitle('Edit Content')
+                     ->bind('page_header',$content->getTitle())
+                     ->bind('content',$event->getForm());
 
-		$message = sprintf('Content <strong>%s</strong> deleted successfully', $content->getTitle());
-		
-		$this->entityManager->remove($content);
-		$this->entityManager->flush();
+        return $this->template;
+    }
+    
 
-		$normalizer = new SuccessResponseNormalizer([]);
-		$normalizer->setMessage($message);
-		return $normalizer;
-	}
+    public function deleteAction(Request $request, $contentId)
+    {
+        $content = $this->contentRepository->findContentById($contentId);
+
+        if(!$content) {
+            throw new HttpException(403,'Bad request! The content does not exist');
+        }
+
+        $event = new ContentDeletedEvent($content);
+        $this->eventDispatcher->dispatch('content.delete', $event);
+
+        $message = sprintf('Content <strong>%s</strong> deleted successfully', $content->getTitle());
+        
+        $this->entityManager->remove($content);
+        $this->entityManager->flush();
+
+        $normalizer = new SuccessResponseNormalizer([]);
+        $normalizer->setMessage($message);
+        return $normalizer;
+    }
 }

@@ -20,7 +20,7 @@ class FlashExtension extends \Twig_Extension
             new \Twig_SimpleFunction('flash_error', [$this, 'getFlashError'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('flash_alert', [$this, 'getFlashAlert']),
             new \Twig_SimpleFunction('flash_info', [$this, 'getFlashInfo'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('flash_success', [$this, 'getFlashSuccess', ['is_safe' => ['html']]]),
+            new \Twig_SimpleFunction('flash_success', [$this, 'getFlashSuccess', ['is_safe' => ['html']] ]),
             new \Twig_SimpleFunction('flash_data', [$this, 'getFlashData']),
         );
     }
@@ -45,7 +45,7 @@ class FlashExtension extends \Twig_Extension
         return $this->flash->getInfo($flag);
     }
 
-    public function getFlashSuccess($flag)
+    public function getFlashSuccess($flag = true)
     {
         return $this->flash->getSuccesses($flag);
     }

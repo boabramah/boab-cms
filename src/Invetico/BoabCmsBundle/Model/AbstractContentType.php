@@ -4,6 +4,7 @@ namespace Invetico\BoabCmsBundle\Model;
 
 use Symfony\Component\HttpFoundation\Request;
 use Invetico\BoabCmsBundle\Entity\ContentInterface;
+use Invetico\BoabCmsBundle\Entity\Content;
 
 abstract class AbstractContentType implements ContentTypeInterface
 {
@@ -59,14 +60,15 @@ abstract class AbstractContentType implements ContentTypeInterface
         $entity->setBody($request->get('page_body'));
         $entity->setStatus($request->get('page_status'));
         $entity->setPromoted($request->get('content_promoted'));
-        $entity->setLayoutType($request->get('layout_type',2));
+        $entity->setLayoutType($request->get('layout_type', 2));
         $entity->setIsFeatured($request->get('is_featured'));
         $entity->setMetaKeywords($request->get('meta_keywords'));
         $entity->setMetaDescription($request->get('meta_description'));
 
-        if (1 == $entity->getStatus()) {
+        if (Content::STATUS_PUBLISHED === $entity->getStatus()) {
             $entity->setDatePublished($request->get('published_date'));
         }
+
         return $entity;
     }
 
@@ -85,14 +87,14 @@ abstract class AbstractContentType implements ContentTypeInterface
         return $this->getEntity()->getContentTypeId();
     }
 
-    public function getAddFormView()
+    public function getAddTemplate()
     {
-        return '\\Invetico\\BoabCmsBundle\\Form\\AddPage';
+        return 'BoabCmsBundle:Admin:add_page.html.twig';
     }
 
-    public function getEditFormView()
+    public function getEditTemplate()
     {
-        return '\\Invetico\\BoabCmsBundle\\Form\\EditPage';
+        return 'BoabCmsBundle:Admin:edit_page';
     }
 
     public function getNodeLayout()
@@ -103,7 +105,7 @@ abstract class AbstractContentType implements ContentTypeInterface
     public function getListLayout()
     {
         return 'page_tpl.html.twig';
-    }    
+    }
 
     public function getListView()
     {

@@ -48,17 +48,6 @@ class ArticleType extends AbstractContentType
         return 'BoabCmsBundle:Article:article_show';
     }
 
-    public function getAddFormView()
-    {
-        return '\\Invetico\\BoabCmsBundle\\Form\\AddArticle';
-    }
-
-    public function getEditFormView()
-    {
-        return '\\Invetico\\BoabCmsBundle\\Form\\EditArticle';
-    }
-    
-
     public function getBlockTitle()
     {
         return 'The Blog';

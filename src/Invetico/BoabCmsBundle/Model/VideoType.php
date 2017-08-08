@@ -37,14 +37,14 @@ class VideoType extends AbstractContentType
         return $this->contentRepository->findContentBySlug($request->get('slug'));
     }
 
-    public function getAddFormView()
+    public function getAddTemplate()
     {
-        return '\\Invetico\\BoabCmsBundle\\Form\\AddVideo';
+        return 'BoabCmsBundle:Video:add_video';
     }
 
-    public function getEditFormView()
+    public function getEditTemplate()
     {
-        return '\\Invetico\\BoabCmsBundle\\Form\\EditVideo';
+        return 'BoabCmsBundle:Video:edit_video';
     }
 
     public function getListView()

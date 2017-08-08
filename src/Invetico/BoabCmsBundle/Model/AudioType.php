@@ -8,43 +8,43 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AudioType extends AbstractContentType
 {
-	
-	public function getEntity()
-	{
-		return new \Invetico\BoabCmsBundle\Entity\Audio();
-	}
+    
+    public function getEntity()
+    {
+        return new \Invetico\BoabCmsBundle\Entity\Audio();
+    }
 
-	public function getValidator(array $data=[])
-	{
-		return new \Invetico\BoabCmsBundle\Validation\Form\Audio($data);
-	}	
+    public function getValidator(array $data=[])
+    {
+        return new \Invetico\BoabCmsBundle\Validation\Form\Audio($data);
+    }	
 
-	public function buildRouteParams(AudioInterface $content)
-	{
-		return ['slug' => $content->getSlug()];
-	}
+    public function buildRouteParams(AudioInterface $content)
+    {
+        return ['slug' => $content->getSlug()];
+    }
 
-	public function getContentFromRoute(Request $request)
-	{
-		return $this->contentRepository->findContentBySlug($request->get('slug'));
-	}		
+    public function getContentFromRoute(Request $request)
+    {
+        return $this->contentRepository->findContentBySlug($request->get('slug'));
+    }		
 
-	public function createEntity(Request $request, $entity=null)
-	{
-		$entity =  parent::createEntity($request, $entity);
-		$entity->setAuthor($request->get('audio_author'));
-		return $entity;
-	}
+    public function createEntity(Request $request, $entity=null)
+    {
+        $entity =  parent::createEntity($request, $entity);
+        $entity->setAuthor($request->get('audio_author'));
+        return $entity;
+    }
 
-	public function getShowRouteName()
-	{
-		return 'audio_show';
-	}
+    public function getShowRouteName()
+    {
+        return 'audio_show';
+    }
 
-	public function getListRouteName()
-	{
-		return 'audio_list';
-	}
+    public function getListRouteName()
+    {
+        return 'audio_list';
+    }
 
     public function getContentRouteParams($routeKey, $content)
     {
@@ -64,25 +64,25 @@ class AudioType extends AbstractContentType
         return $this->contentRepository->findContentBySlug($request->get('slug'));
     } 
 
-	public function getAddFormView()
-	{
-		return '\\Invetico\\BoabCmsBundle\\Form\\AddAudio';
-	}
+    public function getAddTemplate()
+    {
+        return 'BoabCmsBundle:Audio:add_audio.html.twig';
+    }
 
-	public function getEditFormView()
-	{
-		return '\\Invetico\\BoabCmsBundle\\Form\\EditAudio';
-	}	
+    public function getEditTemplate()
+    {
+        return 'BoabCmsBundle:Audio:edit_audio';
+    }
 
-	public function getListView()
-	{
-		return 'BoabCmsBundle:Audio:audio_list';
-	} 
+    public function getListView()
+    {
+        return 'BoabCmsBundle:Audio:audio_list';
+    } 
 
-	public function getNodeView()
-	{
-		return 'BoabCmsBundle:Audio:audio_show';
-	}	   
+    public function getNodeView()
+    {
+        return 'BoabCmsBundle:Audio:audio_show';
+    }	   
 
     public function getListLayout()
     {

@@ -7,90 +7,93 @@ use Invetico\BoabCmsBundle\Event\EntityEvent;
 
 abstract class BaseService
 {
-	protected $request;
-	protected $eventDispatcher;
-	protected $entityManager;
-	protected $securityContext;
+    protected $request;
+    protected $eventDispatcher;
+    protected $entityManager;
+    protected $securityContext;
 
-	public function initialize(){}	
-	
-	public function setEventDispatcher( $eventDispatcher )
-	{
-		$this->eventDispatcher = $eventDispatcher;
-	}
+    public function initialize()
+    {
 
-	public function setRequest(RequestStack $requestStack)
-	{
-		$this->request = $requestStack->getCurrentRequest();
-	}
+    }
 
-	public function setEntityManager($entityManager)
-	{
-		$this->entityManager = $entityManager;
-	}
+    public function setEventDispatcher($eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
 
-	public function getEntityManager()
-	{
-		return $this->entityManager;
-	}
+    public function setRequest(RequestStack $requestStack)
+    {
+        $this->request = $requestStack->getCurrentRequest();
+    }
 
-	public function create( $request, $callback=null)
-	{
-		$entity = $this->createEntity();
-		$event = new EntityEvent($entity, $request);
-		$this->eventDispatcher->dispatch('entity.pre_create',$event);
+    public function setEntityManager($entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
-		$entity = $event->getEntity();
+    public function getEntityManager()
+    {
+        return $this->entityManager;
+    }
 
-		$this->populateEntity( $entity, $request );
+    public function create( $request, $callback=null)
+    {
+        $entity = $this->createEntity();
+        $event = new EntityEvent($entity, $request);
+        $this->eventDispatcher->dispatch('entity.pre_create',$event);
 
-		if(is_callable($callback)){
-			call_user_func_array($callback, [$entity, $request]);
-		}
-		$event->setEntity($entity);
-		$this->eventDispatcher->dispatch('entity.post_create',$event);
-		return $this->save($entity);
-	}
+        $entity = $event->getEntity();
 
-	public function update( $entity, $callback=null )
-	{
-		$event = new EntityEvent($entity, $this->request);
-		$this->eventDispatcher->dispatch('entity.pre_update',$event);
+        $this->populateEntity( $entity, $request );
 
-		$entity = $event->getEntity();
-		if(is_callable($callback)){
-			call_user_func_array($callback, array($entity, $this->request));
-		}
-		$this->populateEntity( $entity, $this->request );
+        if(is_callable($callback)){
+            call_user_func_array($callback, [$entity, $request]);
+        }
+        $event->setEntity($entity);
+        $this->eventDispatcher->dispatch('entity.post_create',$event);
+        return $this->save($entity);
+    }
 
-		$entity = $this->save( $entity );
-		$event->setEntity($entity);
-		$this->eventDispatcher->dispatch('entity.post_update',$event);
+    public function update( $entity, $callback=null )
+    {
+        $event = new EntityEvent($entity, $this->request);
+        $this->eventDispatcher->dispatch('entity.pre_update',$event);
 
-		return $entity;
-	}
-	
-	public function save( $entity )
-	{
-		$this->entityManager->persist($entity);
-		$this->entityManager->flush();
-		return $entity;
-	}
+        $entity = $event->getEntity();
+        if(is_callable($callback)){
+            call_user_func_array($callback, array($entity, $this->request));
+        }
+        $this->populateEntity( $entity, $this->request );
 
-	public function delete($entity)
-	{
-		$event = new EntityEvent($entity, $this->request);
-		$this->eventDispatcher->dispatch('entity.cleanup',$event);
-		$this->entityManager->remove($entity);
-		$this->entityManager->flush();
-		return;
-	}
+        $entity = $this->save( $entity );
+        $event->setEntity($entity);
+        $this->eventDispatcher->dispatch('entity.post_update',$event);
 
-	abstract function createEntity();
+        return $entity;
+    }
+    
+    public function save( $entity )
+    {
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+        return $entity;
+    }
 
-	abstract function populateEntity( $entity, $request );
+    public function delete($entity)
+    {
+        $event = new EntityEvent($entity, $this->request);
+        $this->eventDispatcher->dispatch('entity.cleanup',$event);
+        $this->entityManager->remove($entity);
+        $this->entityManager->flush();
+        return;
+    }
 
-	abstract function findById( $id );
+    abstract function createEntity();
+
+    abstract function populateEntity( $entity, $request );
+
+    abstract function findById( $id );
 
 
 }

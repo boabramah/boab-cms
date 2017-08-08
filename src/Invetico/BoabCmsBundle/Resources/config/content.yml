@@ -4,7 +4,13 @@ services:
         arguments: ['@flash']
         tags:
             - { name: twig.extension }
+
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
+
+    twig.extension.BoabCmsBundle:
+        class: Invetico\BoabCmsBundle\Twig\Extension\BoabCmsExtension
+        tags:
+            - { name: twig.extension }            
