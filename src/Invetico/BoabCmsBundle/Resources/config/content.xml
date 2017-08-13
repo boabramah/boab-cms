@@ -37,8 +37,15 @@
         </service>
 
         <service id="content_type_manager" class="Invetico\BoabCmsBundle\Model\ContentTypeManager">
+            <argument type="service" id="content_repository" />
+            <argument>%boab_cms.content_types%</argument>
         </service>
         
+        <service id="page_type_manager" class="Invetico\BoabCmsBundle\Model\PageType" >
+            <argument type="service" id="content_repository" />
+            <tag name="content.type_manager" />
+        </service>
+
         <service id="video_type_manager" class="Invetico\BoabCmsBundle\Model\VideoType">
             <tag name="content.type_manager" />
         </service>
@@ -122,9 +129,6 @@
             <tag name="kernel.event_listener" event="content.node_render" method="onContentNodeRender"/>     
             <tag name="kernel.event_listener" event="content.form_render" method="onContentFormRender"/>            
         </service>                                                                    
-        <service id="page_type_manager" class="Invetico\BoabCmsBundle\Model\PageType" >
-            <tag name="content.type_manager" />
-        </service>
 
         <service id="api_content_controller" class="Invetico\BoabCmsBundle\Api\Controller\ApiContentController">
             <argument type="service" id="content_repository" />

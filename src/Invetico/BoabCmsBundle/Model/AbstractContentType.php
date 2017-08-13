@@ -5,26 +5,81 @@ namespace Invetico\BoabCmsBundle\Model;
 use Symfony\Component\HttpFoundation\Request;
 use Invetico\BoabCmsBundle\Entity\ContentInterface;
 use Invetico\BoabCmsBundle\Entity\Content;
+use Invetico\BoabCmsBundle\Repository\ContentRepositoryInterface;
 
 abstract class AbstractContentType implements ContentTypeInterface
 {
     protected $contentRepository;
-    protected $template;
-    protected $request;
+    protected $entity;
+    protected $addTemplate;
+    protected $editTemplate;
+    protected $showTemplate;
+    protected $listTemplate;
+    protected $showLayout;
+    protected $listLayout;
+    protected $description;
+    protected $validator;
 
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-    }
-
-    public function setRequest($request)
-    {
-        $this->request = $request;
-    }
-
-    public function setContenRepository($contentRepository)
+    public function setContenRepository(ContentRepositoryInterface $contentRepository)
     {
         $this->contentRepository = $contentRepository;
+    }
+    
+    public function setConfiguration(array $configs = [])
+    {
+        $this->entity = $configs['entity'];
+        $this->addTemplate = $configs['add_template'];
+        $this->editTemplate = $configs['edit_template'];
+        $this->showTemplate = $configs['show_template'];
+        $this->listTemplate = $configs['list_template'];
+        $this->description = $configs['description'];
+        $this->validator = $configs['form_validator'];
+    }
+
+    public function getEntity()
+    {
+        return new $this->entity;
+    }
+
+    public function setAddTemplate($template)
+    {
+        $this->addTemplate = $template;
+    }
+
+    public function getAddTemplate()
+    {
+        return $this->addTemplate;
+    }
+
+    public function setEditTemplate($template)
+    {
+        $this->editTemplate = $template;
+    }
+
+    public function getEditTemplate()
+    {
+        return $this->editTemplate;
+    }
+
+    public function setListLayout($template)
+    {
+        $this->listLayout = $template;
+    }
+
+    public function setShowLayout($template)
+    {
+        $this->showLayout = $template;
+    }
+
+    public function getValidator()
+    {
+        $ref = new \ReflectionClass($this->validator);
+        return $ref->newInstanceArgs();
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     public function getEntityClass()
@@ -33,25 +88,19 @@ abstract class AbstractContentType implements ContentTypeInterface
         return $reflect->getNamespaceName().'\\'.$reflect->getShortName();
     }
 
-    public function getContentFromRoute(Request $request)
-    {
-        $route = $request->attributes->get('routeDocument');
-        return $this->contentRepository->findContentByRouteId((int) $route->getId());
-    }
-
-    public function getContentByRoute(Request $request)
-    {
-        $route = $request->attributes->get('routeDocument');
-        return $this->contentRepository->findContentByRouteId((int) $route->getId());
-    }
-
     public function getContent(Request $request)
     {
         $route = $request->get('routeDocument');
+ 
         return $this->contentRepository->findContentByRouteId((int) $route->getId());
     }
 
-    public function createEntity(Request $request, $entity)
+    public function getContentByType($request, $pageNumber)
+    {
+        return $this->contentRepository->findPublishedContentByType($this->getEntityClass(), $pageNumber);
+    }
+
+    public function createEntity(Request $request, ContentInterface $entity = null)
     {
         $entity = !$entity ? $this->getEntity() : $entity;
         $entity->setTitle($request->get('page_title'));
@@ -82,19 +131,9 @@ abstract class AbstractContentType implements ContentTypeInterface
         return $this->getEntity()->getContentTypeDescription();
     }
 
-    public function getContentTypeId()
+    public function getContentTypeIdxx()
     {
         return $this->getEntity()->getContentTypeId();
-    }
-
-    public function getAddTemplate()
-    {
-        return 'BoabCmsBundle:Admin:add_page.html.twig';
-    }
-
-    public function getEditTemplate()
-    {
-        return 'BoabCmsBundle:Admin:edit_page';
     }
 
     public function getNodeLayout()
@@ -117,11 +156,6 @@ abstract class AbstractContentType implements ContentTypeInterface
         return 'BoabCmsBundle:Page:page_show.html.twig';
     }
 
-    public function getContentByType($request, $pageNumber)
-    {
-        return $this->contentRepository->findPublishedContentByType($this->getEntityClass(), $pageNumber);
-    }
-
     public function getRouteParams($routeName, $request)
     {
         return [];
@@ -129,7 +163,7 @@ abstract class AbstractContentType implements ContentTypeInterface
 
     public function getShowRouteParams(ContentInterface $content)
     {
-        return ['slug'=>$content->getSlug()];
+        return ['slug' => $content->getSlug()];
     }
 
 }

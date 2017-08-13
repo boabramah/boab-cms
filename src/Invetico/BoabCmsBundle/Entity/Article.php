@@ -20,19 +20,4 @@ class Article extends Content implements ArticleInterface,FileUploadInterface, S
 
     protected $dateformat = 'l jS F Y';
 
-    public function getContentTypeId()
-    {
-        return 'article';
-    }
-
-    public function getContentTypeLabel()
-    {
-        return 'Article';
-    }
-
-    public function getContentTypeDescription()
-    {
-        return 'Use for creating content like news or blog';
-    }
-
 }

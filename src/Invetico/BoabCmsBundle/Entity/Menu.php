@@ -88,21 +88,21 @@ abstract class Menu extends Route implements MenuNodeInterface
      *
      * @ORM\Column(name="route_name", type="string", length=255, precision=0, scale=0, nullable=true, unique=true)
      */
-    protected $routeName;   
+    protected $routeName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="template", type="string", length=255, precision=0, scale=0, nullable=true, unique=false)
      */
-    protected $template;    
+    protected $template;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="extra_config", type="integer", precision=0, scale=0, nullable=true, unique=false)
      */
-    protected $extraConfig; 
+    protected $extraConfig;
 
     /**
      * Get id

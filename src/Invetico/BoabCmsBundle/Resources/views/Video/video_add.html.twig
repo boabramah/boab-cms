@@ -1,0 +1,21 @@
+							
+							{% extends 'BoabCmsBundle:Admin:content_add.html.twig' %}
+
+							{% block tabs %}
+								{{ parent() }}
+							    <li><a class="tab" role="tab" data-toggle="tab" data-tab="video-setting" href="#video-setting">Video Setting</a></li>
+							{% endblock %}
+							
+							{% block form %}
+    						{{ parent() }}
+                                <div id="video-setting" class="tab-pane form-column-container">
+                                    
+                                    <div class="form-group">
+                                        <label>YouTube Video Id: </label>
+                                        <input class="form-control" id="youtube_video_id" name="youtube_video_id" type="text" value="{{ flash_data('youtube_video_id') }}" />
+                                        <span class="help-block">E.g http://www.youtube.com/watch?v=<strong>ok5486r</strong></span>
+                                        {{ flash_error('youtube_video_id') }}
+                                    </div>
+
+                                </div>
+							{% endblock %}

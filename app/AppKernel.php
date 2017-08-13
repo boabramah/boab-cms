@@ -15,19 +15,18 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Nelmio\CorsBundle\NelmioCorsBundle(), 
-            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),            
-            new Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle(),             
-            new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),             
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
+            new Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle(),
+            new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),   
-            new AppBundle\AppBundle(),  
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new AppBundle\AppBundle(),
 
             new Invetico\BoabCmsBundle\BoabCmsBundle,
-            new Invetico\UserBundle\UserBundle(),            
+            new Invetico\UserBundle\UserBundle(),
             new Invetico\MailerBundle\MailerBundle(),
-            new Invetico\BankBundle\BankBundle(),
-            new Invetico\CronBundle\CronBundle()              
+            new Invetico\CronBundle\CronBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

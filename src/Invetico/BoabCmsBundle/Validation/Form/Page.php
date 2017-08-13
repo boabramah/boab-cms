@@ -2,13 +2,14 @@
 
 namespace Invetico\BoabCmsBundle\Validation\Form;
 
-use Arrow\Validation\Validation;
 use Invetico\BoabCmsBundle\Validation\Form\Content;
+use Invetico\BoabCmsBundle\Validation\ValidationInterface;
+use Invetico\BoabCmsBundle\Validation\FormValidationInterface;
 
-class Page extends Content
+class Page extends Content implements FormValidationInterface
 {
-    public function register()
+    public function register(ValidationInterface $validation)
     {
-        parent::register();
+        parent::register($validation);
     }
 }

@@ -47,22 +47,6 @@ class Video extends Content implements VideoInterface,FileUploadInterface
 
     public function getVideoUrl()
     {
-        return sprintf('http://www.youtube.com/watch?v=%s',$this->getYoutubeVideoId());
+        return sprintf('http://www.youtube.com/watch?v=%s', $this->getYoutubeVideoId());
     }
-
-    public function getContentTypeId()
-    {
-        return 'video';
-    }
-
-    public function getContentTypeLabel()
-    {
-        return 'Video';
-    }
-
-    public function getContentTypeDescription()
-    {
-        return 'Use for youtube videos';
-    }
-
 }

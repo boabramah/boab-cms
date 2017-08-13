@@ -169,20 +169,7 @@ abstract class User implements UserInterface, FileUploadInterface, \Serializable
      *
      * @ORM\Column(name="thumbnail", type="string", length=100, precision=0, scale=0, nullable=true, unique=true)
      */
-    protected $thumbnail; 
-
-
-    /**
-     * @ORM\OneToMany(targetEntity="Invetico\BankBundle\Entity\Account", mappedBy="customer", cascade={"persist","remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"dateCreated" = "DESC"})     
-     */
-    protected $accounts;  
-
-    /**
-     * @ORM\OneToMany(targetEntity="Invetico\BankBundle\Entity\Transfer", mappedBy="customer", cascade={"persist","remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"dateCreated" = "DESC"})     
-     */
-    protected $transfers;
+    protected $thumbnail;
 
     /**
      * Constructor
@@ -697,80 +684,10 @@ abstract class User implements UserInterface, FileUploadInterface, \Serializable
         return $this->postalCode;
     }
 
-    /**
-     * Add account
-     *
-     * @param \Invetico\BankBundle\Entity\Account $account
-     *
-     * @return Customer
-     */
-    public function addAccount(\Invetico\BankBundle\Entity\Account $account)
-    {
-        $this->accounts[] = $account;
-
-        return $this;
-    }
-
-    /**
-     * Remove account
-     *
-     * @param \Invetico\BankBundle\Entity\Account $account
-     */
-    public function removeAccount(\Invetico\BankBundle\Entity\Account $account)
-    {
-        $this->accounts->removeElement($account);
-    }
-
-    /**
-     * Get accounts
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAccounts()
-    {
-        return $this->accounts;
-    }
-
-    /**
-     * Add transfer
-     *
-     * @param \Invetico\BankBundle\Entity\Transfer $transfer
-     *
-     * @return User
-     */
-    public function addTransfer(\Invetico\BankBundle\Entity\Transfer $transfer)
-    {
-        $this->transfers[] = $transfer;
-
-        return $this;
-    }
-
-    /**
-     * Remove transfer
-     *
-     * @param \Invetico\BankBundle\Entity\Transfer $transfer
-     */
-    public function removeTransfer(\Invetico\BankBundle\Entity\Transfer $transfer)
-    {
-        $this->transfers->removeElement($transfer);
-    }
-
-    /**
-     * Get transfers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTransfers()
-    {
-        return $this->transfers;
-    }        
-
-
     public function eraseCredentials()
     {
 
     }
-
     
     /** @see \Serializable::serialize() */
     public function serialize()

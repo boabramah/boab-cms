@@ -42,7 +42,6 @@ class AccountWidgetListener
         if ($controller[0] instanceof AdminController) {
             $view = $this->template->load('UserBundle:Account:user_thumbnail.html.twig');
             $view->userToken = $userToken;
-            //$view->action = $this->router->generate('account_upload_thumbnail');
             $this->template->bind('profile_thumbnail', $view->render());
         }
 
@@ -68,12 +67,14 @@ class AccountWidgetListener
     public function topToolbar()
     {
         $userToken = $this->securityContext->getIdentity();
-        if(!$userToken){return;}
+        if (!$userToken) {
+            return;
+        }
         $viewFile = 'authenticated_user_toolbar';
-        if($this->securityContext->hasRole('ROLE_SUPER_ADMIN')){
+        if ($this->securityContext->hasRole('ROLE_SUPER_ADMIN')) {
             $viewFile = 'authenticated_admin_toolbar';
         }
-        $view = $this->template->load(sprintf('UserBundle:Account:%s.html.twig',$viewFile));
+        $view = $this->template->load(sprintf('UserBundle:Account:%s.html.twig', $viewFile));
         $view->user = $userToken;
         $view->generate = function ($routeName) {
             return $this->router->generate($routeName);

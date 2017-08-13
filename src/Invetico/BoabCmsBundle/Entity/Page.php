@@ -23,10 +23,28 @@ class Page extends Content implements PageInterface, ParentableInterface, FileUp
     private $discr = 'page';
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="parent_id", type="integer", precision=0, scale=0, nullable=true, unique=false)
+     */
+    protected $parentId;
+
+    /**
+     * @var \Invetico\BoabCmsBundle\Entity\DynamicMenuNode
+     *
+     * @ORM\OneToOne(targetEntity="Invetico\BoabCmsBundle\Entity\DynamicMenuNode", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="menu_id", referencedColumnName="id", unique=true, nullable=true)
+     * })
+     */
+    protected $menu;
+
+    /**
      * Set parentId
      *
-     * @param  integer $parentId
-     * @return Page
+     * @param integer $parentId
+     *
+     * @return Content
      */
     public function setParentId($parentId)
     {
@@ -45,6 +63,28 @@ class Page extends Content implements PageInterface, ParentableInterface, FileUp
         return $this->parentId;
     }
 
+    /**
+     * Set menu
+     *
+     * @param  \Invetico\BoabCmsBundle\Entity\DynamicMenuNode $menu
+     * @return Content
+     */
+    public function setMenu(\Invetico\BoabCmsBundle\Entity\DynamicMenuNode $menu = null)
+    {
+        $this->menu = $menu;
+
+        return $this;
+    }
+
+    /**
+     * Get menu
+     *
+     * @return \Invetico\BoabCmsBundle\Entity\DynamicMenuNode
+     */
+    public function getMenu()
+    {
+        return $this->menu;
+    } 
 
     public function setSubPages($subPages)
     {
@@ -69,22 +109,6 @@ class Page extends Content implements PageInterface, ParentableInterface, FileUp
     public function getRouteName()
     {
         return $this->getMenu()->getRouteName();
-    }    
-
-
-    public function getContentTypeId()
-    {
-        return 'page';
-    }
-
-    public function getContentTypeLabel()
-    {
-        return 'Page';
-    }
-
-    public function getContentTypeDescription()
-    {
-        return 'Use for creating basic static content like <em>About Us</em>';
     }
 
     public function getStaffPosition()
@@ -96,5 +120,5 @@ class Page extends Content implements PageInterface, ParentableInterface, FileUp
     {
         //return explode('|',$this->getSummary())[1];
     }
-      
+
 }

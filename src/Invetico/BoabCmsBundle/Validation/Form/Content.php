@@ -2,27 +2,32 @@
 
 namespace Invetico\BoabCmsBundle\Validation\Form;
 
-use Arrow\Validation\Validation;
+use Invetico\BoabCmsBundle\Validation\ValidationInterface;
+use Invetico\BoabCmsBundle\Validation\FormValidationInterface;
 
-class Content extends Validation
+class Content implements FormValidationInterface
 {
-    public function register()
+    public function register(ValidationInterface $validation)
     {
-        $this->add('page_title','Title',function ($e) {
-            $e->isRequire();
+        $validation->add('page_title', function ($e) {
+            $e->setLabel('Title')
+              ->isRequire();
         });
 
-        $this->add('page_summary','Summary',function ($e) {
-            $e->isRequire();
+        $validation->add('page_summary', function ($e) {
+            $e->setLabel('Summary')
+              ->isRequire();
         });
 
-        $this->add('page_body','Body ',function ($e) {
-            $e->isRequire();
+        $validation->add('page_body', function ($e) {
+            $e->setLabel('Body')
+              ->isRequire();
         });
 
-        if ($this->get('menu_enable')) {
-            $this->add('menu_title','Menu title ',function ($e) {
-                $e->isRequire();
+        if ($validation->get('menu_enable')) {
+            $validation->add('menu_title', function ($e) {
+                $e->setLabel('Menu title')
+                  ->isRequire();
             });
         }
 

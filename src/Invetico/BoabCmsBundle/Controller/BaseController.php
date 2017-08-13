@@ -100,33 +100,6 @@ abstract class BaseController
     }
 
     /**
-     * Returns a rendered view.
-     *
-     * @param string $view       The view name
-     * @param array  $parameters An array of parameters to pass to the view
-     *
-     * @return string The rendered view
-     */
-    public function renderView($view, array $parameters = array())
-    {
-        return $this->twigTemplate->render($view, $parameters);
-    }    
-
-    /**
-     * Renders a view.
-     *
-     * @param string   $view       The view name
-     * @param array    $parameters An array of parameters to pass to the view
-     * @param Response $response   A response instance
-     *
-     * @return Response A Response instance
-     */
-    public function render($view, array $parameters = array(), Response $response = null)
-    {
-        return $this->twigTemplate->renderResponse($view, $parameters, $response);
-    }  
-
-    /**
      * Creates and returns a Form instance from the type of the form.
      *
      * @param string|FormTypeInterface $type    The built type of the form
@@ -150,7 +123,7 @@ abstract class BaseController
     protected function createFormBuilder($data = null, array $options = array())
     {
         return $this->formFactory->createBuilder('form', $data, $options);
-    }      
+    }
 
     protected function getFormErrors(Form $form, $flip=true)
     {
@@ -160,7 +133,8 @@ abstract class BaseController
                 $errors[$fieldName] = $error->getMessage();
             }
         }
-        return $errors;       
+
+        return $errors;
     }
 
     protected function getUserToken()
@@ -172,11 +146,4 @@ abstract class BaseController
     {
         $this->validation = $validation;
     }
-
-    protected function generateAsset($asset, $schemeAndHttpHost=true)
-    {
-        $baseUrl = $this->router->generate('site_root',[],$schemeAndHttpHost);
-        return $baseUrl.$asset;
-    }
-      
 }

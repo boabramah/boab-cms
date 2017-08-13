@@ -1,0 +1,13 @@
+
+pagination:
+    entries_per_page: 10
+    links_per_page: 10
+content_types:
+    content:
+        add_template: BoabCmsBundle:Admin:content_add.html.twig
+        edit_template: BoabCmsBundle:Admin:content_edit.html.twig
+        show_template: BoabCmsBundle:Public:content_show.html.twig
+        list_template: BoabCmsBundle:Public:content_list.html.twig
+        list_layout_type: col-1
+        show_layout_type: col-2
+        form_validator: Invetico\BoabCmsBundle\Validation\Form\Content

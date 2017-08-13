@@ -8,14 +8,9 @@ use Invetico\BoabCmsBundle\Model\AbstractContentType;
 
 class ArticleType extends AbstractContentType
 {
-    public function getEntity()
+    public function getTypeId()
     {
-        return new \Invetico\BoabCmsBundle\Entity\Article();
-    }
-
-    public function getValidator(array $data=[])
-    {
-        return new \Invetico\BoabCmsBundle\Validation\Form\Article($data);
+        return 'article';
     }
 
     public function buildRouteParams(Article $content)
@@ -26,16 +21,6 @@ class ArticleType extends AbstractContentType
     public function getContentFromRoute(Request $request)
     {
         return $this->contentRepository->findContentBySlug($request->get('slug'));
-    }
-
-    public function getListRouteName()
-    {
-        return 'blog_list';
-    }
-
-    public function getShowRouteName()
-    {
-        return 'blog_show';
     }
 
     public function getListView()
@@ -51,7 +36,7 @@ class ArticleType extends AbstractContentType
     public function getBlockTitle()
     {
         return 'The Blog';
-    }       
+    }
 
     public function getContentRouteParams($routeKey, $content)
     {
@@ -69,5 +54,10 @@ class ArticleType extends AbstractContentType
     public function getContent(Request $request)
     {
         return $this->contentRepository->findContentBySlug($request->get('slug'));
+    }
+
+    public function getContentTypeLabel()
+    {
+        return 'Article';
     }
 }

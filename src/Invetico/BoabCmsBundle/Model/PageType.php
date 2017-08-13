@@ -4,27 +4,33 @@ namespace Invetico\BoabCmsBundle\Model;
 
 use Symfony\Component\HttpFoundation\Request;
 use Invetico\BoabCmsBundle\Entity\Page;
+use Invetico\BoabCmsBundle\Entity\PageInterface;
 use Invetico\BoabCmsBundle\Model\AbstractContentType;
+use Invetico\BoabCmsBundle\Entity\ContentInterface;
 
 class PageType extends AbstractContentType
 {
-
-    public function getValidator(array $data=[])
+    public function getTypeId()
     {
-        return new \Invetico\BoabCmsBundle\Validation\Form\Page($data);
+        return 'page';
     }
 
-    public function createEntity(Request $request, $entity=null)
+    public function createEntity(Request $request, ContentInterface $entity = null)
     {
-        $entity = (null === $entity) ? $this->getEntity() : $entity;
+        $entity = parent::createEntity($request, $entity);
         $entity->setParentId($request->get('page_parent'));
 
-        return parent::createEntity($request, $entity);
+        return $entity;
     }
 
-    public function getEntity()
+    public function getContentTypeId()
     {
-        return new Page();
+        return 'page';
+    }
+
+    public function getContentTypeLabel()
+    {
+        return 'Page';
     }
 
 }

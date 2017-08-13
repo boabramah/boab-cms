@@ -7,7 +7,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class BaseRepository extends EntityRepository
 {
-	protected $rowsPerPage;
+    protected $rowsPerPage;
 
     const MAX_RESULTS = 20;
 
@@ -15,19 +15,20 @@ class BaseRepository extends EntityRepository
 
     public function paginate($query, $page=null, $rowsPerPage = null)
     {
-    	$rowsPerPage = ($rowsPerPage != null) ? $rowsPerPage : self::MAX_RESULTS;
+        $rowsPerPage = ($rowsPerPage != null) ? $rowsPerPage : self::MAX_RESULTS;
         $page = ($page != null) ? $page : self::CURRENT_PAGE;
-		$offset = ($page - 1) * $rowsPerPage;
+        $offset = ($page - 1) * $rowsPerPage;
 
-    	$query->setFirstResult($offset)
+        $query->setFirstResult($offset)
               ->setMaxResults($rowsPerPage);
-    	return new Paginator($query, $fetchJoinCollection = true);
+
+        return new Paginator($query, $fetchJoinCollection = true);
     }
 
 
     public function createQuery($dql)
     {
-    	return $this->_em->createQuery($dql);
+        return $this->_em->createQuery($dql);
     }
 
 
@@ -40,14 +41,13 @@ class BaseRepository extends EntityRepository
     protected function getContentQuery($contentType = '')
     {
         $qb = $this->_em->createQueryBuilder();
-        $class = ($contentType !='') ? $contentType : 'Invetico\BoabCmsBundle\Entity\Content';
-        $qb->select('c','m','u')
+        $class = ($contentType !='') ? $contentType : 'BoabCmsBundle:Content';
+        $qb->select('c','u')
            ->from($class, 'c')
-           ->leftJoin('c.menu','m')
            ->leftJoin('c.user', 'u');
 
         return $qb;
-    }    
+    }
 
 
     protected function addParams($qb, $params)
@@ -71,7 +71,7 @@ class BaseRepository extends EntityRepository
            ->setParameter('status',1);
 
         return $this->paginate($qb->getQuery(), $page);
-    } 
+    }
 
     public function findTotalRecords($entityClass)
     {
@@ -80,11 +80,12 @@ class BaseRepository extends EntityRepository
                  ->from($entityClass, 'e')
                  ->getQuery()
                  ->getSingleScalarResult();
-    }     
+    }
 
     protected function add24h(\DateTimeInterface $date)
     {
         $interval = '24:00';
+
         return $date->add(new \DateInterval("P0000-00-00T$interval:00"));
-    }         
+    }
 }

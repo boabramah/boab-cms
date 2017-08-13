@@ -3,16 +3,18 @@
 namespace Invetico\BoabCmsBundle\Validation\Form;
 
 use Invetico\BoabCmsBundle\Validation\Form\Content;
+use Invetico\BoabCmsBundle\Validation\ValidationInterface;
+use Invetico\BoabCmsBundle\Validation\FormValidationInterface;
 
-class Video extends Content
+class Video extends Content implements FormValidationInterface
 {
-    public function register()
+    public function register(ValidationInterface $validation)
     {
-        parent::register();
+        parent::register($validation);
 
-        $this->add('youtube_video_id','Youtube video Id',function ($e) {
-            $e->isRequire();
+        $validation->add('youtube_video_id', function ($e) {
+            $e->setLabel('Youtube video Id')
+              ->isRequire();
         });
-
     }
 }

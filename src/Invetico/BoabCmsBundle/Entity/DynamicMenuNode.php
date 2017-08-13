@@ -11,16 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DynamicMenuNode extends Menu
 {
-  	public function getCleanUrl($baseUrl='')
-	{
-		if('/' === $this->getPath()){
-			return $baseUrl;
-		}
-		return $baseUrl . substr($this->getPath(), 1, strlen($this->getPath()));
-	}
-
-    public function getContentTypeId()      	
+    public function getCleanUrl($baseUrl = '')
     {
-        return 'page';
-    }	
+        if ('/' === $this->getPath()) {
+            return $baseUrl;
+        }
+
+        return $baseUrl.substr($this->getPath(), 1, strlen($this->getPath()));
+    }
 }

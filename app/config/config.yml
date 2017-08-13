@@ -187,3 +187,34 @@ gesdinet_jwt_refresh_token:
     ttl: 2592000
     ttl_update: true
     firewall: api
+
+
+boab_cms:
+    pagination:
+        entries_per_page: 10
+        links_per_page: 10
+    content_types:
+        page:
+            entity: Invetico\BoabCmsBundle\Entity\Page
+            add_template: BoabCmsBundle:Admin:page_add.html.twig            
+            edit_template: BoabCmsBundle:Admin:edit_page.html.twig
+            show_template: BoabCmsBundle:Page:page_show.html.twig
+            list_template: BoabCmsBundle:Page:page_list.html.twig
+            list_layout_type: col-1
+            show_layout_type: col-2
+            form_validator: Invetico\BoabCmsBundle\Validation\Form\Page
+            description: Use for creating static content like About us page
+        audio:
+            entity: Invetico\BoabCmsBundle\Entity\Audio
+            add_template: BoabCmsBundle:Audio:audio_add.html.twig
+            form_validator: Invetico\BoabCmsBundle\Validation\Form\Audio
+            description: Use for audio podcast            
+        video:
+            entity: Invetico\BoabCmsBundle\Entity\Video
+            add_template: BoabCmsBundle:Video:video_add.html.twig     
+            form_validator: Invetico\BoabCmsBundle\Validation\Form\Video                   
+            description: Use for youtube videos            
+        article:
+            entity: Invetico\BoabCmsBundle\Entity\Article   
+            description: Use for creating dynamic content like blog posts                    
+ 

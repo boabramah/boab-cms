@@ -5,19 +5,15 @@ namespace Invetico\BoabCmsBundle\Model;
 use Invetico\BoabCmsBundle\Entity\AudioInterface;
 use Invetico\BoabCmsBundle\Model\AbstractContentType;
 use Symfony\Component\HttpFoundation\Request;
+use Invetico\BoabCmsBundle\Entity\ContentInterface;
 
 class AudioType extends AbstractContentType
 {
-    
-    public function getEntity()
-    {
-        return new \Invetico\BoabCmsBundle\Entity\Audio();
-    }
 
-    public function getValidator(array $data=[])
+    public function getTypeId()
     {
-        return new \Invetico\BoabCmsBundle\Validation\Form\Audio($data);
-    }	
+        return 'audio';
+    }
 
     public function buildRouteParams(AudioInterface $content)
     {
@@ -27,12 +23,13 @@ class AudioType extends AbstractContentType
     public function getContentFromRoute(Request $request)
     {
         return $this->contentRepository->findContentBySlug($request->get('slug'));
-    }		
+    }
 
-    public function createEntity(Request $request, $entity=null)
+    public function createEntity(Request $request, ContentInterface $entity = null)
     {
         $entity =  parent::createEntity($request, $entity);
         $entity->setAuthor($request->get('audio_author'));
+
         return $entity;
     }
 
@@ -62,17 +59,8 @@ class AudioType extends AbstractContentType
     public function getContent(Request $request)
     {
         return $this->contentRepository->findContentBySlug($request->get('slug'));
-    } 
-
-    public function getAddTemplate()
-    {
-        return 'BoabCmsBundle:Audio:add_audio.html.twig';
     }
 
-    public function getEditTemplate()
-    {
-        return 'BoabCmsBundle:Audio:edit_audio';
-    }
 
     public function getListView()
     {
@@ -92,5 +80,10 @@ class AudioType extends AbstractContentType
     public function getNodeLayout()
     {
         return 'page_tpl.html.twig';
-    }           	
+    }	
+
+    public function getContentTypeLabel()
+    {
+        return 'Audio';
+    }
 }

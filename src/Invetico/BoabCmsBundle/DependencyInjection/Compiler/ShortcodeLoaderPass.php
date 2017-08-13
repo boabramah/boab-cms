@@ -19,6 +19,6 @@ class ShortcodeLoaderPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('shortcode') as $id => $attributes) {
             $definition->addMethodCall('register', array(new Reference($id)));
-        } 
+        }
     }
 }

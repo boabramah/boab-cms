@@ -14,6 +14,12 @@
             <tag name="serializer.normalizer" priority="100" />
         </service>         
 
+        <service id="api_content_normaliser" class="Invetico\BoabCmsBundle\Api\Normalizer\ContentNormalizer">
+            <argument type="service" id="router" />
+            <argument type="service" id="content_type_manager" />
+            <tag name="serializer.normalizer" priority="10" />              
+        </service>  
+        
         <service id="form_error.normaliser" class="Invetico\BoabCmsBundle\Api\Normalizer\FormErrorNormalizer">
             <tag name="serializer.normalizer" priority="100" />
         </service>

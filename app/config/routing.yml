@@ -8,12 +8,6 @@ api_user:
     requirements:
         _api: api|rest
 
-_api_banking:
-    resource: "@BankBundle/Resources/config/routing/api_routes.xml"
-    prefix:   /{_api}
-    requirements:
-        _api: api|rest
-
 user_admin:
     resource: "@UserBundle/Resources/config/routing/admin.xml"
 user_account:
@@ -30,9 +24,6 @@ _api_content:
 
 _menu:
     resource: "@BoabCmsBundle/Resources/config/routing/menu.xml"
-
-_bank_account:
-    resource: "@BankBundle/Resources/config/routing/routes.xml"
 
 _cronjob:
     resource: "@CronBundle/Resources/config/routing/routes.xml"

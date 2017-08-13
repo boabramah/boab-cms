@@ -5,16 +5,16 @@ namespace Invetico\BoabCmsBundle\Model;
 use Invetico\BoabCmsBundle\Entity\Video;
 use Symfony\Component\HttpFoundation\Request;
 use Invetico\BoabCmsBundle\Model\AbstractContentType;
+use Invetico\BoabCmsBundle\Entity\ContentInterface;
 
 class VideoType extends AbstractContentType
 {
-
-    public function getEntity()
+    public function getTypeId()
     {
-        return new \Invetico\BoabCmsBundle\Entity\Video();
+        return 'video';
     }
 
-    public function createEntity(Request $request, $entity=null)
+    public function createEntity(Request $request, ContentInterface $entity = null)
     {
         $entity =  parent::createEntity($request, $entity);
         $entity->setYoutubeVideoId($request->get('youtube_video_id'));
@@ -22,7 +22,7 @@ class VideoType extends AbstractContentType
         return $entity;
     }
 
-    public function getValidator(array $data=[])
+    public function getValidator(array $data = [])
     {
         return new \Invetico\BoabCmsBundle\Validation\Form\Video($data);
     }
@@ -30,21 +30,6 @@ class VideoType extends AbstractContentType
     public function buildRouteParams(Video $content)
     {
         return ['slug' => $content->getSlug()];
-    }
-
-    public function getContent(Request $request)
-    {
-        return $this->contentRepository->findContentBySlug($request->get('slug'));
-    }
-
-    public function getAddTemplate()
-    {
-        return 'BoabCmsBundle:Video:add_video';
-    }
-
-    public function getEditTemplate()
-    {
-        return 'BoabCmsBundle:Video:edit_video';
     }
 
     public function getListView()
@@ -60,7 +45,7 @@ class VideoType extends AbstractContentType
     public function getNodeLayout()
     {
         return 'page_tpl.html.twig';
-    }    
+    }
 
     public function getNodeView()
     {
@@ -79,7 +64,7 @@ class VideoType extends AbstractContentType
 
     public function getRouteParams($routeName, $request)
     {
-        return ['season'=>$request->get('season')];
+        return ['season' => $request->get('season')];
     }
 
     public function getContentRouteParams($routeKey, $content)
@@ -94,15 +79,15 @@ class VideoType extends AbstractContentType
                 break;
         }
     }
-
-    public function getContentByType($request, $pageNumber)
+    
+    public function getContentTypeId()
     {
-        $season = $request->get('season');
-        if ($season) {
-            return $this->contentRepository->findContentByTerm($this->getEntityClass(), $season, $pageNumber);
-        }
+        return 'video';
+    }
 
-        return $this->contentRepository->findContentByType($this->getEntityClass(), $pageNumber);
+    public function getContentTypeLabel()
+    {
+        return 'Video';
     }
 
 }

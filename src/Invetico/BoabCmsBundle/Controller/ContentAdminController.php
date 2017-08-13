@@ -81,8 +81,7 @@ class ContentAdminController extends AdminController implements InitializableCon
         $contentType = $this->contentTypeManager->getType($type);
 
         $form = $this->template->load($contentType->getAddTemplate());
-        $form->flash = $this->flash;
-        $form->action = $this->router->generate('admin_content_create',['content_type'=>strtolower($request->get('content_type'))]);
+        $form->action = $this->router->generate('admin_content_create', ['content_type' => strtolower($type)]);
         $form->content = $contentType->getEntity();
 
         $this->eventDispatcher->dispatch('content.form_render', new FormRenderEvent($form, $contentType->getEntity()));
@@ -98,12 +97,12 @@ class ContentAdminController extends AdminController implements InitializableCon
     {
         $typeId = $request->get('content_type');
         $contentType = $this->contentTypeManager->getType($typeId);
-        $validator = $contentType->getValidator($request->request->all());
+        $this->validation->validateRequest($request, $contentType->getValidator());
 
         $redirect = $this->router->generate('admin_content_add_type', ['content_type' => $typeId]);
 
-        if (!$validator->isValid()) {
-            $this->flash->setErrors($validator->getErrors());
+        if (!$this->validation->isValid()) {
+            $this->flash->setErrors($this->validation->getErrors());
             $this->flash->setValues($request->request->all());
 
             return $this->redirect($redirect);
@@ -163,8 +162,8 @@ class ContentAdminController extends AdminController implements InitializableCon
         $this->eventDispatcher->dispatch('content.form_render', $event);
 
         $this->template->setTitle('Edit Content')
-                     ->bind('page_header',$content->getTitle())
-                     ->bind('content',$event->getForm());
+                     ->bind('page_header', $content->getTitle())
+                     ->bind('content', $event->getForm());
 
         return $this->template;
     }
@@ -174,20 +173,21 @@ class ContentAdminController extends AdminController implements InitializableCon
     {
         $content = $this->contentRepository->findContentById($contentId);
 
-        if(!$content) {
-            throw new HttpException(403,'Bad request! The content does not exist');
+        if (!$content) {
+            throw new HttpException(403, 'Bad request! The content does not exist');
         }
 
         $event = new ContentDeletedEvent($content);
         $this->eventDispatcher->dispatch('content.delete', $event);
 
         $message = sprintf('Content <strong>%s</strong> deleted successfully', $content->getTitle());
-        
+
         $this->entityManager->remove($content);
         $this->entityManager->flush();
 
         $normalizer = new SuccessResponseNormalizer([]);
         $normalizer->setMessage($message);
+
         return $normalizer;
     }
 }

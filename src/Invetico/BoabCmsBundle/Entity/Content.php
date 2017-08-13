@@ -101,21 +101,14 @@ abstract class Content extends AbstractEntity implements ContentInterface
      *
      * @ORM\Column(name="meta_keywords", type="string", length=255, precision=0, scale=0, nullable=true, unique=false)
      */
-    protected $metaKeywords; 
+    protected $metaKeywords;
 
     /**
      * @var string
      *
      * @ORM\Column(name="meta_description", type="string", length=255, precision=0, scale=0, nullable=true, unique=false)
      */
-    protected $metaDescription;       
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="parent_id", type="integer", precision=0, scale=0, nullable=true, unique=false)
-     */
-    protected $parentId;   
+    protected $metaDescription;
 
     /**
      * @var integer
@@ -135,22 +128,11 @@ abstract class Content extends AbstractEntity implements ContentInterface
     protected $user;
 
     /**
-     * @var \Invetico\BoabCmsBundle\Entity\DynamicMenuNode
-     *
-     * @ORM\OneToOne(targetEntity="Invetico\BoabCmsBundle\Entity\DynamicMenuNode", cascade={"persist","remove"}, orphanRemoval=true)
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="menu_id", referencedColumnName="id", unique=true, nullable=true)
-     * })
-     */
-    protected $menu;
-
-
-    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Invetico\BoabCmsBundle\Entity\Photo", mappedBy="content", cascade={"persist","remove"}, orphanRemoval=true)
      */
-    protected $photos;  
+    protected $photos;
 
     /**
      * Constructor
@@ -192,7 +174,7 @@ abstract class Content extends AbstractEntity implements ContentInterface
     public function getPhotos()
     {
         return $this->photos;
-    }      
+    }
 
 	 /**
      * Get id
@@ -522,53 +504,6 @@ abstract class Content extends AbstractEntity implements ContentInterface
     public function getMetaDescription()
     {     
         return $this->metaDescription;
-    }
-
-    /**
-     * Set parentId
-     *
-     * @param integer $parentId
-     *
-     * @return Content
-     */
-    public function setParentId($parentId)
-    {
-        $this->parentId = $parentId;
-
-        return $this;
-    }
-
-    /**
-     * Get parentId
-     *
-     * @return integer
-     */
-    public function getParentId()
-    {
-        return $this->parentId;
-    }    
-
-    /**
-     * Set menu
-     *
-     * @param  \Invetico\BoabCmsBundle\Entity\DynamicMenuNode $menu
-     * @return Content
-     */
-    public function setMenu(\Invetico\BoabCmsBundle\Entity\DynamicMenuNode $menu = null)
-    {
-        $this->menu = $menu;
-
-        return $this;
-    }
-
-    /**
-     * Get menu
-     *
-     * @return \Invetico\BoabCmsBundle\Entity\DynamicMenuNode
-     */
-    public function getMenu()
-    {
-        return $this->menu;
     }
 
     /**

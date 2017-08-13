@@ -25,7 +25,7 @@ class ContentController extends BaseController implements PublicControllerInterf
     private $contentTypeManager;
     private $finder;
 
-    use ContentHelper;    
+    use ContentHelper;
 
     public function __construct
     (
@@ -44,7 +44,7 @@ class ContentController extends BaseController implements PublicControllerInterf
     public function initialize()
     {
         parent::initialize();
-        $this->template->setTheme('kantua');		
+        $this->template->setTheme('kantua');
     }
     /**
      * Site root or home
@@ -55,9 +55,10 @@ class ContentController extends BaseController implements PublicControllerInterf
     public function indexAction(Request $request)
     {
         $this->template->setTitle('Home')
-                ->bind('site_area','home')
-                ->bind('featuredContent',$this->getFeaturedContent())
-                ->setBlock('contentArea','home_layout.html.twig');
+                ->bind('site_area', 'home')
+                ->bind('featuredContent', $this->getFeaturedContent())
+                ->setBlock('contentArea', 'home_layout.html.twig');
+
         return $this->template;
     }
 
@@ -70,23 +71,23 @@ class ContentController extends BaseController implements PublicControllerInterf
      * 
      * @return void
      */
-    public function listAction(Request $request, $routeDocument=null)
+    public function listAction(Request $request, $routeDocument = null)
     {
         $pageNumber = (int) $request->get('page');
 
         $entityClasses = [];
         $contentTypes = $routeDocument->getContentTypeId();
-        foreach(explode(',',$contentTypes) as $type){
+        foreach (explode(',', $contentTypes) as $type) {
             $typeManager = $this->contentTypeManager->getType($type);
             array_push($entityClasses, $typeManager->getEntityClass());
         }
 
         $collection = $this->contentRepository->findContentByEntities($entityClasses, $pageNumber);
-        
+ 
         $pagingOption = [
             'page_total_rows' => count($collection),
-            'page_number'=>$pageNumber,
-            'page_url'=>$this->router->generate($routeDocument->getRouteName(), ['page'=>$pageNumber])
+            'page_number' => $pageNumber,
+            'page_url' => $this->router->generate($routeDocument->getRouteName(), ['page' => $pageNumber])
         ];
 
         $view = $this->template->load($routeDocument->getTemplate());
@@ -95,31 +96,32 @@ class ContentController extends BaseController implements PublicControllerInterf
         $view->routeDocument = $routeDocument;
 
         $this->template->setTitle($routeDocument->getTitle())
-                     ->bind('page_title',$routeDocument->getTitle())
-                     ->bind('content',$view)
+                     ->bind('page_title', $routeDocument->getTitle())
+                     ->bind('content', $view)
                      ->setBlock('contentArea','plain_tpl.html.twig');
+
         return $this->template;
-    }	
+    }
 
 
-    public function showAction(Request $request, $routeDocument=null, $contentTemplate=null, $slug=null)
+    public function showAction(Request $request, $routeDocument = null, $contentTemplate = null, $slug = null)
     {
-        if($routeDocument instanceof ControllerAwareMenuNode){
+        if ($routeDocument instanceof ControllerAwareMenuNode) {
             $contentNode = $this->contentRepository->findContentBySlug($slug);
             $typeManager = $this->contentTypeManager->getTypeByClass(get_class($contentNode));
             $contentTypes = $routeDocument->getContentTypeId();
-            if(!in_array($typeManager->getContentTypeId(), explode(',',$contentTypes))){
+            if (!in_array($typeManager->getContentTypeId(), explode(',', $contentTypes))) {
                 throw new NotFoundHttpException('Content not found');
-            }	
+            }
         }
 
-        if($routeDocument instanceof DynamicMenuNode){
-            $typeManager = $this->getTypeManager($routeDocument->getContentTypeId());
-            $contentNode = $typeManager->getContent($request);			
+        if ($routeDocument instanceof DynamicMenuNode) {
+            $typeManager = $this->contentTypeManager->getType($routeDocument->getContentTypeId());
+            $contentNode = $typeManager->getContent($request);
         }
 
-        if($routeDocument instanceof NotFoundHttpMenuNode || !$contentNode){
-            throw new NotFoundHttpException("Page not found");	
+        if ($routeDocument instanceof NotFoundHttpMenuNode || !$contentNode) {
+            throw new NotFoundHttpException("Page not found");
         }
 
         $view = $this->template->load($contentTemplate ? $contentTemplate : $typeManager->getNodeView());
@@ -146,14 +148,6 @@ class ContentController extends BaseController implements PublicControllerInterf
         }
 
         return $typeManager->getNodeLayout();
-    }
-
-    private function getTypeManager($contentTypeId)
-    {
-        $contentType = $this->contentTypeManager->getType($contentTypeId);
-        $contentType->setContenRepository($this->contentRepository);
-        
-        return $contentType;
     }
 
     private function loadListViewForType($typeManager)
