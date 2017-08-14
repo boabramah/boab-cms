@@ -23,18 +23,20 @@ class ContentNormalizer implements NormalizerInterface
 
     public function normalize($content, $format = null, array $context = [])
     {
+        $type = $this->getContentType($content);
+
         return [
             'id' => $content->getId(),
             'title' => $content->getTitle(),
-            'contentType' => $this->getContentType($content),
+            'contentType' => $type,
             'author' => $content->getAuthoredBy(),
             'summary' => $content->getSummary(),
             'status' => $this->status($content->getStatus()),
             'deleteUrl' => $this->router->generate('admin_content_delete', ['contentId'=>$content->getId()], true),
-            'editUrl' => $this->router->generate('admin_content_edit', ['id' => $content->getId()], true),
+            'editUrl' => $this->router->generate('edit_show_content', ['contentId' => $content->getId(), 'type'=>$type], true),
             'showUrl' => $this->router->generate('api_show_content', ['contentId' => $content->getId(),'_api'=>'rest'], true),
             'date_published' => $content->getDatePublished('d-m-Y h:i:sa'),
-            'thumbnail' => sprintf("[asset path=%s]",$content->getDefaultThumbnail()),
+            'thumbnail' => sprintf("[asset path=%s]", $content->getDefaultThumbnail()),
         ];
     }
 

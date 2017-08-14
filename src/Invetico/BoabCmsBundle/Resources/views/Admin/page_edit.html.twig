@@ -1,0 +1,21 @@
+{% extends 'BoabCmsBundle:Admin:content_edit.html.twig' %}
+
+{% block tabs %}
+	{{ parent() }}
+	<li><a class="tab" role="tab" data-toggle="tab" data-tab="menu-setting" href="#menu-setting">Menu Setting</a></li>
+{% endblock %}
+
+{% block form %}
+    {{ parent() }}
+    <div id="menu-setting" class="tab-pane form-column-container">
+        <div id="activate-menu" class="checkbox custom-checkbox">
+            <label>
+                <input type="checkbox" id="menu_enable" name="menu_enable" class="input-extra-settings" data-setting-target="menu-setting-box" {{ content.hasRoute() ? 'checked' }} />
+                <span class="fa fa-check"></span>Provide Menu for content
+            </label>
+        </div>
+        <div id="menu-setting-box" class="{{ content.hasRoute() ? 'slide-down' : 'slide-up' }}">
+            {% include 'BoabCmsBundle:Admin:content_menu_option.html.twig' %}
+         </div>
+    </div>
+{% endblock %}

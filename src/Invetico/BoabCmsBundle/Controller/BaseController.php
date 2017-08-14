@@ -125,7 +125,7 @@ abstract class BaseController
         return $this->formFactory->createBuilder('form', $data, $options);
     }
 
-    protected function getFormErrors(Form $form, $flip=true)
+    protected function getFormErrors(Form $form, $flip = true)
     {
         $errors = array();
         foreach ($form as $fieldName => $formField) {
@@ -145,5 +145,22 @@ abstract class BaseController
     public function setValidation(ValidationInterface $validation)
     {
         $this->validation = $validation;
+    }
+
+    protected function save($entity)
+    {
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+
+        return $entity;
+    }
+
+    protected function update($entity)
+    {
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+        $this->entityManager->refresh();
+
+        return $entity;
     }
 }

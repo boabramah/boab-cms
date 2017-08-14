@@ -93,7 +93,4 @@ class MailToken
     {
         return $this->dateCreated;
     }
-
- 
-
 }

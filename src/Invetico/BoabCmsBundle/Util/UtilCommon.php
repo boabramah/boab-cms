@@ -57,7 +57,7 @@ trait UtilCommon
         return "<font color=\"green\">Published</font>";
     }
 
-    function clean_url($str, $replace = [], $delimiter = '-')
+    function slugify($str, $replace = [], $delimiter = '-')
     {
         if (!empty($replace)) {
             $str = str_replace((array) $replace, ' ', $str);

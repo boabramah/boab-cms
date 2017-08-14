@@ -13,7 +13,15 @@ class BaseRepository extends EntityRepository
 
     const CURRENT_PAGE = 1;
 
-    public function paginate($query, $page=null, $rowsPerPage = null)
+    public function save($entity)
+    {
+        $this->_em->persist($entity);
+        $this->_em->flush();
+
+        return $entity;
+    }
+
+    public function paginate($query, $page = null, $rowsPerPage = null)
     {
         $rowsPerPage = ($rowsPerPage != null) ? $rowsPerPage : self::MAX_RESULTS;
         $page = ($page != null) ? $page : self::CURRENT_PAGE;
@@ -59,16 +67,15 @@ class BaseRepository extends EntityRepository
             $qb->andWhere("c.{$key} = :{$key}")
                 ->setParameter($key, $value);
         }
-    }  
-    
+    }
 
-    protected function findContentByType($contentType, $page, $params=[])
+    protected function findContentByType($contentType, $page, $params = [])
     {
         $qb = $this->getContentQuery($contentType)
                    ->where('c.status = :status');
         $this->addParams($qb, $params);
         $qb->orderBy('c.datePublished', 'DESC')
-           ->setParameter('status',1);
+           ->setParameter('status', 1);
 
         return $this->paginate($qb->getQuery(), $page);
     }
@@ -88,4 +95,5 @@ class BaseRepository extends EntityRepository
 
         return $date->add(new \DateInterval("P0000-00-00T$interval:00"));
     }
+
 }

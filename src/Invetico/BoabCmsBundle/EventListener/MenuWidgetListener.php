@@ -95,14 +95,10 @@ class MenuWidgetListener implements EventSubscriberInterface
     public function onContentNodeRender($event)
     {
         $entity = $event->getNode();
-        if (!$entity instanceof ParentableInterface) {
-            return;
+        if ($entity instanceof PageInterface && $entity->getMenu() != false) {
+            $this->template->bind('relatedLinks', $this->getRelatedRouteLinks($entity));
         }
-        die($entity->getTitle());
-
-        $this->template->bind('relatedLinks', $this->getRelatedRouteLinks($entity));
     }
-
 
     private function getRelatedRouteLinks($entity)
     {

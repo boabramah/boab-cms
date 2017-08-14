@@ -27,10 +27,10 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         // $referer_url = $request->headers->get('referer');
         
         // Default target for unknown roles. Everyone else go there.
-        $url = 'dashboard_area';
+        $url = 'admin_dashboard';
 
         if($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $url = 'dashboard_area';
+            $url = 'admin_dashboard';
 
         }
         elseif($this->authorizationChecker->isGranted('ROLE_EDITOR')) {

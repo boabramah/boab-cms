@@ -1,5 +1,6 @@
 <?php
-namespace Invetico\CronBundle\Entity;
+
+namespace Invetico\BoabCmsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;

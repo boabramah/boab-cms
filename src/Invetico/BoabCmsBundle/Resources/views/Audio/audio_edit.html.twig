@@ -1,0 +1,33 @@
+
+{% extends 'BoabCmsBundle:Admin:content_edit.html.twig' %}
+
+{% block tabs %}
+{{ parent() }}
+	<li><a class="tab" role="tab" data-toggle="tab" data-tab="audio-setting" href="#audio-setting">Audio Setting</a></li>
+{% endblock %}
+
+{% block form %}
+<div id="audio-setting" class="tab-pane form-column-container">
+	
+	<div class="form-group">
+		<label>Author</label>
+		<input id="audio_author" name="audio_author" type="text" value="<?php echo ($this->content->getAudio()) ? $this->content->getAuthor() : $this->flash->getData('audio_author'); ?>" />
+		 {{ flash_error('audio_author') }}
+	</div>
+
+	<div class="form-group">
+		<label>Audio File:</label>
+		<input type="file" name="audio_file" id="audio_file" />
+		<span class="desc">Allowed audio files: mp3.</span>
+		{{ flash_error('audio_file') }}
+	</div>
+	
+</div>
+{% endblock %}
+
+
+
+
+ 
+
+

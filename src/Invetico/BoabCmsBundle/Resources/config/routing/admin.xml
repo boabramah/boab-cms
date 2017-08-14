@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="admin_area" path="/">
+        <default key="_controller">content_admin_controller:indexAction</default>
+    </route>
+    <route id="admin_dashboard" path="/dashboard">
+        <default key="_controller">dashboard_controller:indexAction</default>
+    </route> 
+    <route id="admin_content_list" path="/contents">
+        <default key="_controller">content_admin_controller:indexAction</default>
+    </route>
+    <route id="admin_content_add" path="/contents/add">
+        <default key="_controller">add_content_controller:addAction</default>
+    </route>
+    <route id="admin_content_add_type" path="/contents/{type}/add" methods="GET">
+        <default key="_controller">add_content_controller:addAction</default>
+    </route>
+    <route id="admin_content_save" path="/contents/{type}/add" methods="POST">
+        <default key="_controller">add_content_controller:saveAction</default>
+    </route>
+    <route id="edit_show_content" path="/contents/{type}/{contentId}/edit" methods="GET">
+        <default key="_controller">edit_content_controller:editAction</default>
+    </route>
+    <route id="edit_save_content" path="/contents/{type}/{contentId}/edit" methods="POST">
+        <default key="_controller">edit_content_controller:saveAction</default>
+    </route>    
+    <route id="admin_content_delete" path="/contents/{contentId}/delete">
+        <default key="_controller">content_admin_controller:deleteAction</default>
+    </route>
+
+    <route id="content_image_upload" path="/contents/thumbnail/upload">
+        <default key="_controller">file_upload_controller:uploadAction</default>
+    </route>
+
+    <route id="set_content_cover" path="/contents/thumbnail/make-cover">
+        <default key="_controller">file_upload_controller:setCoverAction</default>
+    </route>
+
+    <route id="delete_content_image" path="/contents/thumbnail/delete">
+        <default key="_controller">file_upload_controller:deleteAction</default>
+    </route>
+
+    <route id="delete_content_thumbnail" path="/contents/delete/thumbnail/{id}">
+        <default key="_controller">file_upload_controller:deleteContentThumbnailAction</default>
+    </route>     
+
+    <route id="photo_upload" path="/contents/{contentId}/photos" methods="POST|PUT">
+        <default key="_controller">photo_controller:uploadAction</default>
+    </route>
+    <route id="photo_edit" path="/photos/{photoId}/edit" methods="POST|PUT">
+        <default key="_controller">photo_controller:editAction</default>
+    </route>
+    <route id="photo_delete" path="/photos/{photoId}/delete">
+        <default key="_controller">photo_controller:deleteAction</default>
+    </route>                         
+
+</routes>

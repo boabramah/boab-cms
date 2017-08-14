@@ -1,12 +1,13 @@
 <?php
-namespace Invetico\CronBundle\Command;
+
+namespace Invetico\BoabCmsBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\StringInput;
 
-class CronTasksRunCommand extends ContainerAwareCommand
+class CronTaskCommand extends ContainerAwareCommand
 {
     private $output;
 
@@ -56,10 +57,10 @@ class CronTasksRunCommand extends ContainerAwareCommand
     private function isRunnable($crontask)
     {
         $date = $crontask->getLastRun();
-        if(!$date){
+        if (!$date) {
             return true;
         }
-        $date->modify(sprintf('+%s minutes',$crontask->getInterval()));
+        $date->modify(sprintf('+%s minutes', $crontask->getInterval()));
         // Get the last run time of this task, and calculate when it should run next
         //$lastrun = $crontask->getLastRun() ? $crontask->getLastRun()->format('U') : 0;
         //$nextrun = $lastrun + $crontask->getInterval();

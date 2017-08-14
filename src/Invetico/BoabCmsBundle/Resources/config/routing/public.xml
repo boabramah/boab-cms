@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="site_root" path="/">
+        <default key="_controller">content_controller:indexAction</default>
+    </route>           
+    <route id="cron_run_task" path="/cron/run">
+        <default key="_controller">crontask_controller:testAction</default>
+    </route>
+    <route id="feed_stock" path="/stock/feed">
+        <default key="_controller">static_content_controller:stockFeedAction</default>
+    </route>
+    <route id="_splash" path="/assets/splash">
+        <default key="_controller">static_content_controller:splashAction</default>
+    </route>    
+</routes>

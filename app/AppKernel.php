@@ -25,8 +25,7 @@ class AppKernel extends Kernel
 
             new Invetico\BoabCmsBundle\BoabCmsBundle,
             new Invetico\UserBundle\UserBundle(),
-            new Invetico\MailerBundle\MailerBundle(),
-            new Invetico\CronBundle\CronBundle()
+            new Invetico\MailerBundle\MailerBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -110,7 +110,7 @@ class ContentController extends BaseController implements PublicControllerInterf
             $contentNode = $this->contentRepository->findContentBySlug($slug);
             $typeManager = $this->contentTypeManager->getTypeByClass(get_class($contentNode));
             $contentTypes = $routeDocument->getContentTypeId();
-            if (!in_array($typeManager->getContentTypeId(), explode(',', $contentTypes))) {
+            if (!in_array($typeManager->getTypeId(), explode(',', $contentTypes))) {
                 throw new NotFoundHttpException('Content not found');
             }
         }

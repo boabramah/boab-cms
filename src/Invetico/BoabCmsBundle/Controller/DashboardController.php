@@ -44,7 +44,7 @@ Class DashboardController extends AdminController
         if (!$request->get('splash')) {
             $this->flash->setInfo('You have to update your profile information');
 
-            return $this->redirect($this->router->generate('account_home', ['splash'=>2]));
+            return $this->redirect($this->router->generate('admin_dashboard', ['splash'=>2]));
         }
         
         //$view->contentTypes = $types;

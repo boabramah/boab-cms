@@ -2,8 +2,8 @@
 <div id="content-types-container">
 	{% for contentType in contentTypes %}
 	<div class="content-type">
-		<a href="{{ path('admin_content_add_type', {"content_type":contentType.getTypeId()}) }}">
-			<h3>{{ contentType.getTypeId() }}</h3>
+		<a href="{{ path('admin_content_add_type', {"type":contentType.getTypeId()}) }}">
+			<h3>{{ contentType.getTypeId()|capitalize }}</h3>
 			<span>{{ contentType.getDescription()|raw }}</span>
 		</a>
 	</div>

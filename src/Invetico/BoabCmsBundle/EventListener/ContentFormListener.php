@@ -42,27 +42,24 @@ class ContentFormListener
         if ($content instanceof ParentableInterface) {
             $pages = $this->contentRepository->findAllContentByType('Invetico\BoabCmsBundle\Entity\Page');
             $view->pagesOptions = $this->generateOptionList($pages, $content);
-
         }
 
         if ($content->hasThumbnail()) {
             $view->uploadedAttachmentImage = $this->getUploadedImageForContent($content);
         }
-
         $event->setForm($view);
     }
 
     private function generateOptionList($pages, $content)
     {
-        //$view = $this->template->load('BoabCmsBundle:Admin:pages_option_list');
         $option = '';
-            foreach ($pages as $page) {
-                $option .= '<option value="' . $page->getId() . '"';
-                if ($page->getId() == $content->getParentId()) {
-                    $option .= ' selected = "selected"';
-                }
-                $option .= '>' .$page->getTitle() . '</option>';
+        foreach ($pages as $page) {
+            $option .= '<option value="'.$page->getId().'"';
+            if ($page->getId() === $content->getParentId()) {
+                $option .= ' selected = "selected"';
             }
+            $option .= '>'.$page->getTitle().'</option>';
+        }
 
         return $option;
     }
@@ -85,7 +82,7 @@ class ContentFormListener
 
     private function getUploadedImageForContent($content)
     {
-        $view =  $this->template->load('BoabCmsBundle:Admin:thumbnail_upload_box');
+        $view =  $this->template->load('BoabCmsBundle:Admin:thumbnail_upload_box.html.twig');
         $view->content = $content;
 
         return $view;

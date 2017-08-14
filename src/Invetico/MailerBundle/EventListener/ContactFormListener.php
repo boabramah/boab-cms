@@ -11,22 +11,22 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class ContactFormListener
 {
-	private $template;
-	private $twigTemplate;
-	private $formFactory;
+    private $template;
+    private $twigTemplate;
+    private $formFactory;
 
-	public function __construct(Template $template, EngineInterface $twigTemplate, $formFactory)
-	{
-		$this->template = $template;
-		$this->twigTemplate = $twigTemplate;
-		$this->formFactory = $formFactory;
-	}
+    public function __construct(Template $template, EngineInterface $twigTemplate, $formFactory)
+    {
+        $this->template = $template;
+        $this->twigTemplate = $twigTemplate;
+        $this->formFactory = $formFactory;
+    }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
         if($request->getPathInfo() != '/'){
-        	return;
+            return;
         }
 /*
         $form = $this->formFactory->create(new ContactType(),[]);

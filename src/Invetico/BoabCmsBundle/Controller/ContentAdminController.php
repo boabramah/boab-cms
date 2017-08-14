@@ -65,9 +65,8 @@ class ContentAdminController extends AdminController implements InitializableCon
     }
 
 
-    public function AddAction(Request $request)
+    public function AddAction(Request $request, $type = null)
     {
-        $type = $request->get('content_type');
         if (!$type) {
             $view = $this->template->load('BoabCmsBundle:Admin:select_content_type.html.twig');
             $view->contentTypes = $this->contentTypeManager->getContentTypes();
@@ -81,7 +80,7 @@ class ContentAdminController extends AdminController implements InitializableCon
         $contentType = $this->contentTypeManager->getType($type);
 
         $form = $this->template->load($contentType->getAddTemplate());
-        $form->action = $this->router->generate('admin_content_create', ['content_type' => strtolower($type)]);
+        $form->action = $this->router->generate('admin_content_create', ['type' => $type]);
         $form->content = $contentType->getEntity();
 
         $this->eventDispatcher->dispatch('content.form_render', new FormRenderEvent($form, $contentType->getEntity()));
@@ -130,7 +129,7 @@ class ContentAdminController extends AdminController implements InitializableCon
         $redirect = $this->router->generate('admin_content_edit', ['id' => $pageId]);
         $content = $this->contentRepository->findContentById($pageId);
 
-        $contentType = $this->contentTypeManager->getType($content->getContentTypeId());
+        $contentType = $this->contentTypeManager->getTypeByClass(get_class($content));
 
         if ('POST' === $request->getMethod()) {
             $validator = $contentType->getValidator($request->request->all());

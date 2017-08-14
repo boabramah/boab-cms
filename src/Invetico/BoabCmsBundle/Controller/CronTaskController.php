@@ -1,5 +1,6 @@
 <?php
-namespace Invetico\CronBundle\Controller;
+
+namespace Invetico\BoabCmsBundle\Controller;
 
 use Invetico\CronBundle\Entity\CronTask;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

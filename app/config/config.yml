@@ -197,7 +197,7 @@ boab_cms:
         page:
             entity: Invetico\BoabCmsBundle\Entity\Page
             add_template: BoabCmsBundle:Admin:page_add.html.twig            
-            edit_template: BoabCmsBundle:Admin:edit_page.html.twig
+            edit_template: BoabCmsBundle:Admin:page_edit.html.twig
             show_template: BoabCmsBundle:Page:page_show.html.twig
             list_template: BoabCmsBundle:Page:page_list.html.twig
             list_layout_type: col-1
@@ -207,6 +207,7 @@ boab_cms:
         audio:
             entity: Invetico\BoabCmsBundle\Entity\Audio
             add_template: BoabCmsBundle:Audio:audio_add.html.twig
+            edit_template: BoabCmsBundle:Audio:audio_edit.html.twig            
             form_validator: Invetico\BoabCmsBundle\Validation\Form\Audio
             description: Use for audio podcast            
         video:

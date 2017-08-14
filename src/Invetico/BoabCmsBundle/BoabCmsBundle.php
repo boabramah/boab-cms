@@ -49,22 +49,13 @@ class BoabCmsBundle extends Bundle
         $container->addCompilerPass(new MenuResolverPass());
     }
 
-
     public function getAlias()
     {
         return 'boabcms_bundle';
     }
 
-
-    public static function getRouteConfiguration()
-    {
-        return [__DIR__.'/Resources/config/routing/routes.xml'];
-    }
-
-
     public static function getMenuConfiguration()
     {
         return __DIR__ .'/Resources/config/menu.php';
-    }    
-
+    }
 }

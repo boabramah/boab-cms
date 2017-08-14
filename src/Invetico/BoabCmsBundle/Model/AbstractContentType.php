@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Invetico\BoabCmsBundle\Entity\ContentInterface;
 use Invetico\BoabCmsBundle\Entity\Content;
 use Invetico\BoabCmsBundle\Repository\ContentRepositoryInterface;
+use Invetico\BoabCmsBundle\Util\UtilCommon;
 
 abstract class AbstractContentType implements ContentTypeInterface
 {
@@ -19,6 +20,8 @@ abstract class AbstractContentType implements ContentTypeInterface
     protected $listLayout;
     protected $description;
     protected $validator;
+
+    use UtilCommon;
 
     public function setContenRepository(ContentRepositoryInterface $contentRepository)
     {
@@ -100,25 +103,14 @@ abstract class AbstractContentType implements ContentTypeInterface
         return $this->contentRepository->findPublishedContentByType($this->getEntityClass(), $pageNumber);
     }
 
-    public function createEntity(Request $request, ContentInterface $entity = null)
+    public function createEntity(Request $request)
     {
-        $entity = !$entity ? $this->getEntity() : $entity;
-        $entity->setTitle($request->get('page_title'));
-        $entity->setSlug(clean_url($request->get('page_title')));
-        $entity->setSummary($request->get('page_summary'));
-        $entity->setBody($request->get('page_body'));
-        $entity->setStatus($request->get('page_status'));
-        $entity->setPromoted($request->get('content_promoted'));
-        $entity->setLayoutType($request->get('layout_type', 2));
-        $entity->setIsFeatured($request->get('is_featured'));
-        $entity->setMetaKeywords($request->get('meta_keywords'));
-        $entity->setMetaDescription($request->get('meta_description'));
+        return $this->setContentData($request, $this->getEntity());
+    }
 
-        if (Content::STATUS_PUBLISHED === $entity->getStatus()) {
-            $entity->setDatePublished($request->get('published_date'));
-        }
-
-        return $entity;
+    public function updateEntity(Request $request, ContentInterface $entity)
+    {
+        return $this->setContentData($request, $entity);
     }
 
     public function getBlockTitle()
@@ -164,6 +156,26 @@ abstract class AbstractContentType implements ContentTypeInterface
     public function getShowRouteParams(ContentInterface $content)
     {
         return ['slug' => $content->getSlug()];
+    }
+
+    private function setContentData(Request $request, ContentInterface $entity)
+    {
+        $entity->setTitle($request->get('page_title'));
+        $entity->setSlug($this->slugify($request->get('page_title')));
+        $entity->setSummary($request->get('page_summary'));
+        $entity->setBody($request->get('page_body'));
+        $entity->setStatus($request->get('page_status'));
+        $entity->setPromoted($request->get('content_promoted'));
+        $entity->setLayoutType($request->get('layout_type', 2));
+        $entity->setIsFeatured($request->get('is_featured'));
+        $entity->setMetaKeywords($request->get('meta_keywords'));
+        $entity->setMetaDescription($request->get('meta_description'));
+
+        if (Content::STATUS_PUBLISHED === $entity->getStatus()) {
+            $entity->setDatePublished($request->get('published_date'));
+        }
+
+        return $entity;
     }
 
 }

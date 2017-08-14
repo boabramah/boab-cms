@@ -4,7 +4,7 @@ $menuItems = [
     [
         'title'         =>'<span class="navIcon fa fa-th-large"></span><span class="navLabel">Dashboard</span>',
         'description'   =>'Dashboard',
-        'route_name'    => 'dashboard_area',
+        'route_name'    => 'admin_dashboard',
         'position'      =>1,
         'access_level'  =>'ROLE_EDITOR'
     ],

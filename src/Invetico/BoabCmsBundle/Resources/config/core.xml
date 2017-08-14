@@ -139,5 +139,9 @@
             <argument>%pagination%</argument> 
         </service>                           
 
+        <service id="crontask_controller" class="Invetico\BoabCmsBundle\Controller\CronTaskController">
+            <argument type="service" id="doctrine" />        
+        </service>
+
     </services>
 </container>
