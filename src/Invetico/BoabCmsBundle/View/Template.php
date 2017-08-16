@@ -17,12 +17,21 @@ class Template extends AbstractTemplate implements TemplateInterface
 
     public function __construct(Environment $twigEngine, ViewLocator $locator, ThemeManager $themeManager)
     {
-        //die(get_class($twigEngine));
         $this->twigEngine = $twigEngine;
         $this->locator = $locator;
         $this->themeManager = $themeManager;
     }
 
+    public function render()
+    {
+        $this->reconcileThemeBlocks();
+        foreach ($this->getBlocks() as $key => $value) {
+            $this->fields[$key] =  $this->renderTemplate($value['template'], $this->fields);
+        }
+
+        return $this->renderTemplate($this->getMasterLayout(), $this->fields);
+    }
+    
     public function reconcileThemeBlocks()
     {
         $this->pageTitle = $this->getTitle();
@@ -31,21 +40,11 @@ class Template extends AbstractTemplate implements TemplateInterface
         $themeBlocks = $this->themeManager->getBlocks();
         foreach ($this->getBlocks() as $key => $template) {
             if (isset($themeBlocks[$key])) {
-                $themeBlocks[$key]['file'] = $template;
+                $themeBlocks[$key]['template'] = $template;
             }
         }
         $this->blocks = $themeBlocks;
         $this->setMasterLayout($this->themeManager->getMasterLayout());
-    }
-
-    public function render()
-    {
-        $this->reconcileThemeBlocks();
-        foreach ($this->getBlocks() as $key => $value) {
-            $this->fields[$key] =  $this->renderTemplate($value['file'], $this->fields);
-        }
-
-        return $this->renderTemplate($this->getMasterLayout(), $this->fields);
     }
 
     public function bind($key, $value, $overWrite = false)

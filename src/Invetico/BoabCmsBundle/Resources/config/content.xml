@@ -21,11 +21,8 @@
             <argument type="service" id="content_repository" />
         </service>
         <service id="edit_content_controller" parent="base_controller" class="Invetico\BoabCmsBundle\Controller\EditContentController">
-            <argument type="service" id="content_service" />
-            <argument type="service" id="user_service" />
             <argument type="service" id="content_type_manager" />
             <argument type="service" id="content_repository" />
-            <argument type="service" id="finder" />
         </service>        
         <service id="content_controller" parent="base_controller" class="Invetico\BoabCmsBundle\Controller\ContentController">
             <argument type="service" id="content_repository" />

@@ -19,4 +19,9 @@ class DynamicMenuNode extends Menu
 
         return $baseUrl.substr($this->getPath(), 1, strlen($this->getPath()));
     }
+
+    public function getContentTypeId()
+    {
+        return 'page';
+    }
 }

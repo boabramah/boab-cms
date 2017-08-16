@@ -64,6 +64,11 @@ abstract class AbstractContentType implements ContentTypeInterface
         return $this->editTemplate;
     }
 
+    public function getShowTemplate()
+    {
+        return $this->showTemplate;
+    }
+
     public function setListLayout($template)
     {
         $this->listLayout = $template;
@@ -118,16 +123,6 @@ abstract class AbstractContentType implements ContentTypeInterface
         return null;
     }
 
-    public function getContentTypeDescription()
-    {
-        return $this->getEntity()->getContentTypeDescription();
-    }
-
-    public function getContentTypeIdxx()
-    {
-        return $this->getEntity()->getContentTypeId();
-    }
-
     public function getNodeLayout()
     {
         return 'page_tpl.html.twig';
@@ -143,10 +138,6 @@ abstract class AbstractContentType implements ContentTypeInterface
         return 'BoabCmsBundle:Admin:list_content';
     }
 
-    public function getNodeView()
-    {
-        return 'BoabCmsBundle:Page:page_show.html.twig';
-    }
 
     public function getRouteParams($routeName, $request)
     {

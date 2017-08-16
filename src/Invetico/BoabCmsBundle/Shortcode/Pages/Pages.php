@@ -49,7 +49,7 @@ class Pages extends BaseShortcode
         $typeManager = $this->contentTypeManager->getType($atts['type']);
         $collection = $this->contentRepository->findContentsByParentId($atts['parentid'], $atts['limit'], $atts['date_order']);
         if(!$collection){
-            throw new \InvalidArgumentException(sprintf('CHILDPAGE SHORTCODE! No child pages for the selected parent id (%s)', $atts['parentId']));            
+            throw new \InvalidArgumentException(sprintf('CHILDPAGE SHORTCODE! No child pages for the selected parent id (%s)', $atts['parentid']));            
         }
         $view = $this->createView($atts, $typeManager);
         $view->collection = $collection;

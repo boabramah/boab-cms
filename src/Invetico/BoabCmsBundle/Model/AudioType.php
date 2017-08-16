@@ -43,18 +43,6 @@ class AudioType extends AbstractContentType
         return 'audio_list';
     }
 
-    public function getContentRouteParams($routeKey, $content)
-    {
-        switch ($routeKey) {
-            case 'audio_show':
-                return ['slug' => $content->getSlug()];
-                break;
-
-            default:
-                return [];
-                break;
-        }
-    }
 
     public function getContent(Request $request)
     {
@@ -70,7 +58,7 @@ class AudioType extends AbstractContentType
     public function getNodeView()
     {
         return 'BoabCmsBundle:Audio:audio_show';
-    }	   
+    }
 
     public function getListLayout()
     {

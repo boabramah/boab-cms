@@ -23,6 +23,14 @@ class PageType extends AbstractContentType
         return $entity;
     }
 
+    public function updateEntity(Request $request, ContentInterface $entity)
+    {
+        $entity = parent::updateEntity($request, $entity);
+        $entity->setParentId($request->get('page_parent'));
+
+        return $entity;
+    }
+
     public function getContentTypeId()
     {
         return 'page';

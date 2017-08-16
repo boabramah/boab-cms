@@ -11,11 +11,17 @@ use Invetico\BoabCmsBundle\Entity\ControllerAwareMenuNode;
 use Invetico\BoabCmsBundle\Entity\Content;
 use Invetico\BoabCmsBundle\Entity\PageInterface;
 use Invetico\BoabCmsBundle\Entity\MenuNodeInterface;
+use Invetico\BoabCmsBundle\Events;
+use Invetico\BoabCmsBundle\Event\ContentPreUpdateEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Invetico\BoabCmsBundle\Util\UtilCommon;
 
-class MenuListener
+class MenuListener implements EventSubscriberInterface
 {
     private $menuService;
     private $request;
+
+    use UtilCommon;
 
     public function __construct(MenuService $menuService)
     {
@@ -41,9 +47,9 @@ class MenuListener
     }
 
 
-    public function onContentUpdatedEvent($event)
+    public function onContentUpdatedEvent(ContentPreUpdateEvent $event)
     {
-        $content = $event->getEntity();
+        $content = $event->getContent();
         if (!$content instanceof PageInterface) {
             return;
         }
@@ -51,7 +57,7 @@ class MenuListener
 
         if (!$this->request->get('menu_enable')) {
             $content->setMenu(null);
-            $event->setEntity($content);
+            $event->setContent($content);
 
             return;
         }
@@ -60,7 +66,7 @@ class MenuListener
             $menuEntity = new DynamicMenuNode();
             $menu = $this->populateNewMenuNode($menuEntity);
             $content->setMenu($menu);
-            $event->setEntity($content);
+            $event->setContent($content);
 
             return;
         }
@@ -150,7 +156,7 @@ class MenuListener
     private function populateMenuEntity($menu)
     {
         $menu->setTitle($this->request->get('menu_title'));
-        $menu->setSlug(clean_url($this->request->get('menu_title')));
+        $menu->setSlug($this->slugify($this->request->get('menu_title')));
         $menu->setRouteName($this->request->get('route_name'));
         $menu->setParentId((int)$this->request->get('menu_parent_id'));
         $menu->setVisibility( $this->request->get('menu_visibility') ? 1 : 0);
@@ -161,5 +167,13 @@ class MenuListener
         $menu->setPath($this->getActualPath($menu, $path));
 
         return $menu;
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            'kernel.request' => 'onKernelRequest',
+            Events::CONTENT_PRE_UPDATE => 'onContentUpdatedEvent',
+        ];
     }
 }

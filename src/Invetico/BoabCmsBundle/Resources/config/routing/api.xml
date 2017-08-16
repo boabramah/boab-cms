@@ -8,7 +8,7 @@
         <default key="_controller">api_content_controller:findContentAction</default>
     </route>
 
-    <route id="api_search_content" path="/contents/search">
+    <route id="api_search_content" path="/contents/search.{format}">
         <default key="_controller">api_content_controller:searchContentAction</default>
     </route> 
 

@@ -38,11 +38,7 @@
         </service>        
 
         <service id="menu_listener" class="Invetico\BoabCmsBundle\EventListener\MenuListener">
-            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest"/>
-            <tag name="kernel.event_listener" event="entity.pre_create" method="onContentCreateEvent"/>
-            <tag name="kernel.event_listener" event="entity.pre_update" method="onContentUpdatedEvent"/>
-            <tag name="kernel.event_listener" event="entity.pre_create" method="onMenuCreatedEvent"/>
-            <tag name="kernel.event_listener" event="entity.pre_update" method="onMenuUpdatedEvent"/>
+            <tag name="kernel.event_subscriber"/>
             <argument type="service" id="menu_service" />
         </service>      
 

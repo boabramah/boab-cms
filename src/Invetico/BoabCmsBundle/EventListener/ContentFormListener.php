@@ -43,10 +43,11 @@ class ContentFormListener
             $pages = $this->contentRepository->findAllContentByType('Invetico\BoabCmsBundle\Entity\Page');
             $view->pagesOptions = $this->generateOptionList($pages, $content);
         }
-
+        /*
         if ($content->hasThumbnail()) {
             $view->uploadedAttachmentImage = $this->getUploadedImageForContent($content);
         }
+        */
         $event->setForm($view);
     }
 

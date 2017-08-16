@@ -1,16 +1,16 @@
 <div class="page-container">
 	<header class="page-heading">
-		<h1 class="heading"><?php echo $this->content->getTitle();?></h1>
+		<h1 class="heading">{{ content.getTitle() }}</h1>
 		<div class="meta-data">
-			<span><label>Date Published:</label><?php echo $this->content->getDatePublished();?></span>, 
-			<span><label>Published by:</label><?php echo $this->content->getAuthoredBy();?></span>
+			<span><label>Date Published:</label>{{ content.getDatePublished() }}</span>, 
+			<span><label>Published by:</label>{{ content.getAuthoredBy() }}</span>
 		</div>		
 	</header>
 	<article class="page-body">
 		<div class="video-player-container">
 			<div id="videoPlayer"
-				data-video-url="<?php echo $this->content->getVideoUrl();?>" 
-				data-video-thumb="[asset path=<?php echo $this->content->getThumbnailUrlPath();?>]" >
+				data-video-url="{{ content.getVideoUrl() }}" 
+				data-video-thumb="[asset path={{ content.getThumbnailUrlPath() }}]" >
 				 Loading the player...
 			</div>
 			<script type="text/javascript">
@@ -22,7 +22,7 @@
 					var player = jwplayer("videoPlayer");
 					player.setup({
 						file: url,
-						title: "<?php echo $this->content->getTitle();?>",
+						title: "{{ content.getTitle() }}",
 						image: thumb,
 						aspectratio: "16:9",
 						width: "100%",
@@ -42,7 +42,7 @@
 			</script>
 		</div>
 		<div class="video-description">
-			<?php echo $this->content->getBody();?>
+			{{ content.getBody()|raw }}
 		</div>
 	</article>
 </div>

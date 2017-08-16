@@ -3,45 +3,23 @@
 namespace Invetico\BoabCmsBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Finder\Finder;
 use Invetico\BoabCmsBundle\Controller\AdminController;
-use Invetico\BoabCmsBundle\Controller\InitializableControllerInterface;
-use Invetico\BoabCmsBundle\Service\ContentService;
-use Invetico\UserBundle\Service\UserService;
 use Invetico\BoabCmsBundle\Model\ContentTypeManager;
-use Invetico\BoabCmsBundle\Entity\Content;
 use Invetico\BoabCmsBundle\Repository\ContentRepositoryInterface;
 use Invetico\BoabCmsBundle\Event\FormRenderEvent;
-use Invetico\BoabCmsBundle\Helper\ContentHelper;
-use Invetico\BoabCmsBundle\Event\ContentDeletedEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Utils\AjaxJsonResponse;
 use Invetico\BoabCmsBundle\Controller\AdminControllerInterface;
-use Invetico\ApiBundle\Normalizer\SuccessResponseNormalizer;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Invetico\BoabCmsBundle\Events;
+use Invetico\BoabCmsBundle\Event\ContentPreUpdateEvent;
 
-class EditContentController extends AdminController implements InitializableControllerInterface, AdminControllerInterface
+class EditContentController extends AdminController implements AdminControllerInterface
 {
-    private $contentService;
-    private $userService;
     private $contentTypeManager;
     private $contentRepository;
-    private $finder;
 
-    use ContentHelper;
-
-    public function __Construct
-    (
-        ContentService $contentService,
-        UserService $userService,
-        ContentTypeManager $contentTypeManager,
-        ContentRepositoryInterface $contentRepository,
-        Finder $finder
-
-    )
+    public function __Construct(ContentTypeManager $contentTypeManager, ContentRepositoryInterface $contentRepository)
     {
-        $this->contentService = $contentService;
-        $this->userService = $userService;
         $this->contentTypeManager = $contentTypeManager;
         $this->contentRepository = $contentRepository;
     }
@@ -87,9 +65,11 @@ class EditContentController extends AdminController implements InitializableCont
 
         $entity = $contentType->updateEntity($request, $content);
 
+        $event = new ContentPreUpdateEvent($content);
+
         try {
-            //$this->eventDispatcher->dispatch();
-            $this->update($entity);
+            $this->eventDispatcher->dispatch(Events::CONTENT_PRE_UPDATE, $event);
+            $this->update($event->getContent());
         } catch (\Exception $e) {
             $this->flash->setInfo($e->getMessage());
 

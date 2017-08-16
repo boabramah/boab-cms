@@ -1,0 +1,42 @@
+
+<div class="page-container">
+	<header class="page-heading">
+		<h1 class="heading">{{ content.getTitle() }}</h1>
+		<div class="meta-data">
+			<span><label>Date Published:</label>{{ content.getDatePublished() }}</span>, 
+			<span><label>Published by:</label>{{ content.getAuthoredBy() }}</span>
+		</div>		
+	</header>
+	
+	{% if content.getThumbnailUrlPath() %}
+		<figure class="page-thumbnail audio-thumbnail">
+			<img class="img-responsive" src="[asset path={{ content.getThumbnailUrlPath() }}]" alt="{{ content.getTitle() }}">
+		</figure>
+	{% endif %}
+	
+	<article class="page-body">
+		<div class="audio-player-container">
+			<div id="audio-player">Loading the player...</div>
+				<script type="text/javascript">
+				$(document).ready(function () {
+					var playerInstance = jwplayer("audio-player");
+					playerInstance.setup({
+						file: "[asset path={{ content.getAudioUrlPath() }}]",
+						width: "100%",
+						height: 40,
+						//aspectratio: "16:9",
+						title: "{{ content.getTitle() }}",						
+					});
+				});
+			</script>
+		</div>
+
+
+		{{ content.getBody()|raw }}
+
+	</article>
+</div>
+	
+<div class="comment-box">
+	[commentbox id=comment]
+</div>

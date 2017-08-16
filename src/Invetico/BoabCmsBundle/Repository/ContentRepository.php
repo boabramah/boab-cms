@@ -58,11 +58,13 @@ class ContentRepository extends BaseRepository implements ContentRepositoryInter
 
     public function findContentByRouteId($id)
     {
-        $qb = $this->getContentQuery()
+        $qb = $this->getContentQuery('BoabCmsBundle:Page')
+            ->addSelect('m')
+            ->leftJoin('c.menu', 'm')
             ->where('m.id = :id')
             ->andWhere('c.status = :status')
-            ->setParameter('id',$id)
-            ->setParameter('status',1);
+            ->setParameter('id', $id)
+            ->setParameter('status', 1);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
@@ -181,7 +183,7 @@ class ContentRepository extends BaseRepository implements ContentRepositoryInter
 
     public function findChildContentsByParent(ParentableInterface $content, $limit=0)
     {
-        $qb = $this->getContentQuery('Invetico\BoabCmsBundle\Entity\Content')
+        $qb = $this->getContentQuery('BoabCmsBundle:Content')
             ->where('c.parentId = :parentId')
             ->andWhere('c.status = :status')
             ->setParameter('parentId', $content->getId())
@@ -219,14 +221,14 @@ class ContentRepository extends BaseRepository implements ContentRepositoryInter
 
     private function getContentByEntitiesDql($entityClasses)
     {
-        $dql = sprintf('SELECT c, m, u
+        $dql = sprintf('SELECT c, u
                 FROM BoabCmsBundle:Content c
-                LEFT JOIN c.menu m
                 LEFT JOIN c.user u
                 WHERE (c INSTANCE OF %s)
                 AND c.status = :status
                 ORDER BY c.datePublished DESC', 
-                implode(' OR c INSTANCE OF ', $entityClasses));
+        implode(' OR c INSTANCE OF ', $entityClasses));
+
         return $dql;        
     }
 
@@ -235,9 +237,10 @@ class ContentRepository extends BaseRepository implements ContentRepositoryInter
     {
         $dql = $this->getContentByEntitiesDql($entityClasses);
         $qb = $this->createQuery($dql);
-        $qb->setParameter('status',1)
+        $qb->setParameter('status', 1)
            ->setFirstResult(0)
            ->setMaxResults($limit); 
+
         return $qb->getResult();
     }
 
@@ -246,7 +249,7 @@ class ContentRepository extends BaseRepository implements ContentRepositoryInter
     {
         $query = $this->_em->createQueryBuilder()
             ->select('COUNT(c.id)')
-            ->from('Invetico\BoabCmsBundle\Entity\Content', 'c')
+            ->from('BoabCmsBundle:Content', 'c')
             ->where('c.parentId = :parentId')
             ->setParameter('parentId', $page->getId());
 
@@ -257,14 +260,14 @@ class ContentRepository extends BaseRepository implements ContentRepositoryInter
     {
         $query = $this->_em->createQueryBuilder()
             ->select('COUNT(c.id)')
-            ->from('Invetico\BoabCmsBundle\Entity\Content', 'c');
+            ->from('BoabCmsBundle:Content', 'c');
 
         return $query->getQuery()->getSingleScalarResult();
     }    
 
     public function findContentsByParentId($parentId, $limit=0, $dateOrder)
     {
-        $qb = $this->getContentQuery('Invetico\BoabCmsBundle\Entity\Content')
+        $qb = $this->getContentQuery('BoabCmsBundle:Page')
             ->where('c.parentId = :parentId')
             ->andWhere('c.status = :status')
             ->setParameter('parentId', $parentId)

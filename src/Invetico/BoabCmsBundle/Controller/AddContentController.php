@@ -47,8 +47,8 @@ class AddContentController extends AdminController implements AdminControllerInt
 
         $this->eventDispatcher->dispatch('content.form_render', new FormRenderEvent($form, $contentType->getEntity()));
 
-        $this->template->setTitle('Create '.ucfirst($request->get('content_type')))
-                     ->bind('page_header', 'Create '.ucfirst($request->get('content_type')))
+        $this->template->setTitle('Create '.ucfirst($type))
+                     ->bind('page_header', $this->template->getTitle())
                      ->bind('content', $form);
 
         return $this->template;

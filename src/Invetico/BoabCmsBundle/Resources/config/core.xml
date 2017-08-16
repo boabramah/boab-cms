@@ -62,20 +62,20 @@
                 <argument>%theme_root%</argument>
             </call>                       
         </service>
-
-        <service id="boabcms.response_listener" class="Invetico\BoabCmsBundle\EventListener\ResponseListener">
-            <argument type="service" id="arrow.theme_manager" />
-            <argument type="service" id="shortcode_manager" />
+        <service id="boabcms.response_listener" class="Invetico\BoabCmsBundle\View\EventListener\ResponseListener">
+            <argument type="service" id="view_template" />   
+            <argument type="service" id="boabcms.theme_manager" />
+            <argument type="service" id="shortcode_manager" />   
             <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="view_template" class="Invetico\BoabCmsBundle\View\Template">
              <argument type="service" id="twig" />
              <argument type="service" id="view_locator" />
-             <argument type="service" id="arrow.theme_manager" />
+             <argument type="service" id="boabcms.theme_manager" />
         </service>
 
-        <service id="arrow.theme_manager" class="Invetico\BoabCmsBundle\View\ThemeManager">
+        <service id="boabcms.theme_manager" class="Invetico\BoabCmsBundle\View\ThemeManager">
             <argument type="service" id="twig.loader.filesystem" />           
             <argument>%theme_root%</argument>            
         </service>
@@ -112,14 +112,7 @@
             <argument type="service" id="flash" />
             <argument type="service" id="view_template" />
             <tag name="kernel.event_listener" event="kernel.controller" method="onControllerEvent"/>
-        </service>   
-
-        <service id="core_exception_listener" class="Invetico\BoabCmsBundle\EventListener\ExceptionListener">
-            <argument type="service" id="view_template" />
-            <argument type="service" id="router" />
-            <argument type="service" id="security.token_storage" />            
-            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="200"/>
-        </service>            
+        </service>               
 
         <service id="random_generator" class="RandomGenerator">
             <factory class="Invetico\BoabCmsBundle\Security\RandomGeneratorFactory" method="getGenerator" />

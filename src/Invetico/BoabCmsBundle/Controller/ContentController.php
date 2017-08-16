@@ -17,6 +17,7 @@ use Invetico\BoabCmsBundle\Entity\DynamicMenuNode;
 use Invetico\BoabCmsBundle\Entity\ControllerAwareMenuNode;
 use Invetico\BoabCmsBundle\Entity\NotFoundHttpMenuNode;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Invetico\BoabCmsBundle\Entity\ContentInterface;
 
 class ContentController extends BaseController implements PublicControllerInterface
@@ -98,7 +99,7 @@ class ContentController extends BaseController implements PublicControllerInterf
         $this->template->setTitle($routeDocument->getTitle())
                      ->bind('page_title', $routeDocument->getTitle())
                      ->bind('content', $view)
-                     ->setBlock('contentArea','plain_tpl.html.twig');
+                     ->setBlock('layout', 'col-3.html.twig');
 
         return $this->template;
     }
@@ -111,7 +112,7 @@ class ContentController extends BaseController implements PublicControllerInterf
             $typeManager = $this->contentTypeManager->getTypeByClass(get_class($contentNode));
             $contentTypes = $routeDocument->getContentTypeId();
             if (!in_array($typeManager->getTypeId(), explode(',', $contentTypes))) {
-                throw new NotFoundHttpException('Content not found');
+                throw new HttpException(400, 'Content not found');
             }
         }
 
@@ -124,7 +125,7 @@ class ContentController extends BaseController implements PublicControllerInterf
             throw new NotFoundHttpException("Page not found");
         }
 
-        $view = $this->template->load($contentTemplate ? $contentTemplate : $typeManager->getNodeView());
+        $view = $this->template->load($contentTemplate ? $contentTemplate : $typeManager->getShowTemplate());
         $event = new NodeRenderEvent($contentNode, $view);
         $this->eventDispatcher->dispatch('content.node_render', $event);
         $view = $event->getView();

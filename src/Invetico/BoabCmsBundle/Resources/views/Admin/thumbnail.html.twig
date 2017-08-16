@@ -6,7 +6,7 @@
 							</div>
 							<div id="content-uploaded-file" class="">
 								<div id="thumbnail-uploaded" class="box">
-									<img src="<?php echo BASE_URL.$this->content->getDefaultThumbnail();?>" />
+									<img src="{{ asset(content.getDefaultThumbnail()) }}" />
 								</div>
 								<div id="thumnail-upload-delete-link" class="box">
 									<a class="delete-thumbnail-url" href="<?php echo $this->deleteContentThumbnail;?>">Delete image uploaded</a>

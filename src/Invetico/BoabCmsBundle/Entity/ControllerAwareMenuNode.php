@@ -74,7 +74,7 @@ class ControllerAwareMenuNode extends Menu implements RouteObjectInterface
     }
 
 
-    public function getContentTypeId()      	
+    public function getContentTypeId()
     {
         return $this->getContentType();
     }
